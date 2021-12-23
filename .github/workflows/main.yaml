@@ -25,5 +25,10 @@ jobs:
             chmod +x $(pwd)/{mvap,mvap_sans_grammaire}.sh
             alias mvap='$(pwd)/mvap.sh'
             alias mvap_sans_grammaire='$(pwd)/mvap_sans_grammaire.sh'
+    
+    - name: Test d'expressions simples
+      run: |
+            cd .
+            echo '4 + 3' > mvap Calculette.g4
             
       shell: bash
