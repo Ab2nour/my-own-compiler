@@ -10,7 +10,7 @@ jobs:
     steps:    
     - uses: actions/checkout@v2
     
-    - name: Test d'expressions simples
+    - name: Définition des fonctions
       run: |
             cd .
             
@@ -75,7 +75,8 @@ jobs:
                 fi
             }
             
-            
+    - name: Test d'expressions simples
+      run: |
             # ---------------- Code ----------------
             nb_tests=0
             nb_tests_faux=0
