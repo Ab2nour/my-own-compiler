@@ -63,7 +63,8 @@ jobs:
             
             
             # ---------------- Code ----------------
+            expr='3 + 5'
             resultat=$(mvap '3+5')
-            echo $resultat
+            echo '$expr = $resultat'
             
       shell: bash
