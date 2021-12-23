@@ -7,17 +7,7 @@ jobs:
   test-code:
     name: Teste Calculette.g4
     runs-on: ubuntu-latest
-    
-    env: 
-      initialisation:
-          function initialisation () {
-              export CLASSPATH=.:tools/antlr-4.9.2-complete.jar:tools/mvap/MVaP.jar:$CLASSPATH
-
-              cd tools/mvap
-              jar cfm MVaP.jar META-INF/MANIFEST.MF *.class
-              cd ../..
-          }
-    
+        
     steps:    
     - uses: actions/checkout@v2
     
@@ -25,8 +15,14 @@ jobs:
       run: |
             cd .
             
-            # ---------------- Fonctions ----------------
-            
+            # ---------------- Fonctions ----------------            
+            function initialisation () {
+                export CLASSPATH=.:tools/antlr-4.9.2-complete.jar:tools/mvap/MVaP.jar:$CLASSPATH
+
+                cd tools/mvap
+                jar cfm MVaP.jar META-INF/MANIFEST.MF *.class
+                cd ../..
+            }
             
             function antlr4 () {
                 java -Xmx500M -cp "tools/antlr-4.9.2-complete.jar:$CLASSPATH" org.antlr.v4.Tool $@
