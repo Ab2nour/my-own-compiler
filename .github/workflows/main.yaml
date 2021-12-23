@@ -43,6 +43,6 @@ jobs:
                 cd .
             }
             
-            mvap Calculette.g4
+            echo '3+5' > mvap Calculette.g4
             
       shell: bash
