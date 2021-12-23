@@ -18,9 +18,9 @@ jobs:
             function initialisation () {
                 export CLASSPATH=.:tools/antlr-4.9.2-complete.jar:tools/mvap/MVaP.jar:$CLASSPATH
                 
-                cd mvap
+                cd tools/mvap
                 jar cfm MVaP.jar META-INF/MANIFEST.MF *.class
-                cd ..
+                cd ../..
             }
             
             function antlr4 () {
