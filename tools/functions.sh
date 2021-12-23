@@ -1,3 +1,4 @@
+#!/usr/bin/bash
 # ---------------- Fonctions ----------------            
 function initialisation () {
     export CLASSPATH=.:tools/antlr-4.9.2-complete.jar:tools/mvap/MVaP.jar:$CLASSPATH
