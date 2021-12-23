@@ -66,9 +66,9 @@ jobs:
                 
                 if [ "$resultat" = "$resultat_attendu" ]
                 then
-                echo "$expr = $resultat ✓"
+                echo "✅ $expr = $resultat"
                 else
-                echo "❌ $expr = $resultat != $resultat_attendu" >&2
+                echo "❌ $expr = $resultat   (!= $resultat_attendu)" >&2
                 exit 42
                 fi
             }
