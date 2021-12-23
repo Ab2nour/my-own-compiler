@@ -36,7 +36,7 @@ jobs:
             }
 
             function execMVAP () {
-                java -jar mvap/MVaP.jar $@
+                java -jar tools/mvap/MVaP.jar $@
             }
             
             
