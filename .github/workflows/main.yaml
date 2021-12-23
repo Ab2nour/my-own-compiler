@@ -29,6 +29,6 @@ jobs:
     - name: Test d'expressions simples
       run: |
             cd .
-            echo '4 + 3' > mvap Calculette.g4
+            mvap Calculette.g4
             
       shell: bash
