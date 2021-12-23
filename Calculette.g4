@@ -35,8 +35,7 @@ bool returns [String code]
  $code += $a.code + '\n';
  $code += "ADD" + '\n';
  }
- | 'true' {$code = "PUSHI" + "1" + '\n';}
- | 'false' {$code = "PUSHI" + "0" + '\n';}
+ | BOOL {$code = "PUSHI" + $BOOL.text + '\n';}
 ;
 
 fin_expression
@@ -47,4 +46,5 @@ fin_expression
 NEWLINE : '\r'? '\n' -> skip;
 WS : (' '|'\t')+ -> skip;
 ENTIER : ('0'..'9')+;
+BOOL : 'true' { setText("1"); } | 'false' { setText("0"); };
 UNMATCH : . -> skip;
