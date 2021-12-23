@@ -41,17 +41,16 @@ jobs:
             
             
             function mvap () {
-                cd tools
+                cd .
                 
-                antlr4 ../Calculette.g4                
-                javac ../*.java
+                antlr4 Calculette.g4                
+                javac *.java
                 echo $@ | grun Calculette 'start' > fichier.mvap
                 
                 compileMVAP fichier.mvap
                 
                 execMVAP fichier.mvap.cbap
                 
-                cd .
             }
             
             function mvap_sans_grammaire () { # todo
