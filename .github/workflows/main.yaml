@@ -51,7 +51,7 @@ jobs:
             function mvap () {
                 cd tools
                 
-                antlr4 Calculette.g4                
+                antlr4 ../Calculette.g4                
                 javac *.java
                 echo $@ | grun Calculette 'start' > fichier.mvap
                 
