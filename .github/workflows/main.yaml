@@ -95,7 +95,7 @@ jobs:
             echo
             echo "✅ Il y a $(( nb_tests - nb_tests_faux )) tests passés avec succès."  
             
-            if [ nb_tests_faux > 0 ]
+            if [ "nb_tests_faux" > 0 ]
             then
             echo "❌ Il y a $nb_tests_faux tests faux."  
             exit 42
