@@ -67,10 +67,6 @@ jobs:
                 expr=$1
                 resultat_attendu=$2
                 
-                echo "OULA $expr"
-                echo $expr
-                echo "$expr"
-                
                 resultat=$(mvap "$expr" | xargs) # xargs trims whitespace
                 
                 if [ "$resultat" = "$resultat_attendu" ]
