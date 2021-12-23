@@ -8,7 +8,8 @@ jobs:
     name: Teste Calculette.g4
     runs-on: ubuntu-latest
     
-    env: |
+    env: 
+      initialisation:
           function initialisation () {
               export CLASSPATH=.:tools/antlr-4.9.2-complete.jar:tools/mvap/MVaP.jar:$CLASSPATH
 
