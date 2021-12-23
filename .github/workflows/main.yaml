@@ -88,6 +88,12 @@ jobs:
             test '3*5' '15'
             test '3 - 5' '-2'
             test '6 / 3' '2'
+            
+            test 'true and false or true and not true' '0'
+            test 'true or false and false' '1'
+            test 'true or (false or false)' '1'
+            test 'false or (true and not false)' '1'
+            test '(not true and false) or (true and not false)' '1'
 
             echo
             echo "-------------------------------------------------------------------"
