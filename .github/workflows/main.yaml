@@ -33,13 +33,13 @@ jobs:
             # on remet les alias
             function mvap () {
                 cd tools
-                mvap.sh
+                ./mvap.sh
                 cd .
             }
             
             function mvap_sans_grammaire () {
                 cd tools
-                mvap_sans_grammaire.sh
+                ./mvap_sans_grammaire.sh
                 cd .
             }
             
