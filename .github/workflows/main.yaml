@@ -64,9 +64,7 @@ jobs:
             
             # ---------------- Code ----------------
             expr='3 + 5'
-            resultat=$(mvap '3+5')
-            echo '$expr = $resultat'
+            resultat=$(mvap $expr | xargs) # xargs trims whitespace
             echo "$expr = $resultat"
-            printf '%s = %s\n' "$expr" "$resultat"
             
       shell: bash
