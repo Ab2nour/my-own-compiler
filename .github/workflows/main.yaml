@@ -43,6 +43,8 @@ jobs:
             function mvap () {
                 cd .
                 
+                initialisation
+                
                 antlr4 Calculette.g4                
                 javac *.java
                 echo $@ | grun Calculette 'start' > fichier.mvap
