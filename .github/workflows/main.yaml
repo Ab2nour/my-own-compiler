@@ -26,4 +26,4 @@ jobs:
             alias mvap='$(pwd)/mvap.sh'
             alias mvap_sans_grammaire='$(pwd)/mvap_sans_grammaire.sh'
             
-      shell: sh
+      shell: bash
