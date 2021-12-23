@@ -50,3 +50,5 @@ execMVAP fichier.mvap.cbap -d
 else
 execMVAP fichier.mvap.cbap
 fi
+
+echo 'terminé avec succès'
