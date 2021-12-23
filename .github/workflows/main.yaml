@@ -61,8 +61,8 @@ jobs:
                 
                 #((nb_tests++))
                 
-                expr="$1"
-                resultat_attendu="$2"
+                expr=$1
+                resultat_attendu=$2
                 
                 resultat=$(mvap "$expr" | xargs) # xargs trims whitespace
                 
