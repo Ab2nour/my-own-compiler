@@ -66,5 +66,7 @@ jobs:
             expr='3 + 5'
             resultat=$(mvap '3+5')
             echo '$expr = $resultat'
+            echo "$expr = $resultat"
+            printf '%s = %s\n' "$expr" "$resultat"
             
       shell: bash
