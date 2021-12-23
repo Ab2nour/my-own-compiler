@@ -91,7 +91,7 @@ jobs:
 
             echo
             echo "-------------------------------------------------------------------"
-            echo "🤵 $nb_tests_faux tests ont été effectués."  
+            echo "🤵 $nb_tests tests ont été effectués."  
             echo
             echo "✅ Il y a $(( nb_tests - nb_tests_faux )) tests passés avec succès."  
 
