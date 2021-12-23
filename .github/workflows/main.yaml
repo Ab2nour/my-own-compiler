@@ -68,9 +68,9 @@ jobs:
                 
                 if [ "$resultat" = "$resultat_attendu" ]
                 then
-                echo "✅ '$expr' = $resultat"
+                echo "✅ $expr = $resultat"
                 else
-                echo "❌ '$expr' = $resultat   (!= $resultat_attendu)"                
+                echo "❌ $expr = $resultat   (!= $resultat_attendu)"                
                 #((nb_tests_faux++))
                 fi
             }
@@ -78,6 +78,7 @@ jobs:
             # ---------------- Code ----------------
             
             test '3 + 5' '8'
+            test '3 * 5' '15'
             
             
       shell: bash
