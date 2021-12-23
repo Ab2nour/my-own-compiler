@@ -1,0 +1,29 @@
+# On teste automatiquement
+# le code ANTLR4.
+
+name: CI
+on:  push
+jobs:
+  test-code:
+    name: Teste Calculette.g4
+    runs-on: ubuntu-latest
+    steps:    
+    - uses: actions/checkout@v2
+    - name: Script d'initialisation
+      run: | # cf tools/installations.txt
+            
+            cd tools
+            
+            export CLASSPATH=.:$(pwd)/antlr-4.9.2-complete.jar:$(pwd)/mvap/MVaP.jar:$CLASSPATH
+
+            alias antlr4='java -Xmx500M -cp "$(pwd)/antlr-4.9.2-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
+            alias grun='java -Xmx500M -cp "$(pwd)/antlr-4.9.2-complete.jar:$CLASSPATH" org.antlr.v4.gui.TestRig'
+            cd mvap
+            jar cfm MVaP.jar META-INF/MANIFEST.MF *.class
+            cd ..
+
+            chmod +x $(pwd)/{mvap,mvap_sans_grammaire}.sh
+            alias mvap='$(pwd)/mvap.sh'
+            alias mvap_sans_grammaire='$(pwd)/mvap_sans_grammaire.sh'
+            
+      shell: sh
