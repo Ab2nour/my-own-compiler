@@ -59,6 +59,8 @@ jobs:
                 # D'abord l'expression
                 # Puis la valeur attendue
                 
+                ((nb_tests++))
+                
                 expr=$1
                 resultat_attendu=$2
                 
@@ -68,13 +70,16 @@ jobs:
                 then
                 echo "✅ $expr = $resultat"
                 else
-                echo "❌ $expr = $resultat   (!= $resultat_attendu)" >&2
-                exit 42
+                echo "❌ $expr = $resultat   (!= $resultat_attendu)"                
+                ((nb_tests_faux++))
                 fi
             }
             
             
             # ---------------- Code ----------------
+            nb_tests = 0
+            nb_tests_faux = 0
+            
             test '3 + 5' '8'
             test '3+5' '8'
             test '6 + 2' '8'
@@ -83,5 +88,16 @@ jobs:
             test '3*5' '15'
             test '6*2' '12'
             test '3 * 5' '15'
+            
+            
+            echo "🤵 $nb_tests_faux tests ont été effectués."  
+            echo
+            echo "✅ Il y a $(( nb_tests - nb_tests_faux )) tests passés avec succès."  
+            
+            if [ nb_tests_faux > 0 ]
+            then
+            echo "❌ Il y a $nb_tests_faux tests faux."  
+            exit 42
+            fi
             
       shell: bash
