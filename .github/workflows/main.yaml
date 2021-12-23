@@ -59,7 +59,7 @@ jobs:
                 # D'abord l'expression
                 # Puis la valeur attendue
                 
-                ((nb_tests++))
+                #((nb_tests++))
                 
                 expr="$1"
                 resultat_attendu="$2"
@@ -71,13 +71,13 @@ jobs:
                 echo "✅ '$expr' = $resultat"
                 else
                 echo "❌ '$expr' = $resultat   (!= $resultat_attendu)"                
-                ((nb_tests_faux++))
+                #((nb_tests_faux++))
                 fi
             }
             
             # ---------------- Code ----------------
             
-            #test '3 + 5' '8'
+            test '3 + 5' '8'
             
             
       shell: bash
