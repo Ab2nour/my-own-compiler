@@ -77,9 +77,8 @@ jobs:
                 let "nb_tests_faux+=1"
                 fi
             }
-            
-    - name: Test 2
-      run: |
+
+
             # ---------------- Code ----------------            
             nb_tests=0
             nb_tests_faux=0
