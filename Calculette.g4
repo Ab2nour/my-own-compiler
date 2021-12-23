@@ -31,8 +31,8 @@ bool returns [String code]
  | c=expr '<' d=expr {$code = $c.code + $d.code + "INF\n";}
  | c=expr '>=' d=expr {$code = $c.code + $d.code + "SUPEQ\n";}
  | c=expr '>' d=expr {$code = $c.code + $d.code + "SUP\n";}
- | a=bool 'and' b=bool {$code = $a.code + $b.code + "MUL\n";} // (a and b) === (a * b)
- | a=bool 'or' b=bool // (a or b) === ((a+b) <> 0)
+ | a=bool AND b=bool {$code = $a.code + $b.code + "MUL\n";} // (a and b) === (a * b)
+ | a=bool OR b=bool // (a or b) === ((a+b) <> 0)
   {
     $code = $a.code + $b.code + "ADD\n";
     $code += "PUSHI 0\n" + "NEQ\n";
@@ -63,7 +63,12 @@ fin_expression
 
 // règles du lexer. Skip pour dire ne rien faire
 NEWLINE : '\r'? '\n' -> skip;
-WS : (' '|'\t')+ -> skip;
+WS : (' ' | '\t')+ -> skip;
 ENTIER : ('0'..'9')+;
 BOOL : 'true' { setText("1"); } | 'false' { setText("0"); };
+
+// Symboles de comparaison
+AND : 'and';
+OR : 'or';
+
 UNMATCH : . -> skip;
