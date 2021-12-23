@@ -30,19 +30,47 @@ jobs:
       run: |
             cd .
             
-            # on remet les alias
+            # ---------------- Fonctions ----------------
+            function antlr4 () {
+                java -Xmx500M -cp "$(pwd)/antlr-4.9.2-complete.jar:$CLASSPATH" org.antlr.v4.Tool $@
+            }
+
+            function grun () {
+                java -Xmx500M -cp "$(pwd)/antlr-4.9.2-complete.jar:$CLASSPATH" org.antlr.v4.gui.TestRig $@
+            }
+
+            function compileMVAP () {
+                java -cp $CLASSPATH MVaPAssembler $@
+            }
+
+            function execMVAP () {
+                java -jar mvap/MVaP.jar $@
+            }
+            
+            
             function mvap () {
                 cd tools
-                ./mvap.sh
+                
+                antlr4 Calculette.g4                
+                javac *.java
+                echo $@ | grun Calculette 'start' > fichier.mvap
+                
+                compileMVAP fichier.mvap
+                
+                execMVAP fichier.mvap.cbap
+                
                 cd .
             }
             
-            function mvap_sans_grammaire () {
+            function mvap_sans_grammaire () { # todo
                 cd tools
                 ./mvap_sans_grammaire.sh
                 cd .
             }
             
-            echo '3+5' | mvap Calculette.g4
+            
+            # ---------------- Code ----------------
+            resultat = $(mvap '3+5')
+            echo $resultat
             
       shell: bash
