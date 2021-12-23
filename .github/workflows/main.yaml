@@ -70,7 +70,7 @@ jobs:
             
             
             # ---------------- Code ----------------
-            resultat = $(mvap '3+5')
+            resultat=$(mvap '3+5')
             echo $resultat
             
       shell: bash
