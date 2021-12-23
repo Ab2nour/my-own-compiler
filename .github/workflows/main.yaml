@@ -52,13 +52,25 @@ jobs:
                 compileMVAP fichier.mvap
                 
                 execMVAP fichier.mvap.cbap
-                
             }
             
-            function mvap_sans_grammaire () { # todo
-                cd tools
-                ./mvap_sans_grammaire.sh
-                cd .
+            function test () {
+                ### Cette fonction teste une expression
+                # D'abord l'expression
+                # Puis la valeur attendue
+                
+                expr=$1
+                resultat_attendu=$2
+                
+                resultat=$(mvap $expr | xargs) # xargs trims whitespace
+                
+                if [ "$resultat" = "$resultat_attendu" ]
+                then
+                echo "$expr = $resultat"
+                else
+                echo "$expr = $resultat != $resultat_attendu" >&2
+                exit 42
+                fi
             }
             
             
@@ -66,5 +78,8 @@ jobs:
             expr='3 + 5'
             resultat=$(mvap $expr | xargs) # xargs trims whitespace
             echo "$expr = $resultat"
+            
+            test '3 + 5' '8'
+            test '6 * 2' '12'
             
       shell: bash
