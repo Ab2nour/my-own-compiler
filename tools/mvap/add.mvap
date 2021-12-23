@@ -1,0 +1,7 @@
+# calcule : 2 + 40
+PUSHI 2
+PUSHI 40
+ADD
+WRITE
+POP
+HALT

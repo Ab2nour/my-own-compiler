@@ -1,0 +1,27 @@
+# On prend au départ 2
+# on ajoute 3 et on élève le tout au carré
+# on recommence et on s'arrête dès que l'on dépasse 100
+PUSHI 2
+LABEL 1
+PUSHI 3
+ADD
+WRITE
+CALL 2
+WRITE
+# a-t-on un sommet de pile < 100 ?
+DUP
+PUSHI 100
+SUP
+JUMPF 1
+# le nombre affiché est plus grand que 100, on s'arrête
+HALT
+# procédure qui élève un nombre au carré
+LABEL 2
+# récupère le premier paramètre (-3 = -1 - 2)
+PUSHL -3
+DUP
+MUL
+# on a donc son carré en sommet de pile
+STOREL -3
+# on remplace la valeur
+RETURN

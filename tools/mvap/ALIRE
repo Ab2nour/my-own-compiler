@@ -1,0 +1,61 @@
+add.mvap		   Un exemple simple de programme 
+3n+2.mvap		   Un exemple moins simple de programme 
+test.mvap		   Un exemple avec appel de fonction
+MVaP.g4 		   Le parser du langage qui produit un analyseur ANTLR4
+MVaPAssemblerListener.java Méthode appelée par le parcours de l'arbre d'analyse 
+			   qui produit du code binaire (CB)
+MVaPAssembler.java	   L'assembleur qui produit du code binaire
+Pile.java		   Un gestionnaire de pile d'entiers
+CBaP.java		   La machine virtuelle pour le code binaire à pile
+
+
+** Pour compiler l'assembleur et le machine virtuelle, il faut :
+
+     1- Avoir antlr dans son CLASSPATH :
+ $ export CLASSPATH=.:/usr/local/java/antlr-4.4-complete.jar
+     ou ajouter aux commandes : -cp .:/usr/local/java/antlr-4.4-complete.jar
+
+     2- Lancer antlr sur MVaP.g4
+ $ java -jar /usr/local/java/antlr-4.4-complete.jar MVaP.g4
+
+     3- Compiler l'assembleur et la machine virtuelle (il suffit de demander la
+     compilation des fichiers contenant les main, javac compilera les autres
+     classes automatiquement...) 
+ $ javac MVaPAssembler.java CBaP.java
+
+
+** Pour exécuter du code mvap, il faut :
+
+     1- Assembler :
+ $ java MVaPAssembler add.mvap
+     ou avec des traces :
+ $ java MVaPAssembler -d add.mvap
+     ce qui produit le fichier add.mvap.cbap
+
+     2- Exécuter :
+ $ java CBaP add.mvap.cbap
+     ou pour mieux comprendre avec des traces :
+ $ java CBaP -d add.mvap.cbap
+    
+
+** Pour construire le jar, il faut :
+     1- avoir un META-INF/MANIFEST pour inclure le jar antlr dans le CLASSPATH :
+Manifest-Version: 1.0
+Version: 2.1
+Main-Class: CBaP
+Class-Path: /usr/local/java/antlr-4.4-complete.jar
+
+     2- Contruire le jar avec :
+ $ jar cfm MVaP.jar META-INF/MANIFEST *.class
+
+
+     On peut aussi faire tout simplement :
+ $ make
+
+** Utilisation du jar :  
+
+   1- Assembler :
+ $ java -cp .:/usr/local/java/antlr-4.4-complete.jar:MVaP.jar MVaPAssembler add.mvap
+
+   2- Exécuter :
+ $ java -jar MVaP.jar -d add.mvap.cbap
