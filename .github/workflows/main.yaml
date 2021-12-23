@@ -31,8 +31,13 @@ jobs:
             cd .
             
             # on remet les alias
-            alias mvap='tools/mvap.sh'
-            alias mvap_sans_grammaire='tools/mvap_sans_grammaire.sh'
+            function mvap () {
+                tools/mvap.sh
+            }
+            
+            function mvap_sans_grammaire () {
+                tools/mvap_sans_grammaire.sh
+            }
             
             mvap Calculette.g4
             
