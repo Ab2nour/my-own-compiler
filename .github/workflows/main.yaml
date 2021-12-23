@@ -52,7 +52,7 @@ jobs:
                 cd tools
                 
                 antlr4 ../Calculette.g4                
-                javac *.java
+                javac ../*.java
                 echo $@ | grun Calculette 'start' > fichier.mvap
                 
                 compileMVAP fichier.mvap
