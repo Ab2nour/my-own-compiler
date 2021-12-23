@@ -47,7 +47,10 @@ jobs:
                 
                 antlr4 Calculette.g4                
                 javac *.java
-                echo $@ | grun Calculette 'start' > fichier.mvap
+                
+                expr="$1"
+                
+                echo "$expr" | grun Calculette 'start' > fichier.mvap
                 
                 compileMVAP fichier.mvap
                 
