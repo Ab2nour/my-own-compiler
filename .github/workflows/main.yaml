@@ -29,7 +29,11 @@ jobs:
     - name: Test d'expressions simples
       run: |
             cd .
-            alias
+            
+            # on remet les alias
+            alias mvap='tools/mvap.sh'
+            alias mvap_sans_grammaire='tools/mvap_sans_grammaire.sh'
+            
             mvap Calculette.g4
             
       shell: bash
