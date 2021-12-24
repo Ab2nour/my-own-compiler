@@ -28,4 +28,4 @@ with open('launch_tests.sh', mode='w') as fichier_sortie:
 
 
     for entree, sortie in tests:
-        fichier_sortie.write(f"test_expr '{entree}' '{sortie}'")
+        fichier_sortie.write(f"test_expr '{entree}' '{sortie}'\n")
