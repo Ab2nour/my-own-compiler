@@ -20,12 +20,13 @@ jobs:
 
 
             # ---------------- Code ----------------
-            python3 tests/launch_tests.py
-            
-            source launch_tests.sh
+            python3 tests/launch_tests.py  # crée le fichier launch_tests.sh
             
             nb_tests=0
             nb_tests_faux=0
+            
+            source launch_tests.sh
+            
             
             test_expr '3 + 5' '8'
             test_expr "3 * 5" '15'
@@ -33,12 +34,6 @@ jobs:
             test_expr '3*5' '15'
             test_expr '3 - 5' '-2'
             test_expr '6 / 3' '2'
-            
-            test_expr 'true and false or true and not true' '0'
-            test_expr 'true or false and false' '1'
-            test_expr 'true or (false or false)' '1'
-            test_expr 'false or (true and not false)' '1'
-            test_expr '(not true and false) or (true and not false)' '1'
             
 
             echo
