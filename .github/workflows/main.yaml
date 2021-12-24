@@ -35,6 +35,22 @@ jobs:
             test 'true or (false or false)' '1'
             test 'false or (true and not false)' '1'
             test '(not true and false) or (true and not false)' '1'
+            
+            plusieurs_lignes=$(cat <<-END
+            true
+            false
+            true
+            END
+            )
+            
+            plusieurs_lignes_resultat=$(cat <<-END
+            1
+            0
+            1
+            END
+            )
+            
+            test "$plusieurs_lignes" "$plusieurs_lignes_resultat"
 
             echo
             echo "-------------------------------------------------------------------"
