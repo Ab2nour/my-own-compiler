@@ -27,7 +27,7 @@ entrée 3
 sortie3
 ``` 
 
-Les entrées sont séparées par `-----` et la sortie est séparée par l'entrée par `=out=`.
+Les entrées sont séparées par `-----` et la sortie est séparée par l'entrée par `==out==`.
 
 _Les espaces et retours à la ligne sont optionnels mais très fortement recommandés._
 
