@@ -16,8 +16,7 @@ jobs:
             cd .
             
             # ---------------- Fonctions ----------------
-            chmod +x tools/functions.sh
-            sudo tools/functions.sh
+            source tools/functions.sh
 
 
             # ---------------- Code ----------------            
