@@ -7,7 +7,7 @@ Voici le format attendu :
 ```
 entrée1
 
-=out=
+==out==
 sortie1
 
 -----
@@ -15,7 +15,7 @@ entrée2
 sur
 plusieurs lignes
 
-=out=
+==out==
 sortie2
 sur
 plusieurs lignes
@@ -23,7 +23,7 @@ plusieurs lignes
 -----
 entrée 3
 
-=out=
+==out==
 sortie3
 ``` 
 
