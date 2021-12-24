@@ -2,8 +2,8 @@ grammar Calculette;
 
 // règles de la grammaire
 start 
- : expr fin_expression {System.out.println($expr.code + "WRITE\n" + "POP\n" + "HALT\n");}
- | bool fin_expression {System.out.println($bool.code + "WRITE\n" + "POP\n" + "HALT\n");}
+ : (expr fin_expression {System.out.println($expr.code + "WRITE\n" + "POP\n" + "HALT\n");}
+ | bool fin_expression {System.out.println($bool.code + "WRITE\n" + "POP\n" + "HALT\n");})+
 ;
 
 // expression arithmétique
