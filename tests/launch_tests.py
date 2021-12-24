@@ -1,4 +1,5 @@
 import subprocess
 
-subprocess.run(["pwd"], capture_output=True)
+a = subprocess.run(["pwd"], capture_output=True)
+print(a)
 print('hello world')
