@@ -9,7 +9,7 @@ def test(entree, sortie):
     vérifie si le résultat de l'entrée par ANTLR+MVaP
     produit bien le bon résultat.
     """
-    s = subprocess.run(["test_expr", f"'{entree}'", f"'{sortie}'"], executable='/bin/bash',
+    s = subprocess.run(["test_expr", entree, sortie], executable='/bin/bash',
         capture_output=True)
     print(s)
 
