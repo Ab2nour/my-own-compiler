@@ -61,7 +61,7 @@ function test_expr () {
 
 function affiche_bilan () {
     # On affiche le bilan des tests
-    echo
+    echo; echo
     echo "-------------------------------------------------------------------"
     echo "🤵 $nb_tests tests ont été effectués."  
     echo
