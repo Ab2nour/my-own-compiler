@@ -28,10 +28,10 @@ def add_tests(name, title):
 
 
     with open('launch_tests.sh', mode='a') as fichier_sortie:
-        fichier_sortie.write(f"echo; echo")
-        fichier_sortie.write(f"echo '-------------------------------------------------------------------'")
-        fichier_sortie.write(f"echo {title}")
-        fichier_sortie.write(f"echo")
+        fichier_sortie.write(f"echo; echo\n")
+        fichier_sortie.write(f"echo '-------------------------------------------------------------------'\n")
+        fichier_sortie.write(f"echo {title}\n")
+        fichier_sortie.write(f"echo\n")
 
         for entree, sortie in tests:
             fichier_sortie.write(f"test_expr '{entree}' '{sortie}'\n")
