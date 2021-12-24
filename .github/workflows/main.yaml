@@ -20,7 +20,7 @@ jobs:
 
 
             # ---------------- Code ----------------
-            py tests/launch_tests.py
+            python3 tests/launch_tests.py
             
             nb_tests=0
             nb_tests_faux=0
