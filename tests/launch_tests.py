@@ -14,7 +14,7 @@ def test(entree, sortie):
 
 
 # ---------- Code ----------
-s = subprocess.run(["cd tests"], capture_output=True)
+s = subprocess.run(["cd", "tests"], capture_output=True)
 
 with open('tests/booleens.test') as fichier_test:
     tests = fichier_test.read()
