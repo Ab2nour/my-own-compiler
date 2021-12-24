@@ -11,7 +11,7 @@ jobs:
     steps:    
     - uses: actions/checkout@v2
     
-    - name: Test d'expressions simples
+    - name: Test d'expressions
       run: |
             cd .
             
@@ -19,34 +19,14 @@ jobs:
             source tools/functions.sh
 
 
-            # ---------------- Code ----------------
+            # code
             python3 tests/launch_tests.py  # crée le fichier launch_tests.sh
             
             nb_tests=0
             nb_tests_faux=0
             
-            source launch_tests.sh
-            
-            
-            test_expr '3 + 5' '8'
-            test_expr "3 * 5" '15'
-            test_expr '3 * 5' '15'
-            test_expr '3*5' '15'
-            test_expr '3 - 5' '-2'
-            test_expr '6 / 3' '2'
-            
+            source launch_tests.sh            
 
-            echo
-            echo "-------------------------------------------------------------------"
-            echo "🤵 $nb_tests tests ont été effectués."  
-            echo
-            echo "✅ Il y a $(( nb_tests - nb_tests_faux )) tests passés avec succès."  
-
-
-            if (( $nb_tests_faux > 0 ))
-            then
-            echo "❌ Il y a $nb_tests_faux tests faux."  
-            exit 42
-            fi
+            affiche_bilan 
             
       shell: bash
