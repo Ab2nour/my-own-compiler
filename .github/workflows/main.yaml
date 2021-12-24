@@ -21,7 +21,9 @@ jobs:
 
             # ---------------- Code ----------------
             python3 tests/launch_tests.py
-                        
+            
+            source launch_tests.sh
+            
             nb_tests=0
             nb_tests_faux=0
             
