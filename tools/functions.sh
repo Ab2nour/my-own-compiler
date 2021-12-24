@@ -58,3 +58,19 @@ function test_expr () {
     let "nb_tests_faux+=1"
     fi
 }
+
+function affiche_bilan () {
+    # On affiche le bilan des tests
+    echo
+    echo "-------------------------------------------------------------------"
+    echo "🤵 $nb_tests tests ont été effectués."  
+    echo
+    echo "✅ Il y a $(( nb_tests - nb_tests_faux )) tests passés avec succès."  
+
+
+    if (( $nb_tests_faux > 0 ))
+    then
+    echo "❌ Il y a $nb_tests_faux tests faux."  
+    exit 42
+    fi
+}
