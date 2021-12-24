@@ -39,7 +39,5 @@ def add_tests(name, title):
 
 
 # ---------- Code ----------
-print(f'dossier courant : {os.getcwd()}')
-
 add_tests('booleens', 'Booléens')
 add_tests('expr_arithmetiques', 'Expressions Arithmétiques')
