@@ -38,7 +38,7 @@ function mvap () {
     execMVAP fichier.mvap.cbap
 }
 
-function test () {
+function test_expr () {
     ### Cette fonction teste une expression
     # D'abord l'expression
     # Puis la valeur attendue
