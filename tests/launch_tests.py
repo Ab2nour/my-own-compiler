@@ -29,8 +29,9 @@ def add_tests(name, title):
 
     with open('launch_tests.sh', mode='a') as fichier_sortie:
         fichier_sortie.write(f"echo; echo\n")
-        fichier_sortie.write(f"echo {title.center(67, '-')}\n")
-        fichier_sortie.write(f"echo {title}\n")
+
+        padded_title = (' ' + title + ' ')
+        fichier_sortie.write(f"echo {padded_title.center(67, '-')}\n")
         fichier_sortie.write(f"echo\n")
 
         for entree, sortie in tests:
