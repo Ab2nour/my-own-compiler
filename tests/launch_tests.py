@@ -35,7 +35,11 @@ with open('tests/booleens.test') as fichier_test:
 
 
 with open('launch_tests.sh', mode='w') as fichier_sortie:
-    fichier_sortie.write(f"test_expr '41+1' '42'")
+    fichier_sortie.write(f"test_expr '41+1' '42'\n")
+    fichier_sortie.write(f"echo 'hello world !!!!'\n")
+
+with open('launch_tests.sh', mode='r') as fichier_sortie:
+    print(fichier_sortie.read())
 
 s = subprocess.run(["test_expr", "'41+1'", "'42'"], executable='/bin/bash',
     capture_output=True)
