@@ -4,7 +4,7 @@ import os
 
 
 # ---------- Fonctions ----------
-def add_tests(name, title=name):
+def add_tests(name, title):
     """
     Cette fonction ajoute les tests au fichier launch_tests.sh.
 
@@ -29,7 +29,7 @@ def add_tests(name, title=name):
 
     with open('launch_tests.sh', mode='a') as fichier_sortie:
         fichier_sortie.write(f"echo; echo")
-        fichier_sortie.write(f"echo '-------------------------------------------------------------------'"
+        fichier_sortie.write(f"echo '-------------------------------------------------------------------'")
         fichier_sortie.write(f"echo {title}")
         fichier_sortie.write(f"echo")
 
