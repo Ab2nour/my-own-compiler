@@ -17,6 +17,8 @@ def test(entree, sortie):
 # ---------- Code ----------
 s = subprocess.run(["cd tests"], executable='/bin/bash', capture_output=True)
 print(s)
+s = subprocess.run(["pwd"], executable='/bin/bash', capture_output=True)
+print(s)
 
 with open('tests/booleens.test') as fichier_test:
     tests = fichier_test.read()
@@ -33,7 +35,10 @@ with open('tests/booleens.test') as fichier_test:
         tests[i][1] = tests[i][1].strip()
 
 
-s = subprocess.run([f"test_expr '41+1' '42'"], executable='/bin/bash',
+s = subprocess.run(["test_expr '41+1' '42'"], executable='/bin/bash',
+    capture_output=True)
+print(s)
+s = subprocess.run(["test_expr", "'41+1'", "'42'"], executable='/bin/bash',
     capture_output=True)
 print(s)
 
