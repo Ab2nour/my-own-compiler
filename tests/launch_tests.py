@@ -16,15 +16,9 @@ def test(entree, sortie):
 
 
 # ---------- Code ----------
-s = subprocess.run(["cd tests"], executable='/bin/bash', capture_output=True)
-print(s)
-
 print(f'dossier courant : {os.getcwd()}')
 
-s = subprocess.run(["pwd"], executable='/bin/bash', capture_output=True)
-print(s)
-
-with open('booleens.test') as fichier_test:
+with open('tests/booleens.test') as fichier_test:
     tests = fichier_test.read()
 
     # On sépare tous les tests
@@ -39,11 +33,8 @@ with open('booleens.test') as fichier_test:
         tests[i][1] = tests[i][1].strip()
 
 
-subprocess.run(["ls", "-l", "/dev/null"], capture_output=True)
+os.system(f"test_expr '41+1' '42'")
 
-s = subprocess.run(["test_expr '41+1' '42'"], executable='/bin/bash',
-    capture_output=True)
-print(s)
 s = subprocess.run(["test_expr", "'41+1'", "'42'"], executable='/bin/bash',
     capture_output=True)
 print(s)
