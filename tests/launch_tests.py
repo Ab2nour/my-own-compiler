@@ -22,10 +22,6 @@ with open('tests/booleens.test') as fichier_test:
         tests[i][1] = tests[i][1].strip()
 
 
-with open('launch_tests.sh', mode='w') as fichier_sortie:
-    fichier_sortie.write(f"test_expr '41+1' '42'\n")
-    fichier_sortie.write(f"echo 'hello world !!!!'\n")
-
-
+with open('launch_tests.sh', mode='a') as fichier_sortie:
     for entree, sortie in tests:
         fichier_sortie.write(f"test_expr '{entree}' '{sortie}'\n")
