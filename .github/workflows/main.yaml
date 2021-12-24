@@ -19,7 +19,9 @@ jobs:
             source tools/functions.sh
 
 
-            # ---------------- Code ----------------            
+            # ---------------- Code ----------------
+            py tests/launch_tests.py
+            
             nb_tests=0
             nb_tests_faux=0
             
