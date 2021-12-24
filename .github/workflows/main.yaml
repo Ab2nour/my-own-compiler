@@ -15,7 +15,7 @@ jobs:
       run: |
             cd .
             
-            # ---------------- Fonctions ----------------
+            # on récupère toutes les fonctions de functions.sh
             source tools/functions.sh
 
 
