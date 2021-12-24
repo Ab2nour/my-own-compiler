@@ -1,0 +1,37 @@
+true and false or true and not true
+
+=out=
+
+0
+
+-----
+
+true or false and false = 1
+
+=out=
+
+1
+
+-----
+
+true or (false or false) = 1
+
+=out=
+
+1
+
+-----
+
+false or (true and not false) = 1
+
+=out=
+
+1
+
+-----
+
+(not true and false) or (true and not false) = 1
+
+=out=
+
+1
