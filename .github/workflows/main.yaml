@@ -37,16 +37,16 @@ jobs:
             test '(not true and false) or (true and not false)' '1'
             
             plusieurs_lignes=$(cat <<-END
-            true
-            false
-            true
+            1+1
+            1+2
+            1+3
             END
             )
             
             plusieurs_lignes_resultat=$(cat <<-END
-            1
-            0
-            1
+            2
+            3
+            4
             END
             )
             
