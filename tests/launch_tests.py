@@ -18,6 +18,7 @@ def test(entree, sortie):
 # ---------- Code ----------
 print(f'dossier courant : {os.getcwd()}')
 
+
 with open('tests/booleens.test') as fichier_test:
     tests = fichier_test.read()
 
@@ -33,7 +34,8 @@ with open('tests/booleens.test') as fichier_test:
         tests[i][1] = tests[i][1].strip()
 
 
-os.system(f"test_expr '41+1' '42'")
+with open('launch_tests.sh', mode='w') as fichier_sortie:
+    fichier_sortie.write(f"test_expr '41+1' '42'")
 
 s = subprocess.run(["test_expr", "'41+1'", "'42'"], executable='/bin/bash',
     capture_output=True)
