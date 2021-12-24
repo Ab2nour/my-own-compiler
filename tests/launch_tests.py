@@ -33,7 +33,7 @@ with open('tests/booleens.test') as fichier_test:
         tests[i][1] = tests[i][1].strip()
 
 #s = subprocess.run(["source tools/functions.sh"], executable='/bin/bash',
-    capture_output=True)
+#    capture_output=True)
 #print(s)
 
 for e, s in tests:
