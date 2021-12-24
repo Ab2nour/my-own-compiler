@@ -9,13 +9,13 @@ def test(entree, sortie):
     vérifie si le résultat de l'entrée par ANTLR+MVaP
     produit bien le bon résultat.
     """
-    s = subprocess.run(["test_expr", entree, sortie], executable='/bin/bash',
+    s = subprocess.run([f"test_expr", entree, sortie], executable='/bin/bash',
         capture_output=True)
     print(s)
 
 
 # ---------- Code ----------
-s = subprocess.run(["cd", "tests"], executable='/bin/bash', capture_output=True)
+s = subprocess.run(["cd tests"], executable='/bin/bash', capture_output=True)
 print(s)
 
 with open('tests/booleens.test') as fichier_test:
@@ -32,7 +32,7 @@ with open('tests/booleens.test') as fichier_test:
         tests[i][0] = tests[i][0].strip()
         tests[i][1] = tests[i][1].strip()
 
-s = subprocess.run(["source", "tools/functions.sh"], executable='/bin/bash',
+s = subprocess.run(["source tools/functions.sh"], executable='/bin/bash',
     capture_output=True)
 print(s)
 
