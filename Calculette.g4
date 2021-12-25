@@ -3,42 +3,47 @@ grammar Calculette;
 // règles de la grammaire
 start 
  @after {System.out.println("HALT\n");}
- : (expr fin_expression {System.out.println($expr.code + "WRITE\n" + "POP\n");}
- | bool fin_expression {System.out.println($bool.code + "WRITE\n" + "POP\n");})+
+ : (expr fin_expression {System.out.println($expr.code + "WRITE\n" + "POP\n");})+
 ;
 
-// expression arithmétique
 expr returns [String code]
- : '(' a=expr ')' {$code = $a.code;}
- | a=expr '^' b=expr {
+ : expr_arith {$code = $expr_arith.code + "WRITE\n" + "POP\n");}
+ | expr_bool {$code = $expr_bool.code + "WRITE\n" + "POP\n");}
+;
+
+
+// expression arithmétique
+expr_arith returns [String code]
+ : '(' a=expr_arith ')' {$code = $a.code;}
+ | a=expr_arith '^' b=expr_arith {
      //todo: décrémenter b jusqu'à trouver 0 et multiplier a par a pendant ce temps
      $code = $a.code + $b.code + "DIV\n";
 
     }
- | a=expr '/' b=expr {$code = $a.code + $b.code + "DIV\n";}
- | a=expr '*' b=expr {$code = $a.code + $b.code + "MUL\n";}
- | a=expr '+' b=expr {$code = $a.code + $b.code + "ADD\n";}
- | a=expr '-' b=expr {$code = $a.code + $b.code + "SUB\n";}
+ | a=expr_arith '/' b=expr_arith {$code = $a.code + $b.code + "DIV\n";}
+ | a=expr_arith '*' b=expr_arith {$code = $a.code + $b.code + "MUL\n";}
+ | a=expr_arith '+' b=expr_arith {$code = $a.code + $b.code + "ADD\n";}
+ | a=expr_arith '-' b=expr_arith {$code = $a.code + $b.code + "SUB\n";}
  | '-' ENTIER {$code = "PUSHI " + -$ENTIER.int + '\n';} 
  | ENTIER {$code = "PUSHI " + $ENTIER.int + '\n';}
 ;
 
 // expression booléenne
-bool returns [String code]
- : '(' a=bool ')' {$code = $a.code;}
- | 'not' a=bool {$code = "PUSHI 1\n" + $a.code + "SUB\n";} // (not a) === (1 - a)
- | c=expr '<>' d=expr {$code = $c.code + $d.code + "NEQ\n";}
- | c=expr '<=' d=expr {$code = $c.code + $d.code + "INFEQ\n";}
- | c=expr '<' d=expr {$code = $c.code + $d.code + "INF\n";}
- | c=expr '>=' d=expr {$code = $c.code + $d.code + "SUPEQ\n";}
- | c=expr '>' d=expr {$code = $c.code + $d.code + "SUP\n";}
- | a=bool AND b=bool {$code = $a.code + $b.code + "MUL\n";} // (a and b) === (a * b)
- | a=bool OR b=bool // (a or b) === ((a+b) <> 0)
+expr_bool returns [String code]
+ : '(' a=expr_bool ')' {$code = $a.code;}
+ | 'not' a=expr_bool {$code = "PUSHI 1\n" + $a.code + "SUB\n";} // (not a) === (1 - a)
+ | c=expr_arith '<>' d=expr_arith {$code = $c.code + $d.code + "NEQ\n";}
+ | c=expr_arith '<=' d=expr_arith {$code = $c.code + $d.code + "INFEQ\n";}
+ | c=expr_arith '<' d=expr_arith {$code = $c.code + $d.code + "INF\n";}
+ | c=expr_arith '>=' d=expr_arith {$code = $c.code + $d.code + "SUPEQ\n";}
+ | c=expr_arith '>' d=expr_arith {$code = $c.code + $d.code + "SUP\n";}
+ | a=expr_bool AND b=expr_bool {$code = $a.code + $b.code + "MUL\n";} // (a and b) === (a * b)
+ | a=expr_bool OR b=expr_bool // (a or b) === ((a+b) <> 0)
   {
     $code = $a.code + $b.code + "ADD\n";
     $code += "PUSHI 0\n" + "NEQ\n";
   }
- | a=bool 'or_lazy' b=bool // tentative de or avec lazy evaluation
+ | a=expr_bool 'or_lazy' b=expr_bool // tentative de or avec lazy evaluation
     {
         $code = $a.code + '\n' + "PUSHG 0\n";
 
@@ -51,7 +56,7 @@ bool returns [String code]
         $code += "JUMP else\n";
         $code += "LABEL else\n" ; //else
     }
- | a=bool 'xor' b=bool // (a xor b) === (a <> b)
+ | a=expr_bool 'xor' b=expr_bool // (a xor b) === (a <> b)
   {
     $code = $a.code + $b.code + "NEQ\n";
   }
@@ -60,7 +65,7 @@ bool returns [String code]
 
 
 fin_expression
- : EOF | NEWLINE | ';'
+ : (EOF | NEWLINE | ';')+
 ;
 
 // règles du lexer. Skip pour dire ne rien faire

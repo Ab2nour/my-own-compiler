@@ -38,6 +38,25 @@ function mvap () {
     execMVAP fichier.mvap.cbap
 }
 
+
+function mvap_debug () {
+    cd .
+
+    initialisation
+
+    antlr4 Calculette.g4                
+    javac *.java
+
+    expr="$1"
+
+    echo "$expr" | grun Calculette 'start' -tokens
+    grun Calculette 'start' > fichier.mvap
+
+    compileMVAP fichier.mvap
+
+    execMVAP fichier.mvap.cbap -d
+}
+
 function test_expr () {
     ### Cette fonction teste une expression
     # D'abord l'expression
