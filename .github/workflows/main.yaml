@@ -20,6 +20,8 @@ jobs:
 
 
             # code
+            init_mvap
+            
             python3 tests/launch_tests.py  # crée le fichier launch_tests.sh
             
             nb_tests=0
