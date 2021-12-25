@@ -20,11 +20,11 @@ expr_arith returns [String code]
      $code = $a.code + $b.code + "DIV\n";
 
     }
- | '-' ENTIER {$code = "PUSHI " + $ENTIER.int + '\n';}
  | a=expr_arith '/' b=expr_arith {$code = $a.code + $b.code + "DIV" + "\n";}
  | a=expr_arith '*' b=expr_arith {$code = $a.code + $b.code + "MUL" + "\n";}
  | a=expr_arith '+' b=expr_arith {$code = $a.code + $b.code + "ADD" + "\n";}
  | a=expr_arith '-' b=expr_arith {$code = $a.code + $b.code + "SUB" + "\n";}
+ | '-' ENTIER {$code = "PUSHI " + $ENTIER.int + '\n';}
  | ENTIER {$code = "PUSHI " + $ENTIER.int + '\n';}
 ;
 
