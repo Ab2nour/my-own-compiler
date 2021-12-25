@@ -24,7 +24,6 @@ expr_arith returns [String code]
  | a=expr_arith '*' b=expr_arith {$code = $a.code + $b.code + "MUL\n";}
  | a=expr_arith '+' b=expr_arith {$code = $a.code + $b.code + "ADD\n";}
  | a=expr_arith '-' b=expr_arith {$code = $a.code + $b.code + "SUB\n";}
-   {$code = $a.code + $b.code + $OP_ARITH_SIMPLE.text + "\n";}
  | '-' ENTIER {$code = "PUSHI " + -$ENTIER.int + '\n';} 
  | ENTIER {$code = "PUSHI " + $ENTIER.int + '\n';}
 ;
