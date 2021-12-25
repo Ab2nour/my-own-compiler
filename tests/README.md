@@ -1,7 +1,12 @@
 # Fonctionnement des tests
 Chaque test est constitué d'un fichier `nom_fichier.test` contenant les entrées des tests et les sorties attendues.
 
-Voici le format attendu :
+
+## Format attendu
+
+Les entrées sont séparées par `-----` et la sortie est séparée par l'entrée par `==out==`.
+
+_Les espaces et retours à la ligne sont optionnels mais très fortement recommandés._
 
 `nom_fichier.test`
 ```
@@ -27,8 +32,7 @@ entrée 3
 sortie3
 ``` 
 
-Les entrées sont séparées par `-----` et la sortie est séparée par l'entrée par `==out==`.
 
-_Les espaces et retours à la ligne sont optionnels mais très fortement recommandés._
-
-
+### Note pour les sorties :
+MVaP ne permet pas d'afficher les sorties sur des lignes différentes : celles-ci sont donc toutes sur la même ligne, séparées par un espace.  
+Cependant, pour des raisons de lisibilité, dans les fichiers `.test`, on peut mettre des retours à la ligne dans les *sorties*, qui seront automatiquement converties en espace par le script Python `launch_tests.py`.
