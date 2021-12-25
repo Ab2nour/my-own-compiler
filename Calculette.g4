@@ -60,7 +60,7 @@ expr_bool returns [String code]
 
 
 fin_expression
- : (EOF | NEWLINE | ';')+
+ : EOF | NEWLINE | ';'
 ;
 
 // règles du lexer. Skip pour dire ne rien faire
