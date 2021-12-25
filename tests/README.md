@@ -7,8 +7,11 @@ Chaque test est constitué d'un fichier `nom_fichier.test` contenant les entrée
 Les entrées sont séparées par `-----` et la sortie est séparée par l'entrée par `==out==`.
 
 _Les espaces et retours à la ligne sont optionnels mais très fortement recommandés._
+  
+Un exemple vaut mieux qu'un long discours...  
 
-`nom_fichier.test`
+
+### Exemple : `exemple.test`
 ```
 entrée1
 
