@@ -50,7 +50,7 @@ function mvap_debug () {
     expr="$1"
 
     echo "$expr" | grun Calculette 'start' -tokens
-    grun Calculette 'start' > fichier.mvap
+    echo "$expr" | grun Calculette 'start' > fichier.mvap
 
     compileMVAP fichier.mvap
 
