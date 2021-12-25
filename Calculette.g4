@@ -7,8 +7,8 @@ start
 ;
 
 expr returns [String code]
- : expr_arith {$code = $expr_arith.code + "WRITE\n" + "POP\n");}
- | expr_bool {$code = $expr_bool.code + "WRITE\n" + "POP\n");}
+ : expr_arith {$code = $expr_arith.code + "WRITE\n" + "POP\n";}
+ | expr_bool {$code = $expr_bool.code + "WRITE\n" + "POP\n";}
 ;
 
 
