@@ -20,10 +20,8 @@ expr_arith returns [String code]
      $code = $a.code + $b.code + "DIV\n";
 
     }
- | a=expr_arith '/' b=expr_arith {$code = $a.code + $b.code + "DIV\n";}
- | a=expr_arith '*' b=expr_arith {$code = $a.code + $b.code + "MUL\n";}
- | a=expr_arith '+' b=expr_arith {$code = $a.code + $b.code + "ADD\n";}
- | a=expr_arith '-' b=expr_arith {$code = $a.code + $b.code + "SUB\n";}
+ | a=expr_arith OP_ARITH_SIMPLE b=expr_arith
+   {$code = $a.code + $b.code + $OP_ARITH_SIMPLE.text + "\n";}
  | '-' ENTIER {$code = "PUSHI " + -$ENTIER.int + '\n';} 
  | ENTIER {$code = "PUSHI " + $ENTIER.int + '\n';}
 ;
@@ -32,11 +30,8 @@ expr_arith returns [String code]
 expr_bool returns [String code]
  : '(' a=expr_bool ')' {$code = $a.code;}
  | 'not' a=expr_bool {$code = "PUSHI 1\n" + $a.code + "SUB\n";} // (not a) === (1 - a)
- | c=expr_arith '<>' d=expr_arith {$code = $c.code + $d.code + "NEQ\n";}
- | c=expr_arith '<=' d=expr_arith {$code = $c.code + $d.code + "INFEQ\n";}
- | c=expr_arith '<' d=expr_arith {$code = $c.code + $d.code + "INF\n";}
- | c=expr_arith '>=' d=expr_arith {$code = $c.code + $d.code + "SUPEQ\n";}
- | c=expr_arith '>' d=expr_arith {$code = $c.code + $d.code + "SUP\n";}
+ | c=expr_arith OP_COMPARAISON d=expr_arith
+   {$code = $c.code + $d.code + $OP_COMPARAISON.text + "\n";}
  | a=expr_bool AND b=expr_bool {$code = $a.code + $b.code + "MUL\n";} // (a and b) === (a * b)
  | a=expr_bool OR b=expr_bool // (a or b) === ((a+b) <> 0)
   {
@@ -74,6 +69,24 @@ WS : (' ' | '\t')+ -> skip;
 
 ENTIER : ('0'..'9')+;
 BOOL : 'true' { setText("1"); } | 'false' { setText("0"); };
+
+// une des quatres opérations arithmétiques simples
+OP_ARITH_SIMPLE 
+ : '+' { setText("ADD"); }
+ | '-' { setText("SUB"); }
+ | '*' { setText("MUL"); }
+ | '/' { setText("DIV"); }
+;
+
+// un des opérateurs de comparaison
+OP_COMPARAISON
+ : '==' { setText("EQ"); }
+ | '<>' { setText("NEQ"); }
+ | '<=' { setText("INFEQ"); }
+ | '<' { setText("INF"); }
+ | '>=' { setText("SUPEQ"); }
+ | '>' { setText("SUP"); }
+;
 
 // Symboles de comparaison
 AND : 'and';
