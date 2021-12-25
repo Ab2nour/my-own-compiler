@@ -26,6 +26,10 @@ def add_tests(name, title):
             tests[i][0] = tests[i][0].strip()
             tests[i][1] = tests[i][1].strip()
 
+            # on remplace retours à la ligne par espaces
+            # car MVaP n'affiche pas de retour à la ligne
+            tests[i][1].replace('\n', ' ') 
+
 
     with open('launch_tests.sh', mode='a') as fichier_sortie:
         fichier_sortie.write(f"echo; echo\n")
