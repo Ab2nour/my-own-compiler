@@ -58,6 +58,7 @@ bool returns [String code]
  | BOOL {$code = "PUSHI" + $BOOL.text + '\n';}
 ;
 
+
 fin_expression
  : EOF | NEWLINE | ';'
 ;
@@ -65,6 +66,7 @@ fin_expression
 // règles du lexer. Skip pour dire ne rien faire
 NEWLINE : '\r'? '\n' -> skip;
 WS : (' ' | '\t')+ -> skip;
+
 ENTIER : ('0'..'9')+;
 BOOL : 'true' { setText("1"); } | 'false' { setText("0"); };
 
