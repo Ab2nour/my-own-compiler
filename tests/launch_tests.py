@@ -28,7 +28,7 @@ def add_tests(name, title):
 
             # on remplace retours à la ligne par espaces
             # car MVaP n'affiche pas de retour à la ligne
-            tests[i][1].replace('\n', ' ') 
+            tests[i][1] = tests[i][1].replace('\n', ' ') 
 
 
     with open('launch_tests.sh', mode='a') as fichier_sortie:
