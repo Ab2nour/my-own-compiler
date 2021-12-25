@@ -74,10 +74,10 @@ BOOL : 'true' { setText("1"); } | 'false' { setText("0"); };
 
 // une des quatres opérations arithmétiques simples
 OP_ARITH_SIMPLE 
- : '+' { setText("ADD"); }
- | '-' { setText("SUB"); }
+ : '/' { setText("DIV"); }
  | '*' { setText("MUL"); }
- | '/' { setText("DIV"); }
+ | '+' { setText("ADD"); }
+ | '-' { setText("SUB"); }
 ;
 
 // un des opérateurs de comparaison
