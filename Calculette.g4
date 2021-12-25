@@ -20,11 +20,9 @@ expr_arith returns [String code]
      $code = $a.code + $b.code + "DIV\n";
 
     }
- | a=expr_arith '/' b=expr_arith {$code = $a.code + $b.code + "DIV\n";}
- | a=expr_arith '*' b=expr_arith {$code = $a.code + $b.code + "MUL\n";}
- | a=expr_arith '+' b=expr_arith {$code = $a.code + $b.code + "ADD\n";}
- | a=expr_arith '-' b=expr_arith {$code = $a.code + $b.code + "SUB\n";}
- | '-' ENTIER {$code = "PUSHI " + -$ENTIER.int + '\n';} 
+ | MOINS_UNAIRE ENTIER {$code = "PUSHI " + $ENTIER.int + '\n';}
+ | a=expr_arith OP_ARITH_SIMPLE b=expr_arith
+   {$code = $a.code + $b.code + $OP_ARITH_SIMPLE.text + "\n";}
  | ENTIER {$code = "PUSHI " + $ENTIER.int + '\n';}
 ;
 
@@ -77,8 +75,12 @@ OP_ARITH_SIMPLE
  : '/' { setText("DIV"); }
  | '*' { setText("MUL"); }
  | '+' { setText("ADD"); }
- | '-' { setText("SUB"); }
+ | MOINS { setText("SUB"); }
 ;
+
+MOINS_UNAIRE : MOINS;
+
+fragment MOINS : '-';
 
 // un des opérateurs de comparaison
 OP_COMPARAISON
