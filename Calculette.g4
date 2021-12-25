@@ -3,7 +3,7 @@ grammar Calculette;
 // règles de la grammaire
 start 
  @after {System.out.println("HALT\n");}
- : (expr fin_expression {System.out.println($expr.code + "WRITE\n" + "POP\n");})+
+ : (expr fin_expression {System.out.println($expr.code);})+
 ;
 
 expr returns [String code]
