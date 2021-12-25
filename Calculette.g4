@@ -64,7 +64,7 @@ fin_expression
 ;
 
 // règles du lexer. Skip pour dire ne rien faire
-NEWLINE : '\r'? '\n';
+NEWLINE : '\r'? '\n' -> skip;
 WS : (' ' | '\t')+ -> skip;
 
 ENTIER : ('0'..'9')+;
