@@ -78,7 +78,7 @@ L_PARENTHESE : '(';
 R_PARENTHESE : ')';
 
 MUL_OU_DIV
- : ('*' | '/')
+ : '*' { setText("MUL"); } | '/' { setText("DIV"); }
 ;
 
 
