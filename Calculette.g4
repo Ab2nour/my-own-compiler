@@ -20,8 +20,8 @@ expr_arith returns [String code]
      $code = $a.code + $b.code + "DIV\n";
 
     }
- | a=expr_arith '/' b=expr_arith {$code = $a.code + $b.code + "DIV" + "\n";}
  | a=expr_arith '*' b=expr_arith {$code = $a.code + $b.code + "MUL" + "\n";}
+ | a=expr_arith '/' b=expr_arith {$code = $a.code + $b.code + "DIV" + "\n";}
  | a=expr_arith '+' b=expr_arith {$code = $a.code + $b.code + "ADD" + "\n";}
  | a=expr_arith '-' b=expr_arith {$code = $a.code + $b.code + "SUB" + "\n";}
  | nombre_entier {$code = $nombre_entier.code;}
