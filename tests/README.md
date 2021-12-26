@@ -5,8 +5,6 @@ Chaque test est constitué d'un fichier `nom_fichier.test` contenant les entrée
 ## Format attendu
 
 Les entrées sont séparées par `-----` et la sortie est séparée par l'entrée par `==out==`.
-
-_Les espaces et retours à la ligne sont optionnels mais très fortement recommandés._
   
 Un exemple vaut mieux qu'un long discours...  
 
@@ -35,6 +33,7 @@ entrée 3
 sortie3
 ``` 
 
+_Les espaces et retours à la ligne sont optionnels mais très fortement recommandés._
 
 ### Note pour les sorties :
 MVaP ne permet pas d'afficher les sorties sur des lignes différentes : celles-ci sont donc toutes sur la même ligne, séparées par un espace.  
