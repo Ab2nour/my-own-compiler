@@ -26,3 +26,17 @@ false or (true and not false)
 
 ==out==
 1
+
+-----
+true and false or true and not true
+true or false and false
+true or (false or false)
+false or (true and not false)
+(not true and false) or (true and not false)
+
+==out==
+0
+1
+1
+1
+1
