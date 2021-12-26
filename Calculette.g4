@@ -20,13 +20,9 @@ expr_arith returns [String code]
      $code = $a.code + $b.code + "DIV\n";
 
     }
- | a=expr_arith op_arith b=expr_arith {$code = $a.code + $b.code + $op_arith.text + "\n";}
+ | a=expr_arith MUL_OU_DIV b=expr_arith {$code = $a.code + $b.code + $MUL_OU_DIV.getText() + "\n";}
+ | a=expr_arith ADD_OU_SUB b=expr_arith {$code = $a.code + $b.code + $ADD_OU_SUB.getText() + "\n";}
  | nombre_entier {$code = $nombre_entier.code;}
-;
-
-op_arith returns [String text]
- : MUL_OU_DIV {$text = $MUL_OU_DIV.getText();}
- | ADD_OU_SUB {$text = $ADD_OU_SUB.getText();}
 ;
 
 nombre_entier returns [String code]
