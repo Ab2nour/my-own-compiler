@@ -20,8 +20,7 @@ expr_arith returns [String code]
      $code = $a.code + $b.code + "DIV\n";
 
     }
- | a=expr_arith '*' b=expr_arith {$code = $a.code + $b.code + "MUL" + "\n";}
- | a=expr_arith '/' b=expr_arith {$code = $a.code + $b.code + "DIV" + "\n";}
+ | a=expr_arith MUL_OU_DIV b=expr_arith {$code = $a.code + $b.code + $MUL_OU_DIV.getText() + "\n";}
  | a=expr_arith '+' b=expr_arith {$code = $a.code + $b.code + "ADD" + "\n";}
  | a=expr_arith '-' b=expr_arith {$code = $a.code + $b.code + "SUB" + "\n";}
  | nombre_entier {$code = $nombre_entier.code;}
@@ -78,14 +77,18 @@ BOOL : 'true' { setText("1"); } | 'false' { setText("0"); };
 L_PARENTHESE : '(';
 R_PARENTHESE : ')';
 
+MUL_OU_DIV
+ : ('*' | '/')
+;
+
 
 // une des quatres opérations arithmétiques simples
-OP_ARITH_SIMPLE 
+/*OP_ARITH_SIMPLE 
  : '/' { setText("DIV"); }
  | '*' { setText("MUL"); }
  | '+' { setText("ADD"); }
  | MOINS { setText("SUB"); }
-;
+;*/
 
 MOINS_UNAIRE : MOINS;
 
