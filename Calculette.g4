@@ -78,6 +78,11 @@ L_PARENTHESE : '(';
 R_PARENTHESE : ')';
 
 MUL_OU_DIV
+ : SYMBOLE_FOIS { setText("MUL"); }
+ | SYMBOLE_DIV { setText("DIV"); }
+;
+
+ADD_OU_SUB
  : '*' { setText("MUL"); } | '/' { setText("DIV"); }
 ;
 
@@ -90,9 +95,14 @@ MUL_OU_DIV
  | MOINS { setText("SUB"); }
 ;*/
 
-MOINS_UNAIRE : MOINS;
+MOINS_UNAIRE : SYMBOLE_MOINS;
+MOINS : SYMBOLE_MOINS;
 
-fragment MOINS : '-';
+fragment SYMBOLE_PLUS : '+';
+fragment SYMBOLE_MOINS : '-';
+fragment SYMBOLE_FOIS : '*';
+fragment SYMBOLE_DIV : '/';
+
 
 // un des opérateurs de comparaison
 OP_COMPARAISON
