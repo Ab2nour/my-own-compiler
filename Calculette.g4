@@ -24,7 +24,11 @@ expr_arith returns [String code]
  | a=expr_arith '*' b=expr_arith {$code = $a.code + $b.code + "MUL" + "\n";}
  | a=expr_arith '+' b=expr_arith {$code = $a.code + $b.code + "ADD" + "\n";}
  | a=expr_arith '-' b=expr_arith {$code = $a.code + $b.code + "SUB" + "\n";}
- | '-' ENTIER {$code = "PUSHI " + $ENTIER.int + '\n';}
+ | nombre_entier {$code = $nombre_entier.code;}
+;
+
+nombre_entier returns [String code]
+ : '-' ENTIER {$code = "PUSHI " + -$ENTIER.int + '\n';}
  | ENTIER {$code = "PUSHI " + $ENTIER.int + '\n';}
 ;
 
