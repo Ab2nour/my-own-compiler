@@ -20,7 +20,7 @@ expr_arith returns [String code]
      $code = $a.code + $b.code + "DIV\n";
 
     }
- | a=expr_arith op_arith b=expr_arith {$code = $a.code + $b.code + op_arith.text + "\n";}
+ | a=expr_arith op_arith b=expr_arith {$code = $a.code + $b.code + $op_arith.text + "\n";}
  | nombre_entier {$code = $nombre_entier.code;}
 ;
 
