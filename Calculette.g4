@@ -21,13 +21,13 @@ expr_arith returns [String code]
 
     }
  | a=expr_arith MUL_OU_DIV b=expr_arith {$code = $a.code + $b.code + $MUL_OU_DIV.getText() + "\n";}
- | a=expr_arith '+' b=expr_arith {$code = $a.code + $b.code + "ADD" + "\n";}
- | a=expr_arith '-' b=expr_arith {$code = $a.code + $b.code + "SUB" + "\n";}
+ | a=expr_arith PLUS b=expr_arith {$code = $a.code + $b.code + $PLUS.getText() + "\n";}
+ | a=expr_arith MOINS b=expr_arith {$code = $a.code + $b.code + $MOINS.getText() + "\n";}
  | nombre_entier {$code = $nombre_entier.code;}
 ;
 
 nombre_entier returns [String code]
- : '-' ENTIER {$code = "PUSHI " + -$ENTIER.int + '\n';}
+ : MOINS ENTIER {$code = "PUSHI " + -$ENTIER.int + '\n';}
  | ENTIER {$code = "PUSHI " + $ENTIER.int + '\n';}
 ;
 
@@ -78,21 +78,20 @@ L_PARENTHESE : '(';
 R_PARENTHESE : ')';
 
 MUL_OU_DIV
- : '*' { setText("MUL"); } | '/' { setText("DIV"); }
+ : SYMBOLE_FOIS { setText("MUL"); }
+ | SYMBOLE_DIV { setText("DIV"); }
 ;
 
+PLUS : SYMBOLE_PLUS { setText("ADD"); };
 
-// une des quatres opérations arithmétiques simples
-/*OP_ARITH_SIMPLE 
- : '/' { setText("DIV"); }
- | '*' { setText("MUL"); }
- | '+' { setText("ADD"); }
- | MOINS { setText("SUB"); }
-;*/
+MOINS : SYMBOLE_MOINS { setText("SUB"); };
 
-MOINS_UNAIRE : MOINS;
 
-fragment MOINS : '-';
+fragment SYMBOLE_PLUS : '+';
+fragment SYMBOLE_MOINS : '-';
+fragment SYMBOLE_FOIS : '*';
+fragment SYMBOLE_DIV : '/';
+
 
 // un des opérateurs de comparaison
 OP_COMPARAISON
