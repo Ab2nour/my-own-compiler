@@ -10,12 +10,15 @@ function initialisation () {
 function antlr4 () {
     java -Xmx500M -cp "tools/antlr-4.9.2-complete.jar:$CLASSPATH" org.antlr.v4.Tool $@
 }
+
 function grun () {
     java -Xmx500M -cp "tools/antlr-4.9.2-complete.jar:$CLASSPATH" org.antlr.v4.gui.TestRig $@
 }
+
 function compileMVAP () {
     java -cp $CLASSPATH MVaPAssembler $@
 }
+
 function execMVAP () {
     java -jar tools/mvap/MVaP.jar $@
 }
@@ -39,7 +42,36 @@ function mvap () {
 }
 
 
+function init_mvap () {
+    # Effectue l'initialisation nécessaire à la fonction `mvap_sans_init`
+    cd .
+
+    initialisation
+
+    antlr4 Calculette.g4                
+    javac *.java
+}
+
+
+function mvap_sans_init () {
+    # Idem que mvap, mais ici on ne compile pas avec antlr4 et javac
+    # On considère donc que l'initialisation des fichiers de la
+    # grammaire a déjà été effectuée.
+    cd .
+
+    expr="$1"
+
+    echo "$expr" | grun Calculette 'start' > fichier.mvap
+
+    compileMVAP fichier.mvap
+
+    execMVAP fichier.mvap.cbap
+}
+
+
 function mvap_debug () {
+    # Mode debug pour grun (option `-tokens`)
+    # Mode debug pour mvap (option `-d`)
     cd .
 
     initialisation
@@ -57,6 +89,7 @@ function mvap_debug () {
     execMVAP fichier.mvap.cbap -d
 }
 
+
 function test_expr () {
     ### Cette fonction teste une expression
     # D'abord l'expression
@@ -67,7 +100,7 @@ function test_expr () {
     expr=$1
     resultat_attendu=$2
 
-    resultat=$(mvap "$expr" | xargs) # xargs trims whitespace
+    resultat=$(mvap_sans_init "$expr" | xargs) # xargs trims whitespace
 
     if [ "$resultat" = "$resultat_attendu" ]
     then
