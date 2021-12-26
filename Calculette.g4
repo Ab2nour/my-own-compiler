@@ -25,8 +25,8 @@ expr_arith returns [String code]
 ;
 
 op_arith returns [String text]
- : a=expr_arith MUL_OU_DIV b=expr_arith {$code = $a.code + $b.code + $MUL_OU_DIV.getText() + "\n";}
- | a=expr_arith ADD_OU_SUB b=expr_arith {$code = $a.code + $b.code + $ADD_OU_SUB.getText() + "\n";}
+ : MUL_OU_DIV {$text = $MUL_OU_DIV.getText();}
+ | ADD_OU_SUB {$text = $ADD_OU_SUB.getText();}
 ;
 
 nombre_entier returns [String code]
@@ -89,15 +89,6 @@ ADD_OU_SUB
  : SYMBOLE_PLUS { setText("ADD"); }
  | SYMBOLE_MOINS { setText("SUB"); }
 ;
-
-
-// une des quatres opérations arithmétiques simples
-/*OP_ARITH_SIMPLE 
- : '/' { setText("DIV"); }
- | '*' { setText("MUL"); }
- | '+' { setText("ADD"); }
- | MOINS { setText("SUB"); }
-;*/
 
 MOINS_UNAIRE : SYMBOLE_MOINS;
 MOINS : SYMBOLE_MOINS;
