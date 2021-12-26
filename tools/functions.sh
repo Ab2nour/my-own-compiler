@@ -25,8 +25,6 @@ function execMVAP () {
 
 
 function mvap () {
-    cd .
-
     initialisation
 
     antlr4 Calculette.g4                
@@ -44,8 +42,6 @@ function mvap () {
 
 function init_mvap () {
     # Effectue l'initialisation nécessaire à la fonction `mvap_sans_init`
-    cd .
-
     initialisation
 
     antlr4 Calculette.g4                
@@ -57,8 +53,6 @@ function mvap_sans_init () {
     # Idem que mvap, mais ici on ne compile pas avec antlr4 et javac
     # On considère donc que l'initialisation des fichiers de la
     # grammaire a déjà été effectuée.
-    cd .
-
     expr="$1"
 
     echo "$expr" | grun Calculette 'start' > fichier.mvap
@@ -72,8 +66,6 @@ function mvap_sans_init () {
 function mvap_debug () {
     # Mode debug pour grun (option `-tokens`)
     # Mode debug pour mvap (option `-d`)
-    cd .
-
     initialisation
 
     antlr4 Calculette.g4                
