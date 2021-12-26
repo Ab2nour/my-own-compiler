@@ -20,10 +20,13 @@ expr_arith returns [String code]
      $code = $a.code + $b.code + "DIV\n";
 
     }
- | a=expr_arith MUL_OU_DIV b=expr_arith {$code = $a.code + $b.code + $MUL_OU_DIV.getText() + "\n";}
- | a=expr_arith '+' b=expr_arith {$code = $a.code + $b.code + "ADD" + "\n";}
- | a=expr_arith '-' b=expr_arith {$code = $a.code + $b.code + "SUB" + "\n";}
+ | a=expr_arith op_arith b=expr_arith {$code = $a.code + $b.code + op_arith.text + "\n";}
  | nombre_entier {$code = $nombre_entier.code;}
+;
+
+op_arith returns [String text]
+ : a=expr_arith MUL_OU_DIV b=expr_arith {$code = $a.code + $b.code + $MUL_OU_DIV.getText() + "\n";}
+ | a=expr_arith ADD_OU_SUB b=expr_arith {$code = $a.code + $b.code + $ADD_OU_SUB.getText() + "\n";}
 ;
 
 nombre_entier returns [String code]
@@ -83,7 +86,8 @@ MUL_OU_DIV
 ;
 
 ADD_OU_SUB
- : '*' { setText("MUL"); } | '/' { setText("DIV"); }
+ : SYMBOLE_PLUS { setText("ADD"); }
+ | SYMBOLE_MOINS { setText("SUB"); }
 ;
 
 
