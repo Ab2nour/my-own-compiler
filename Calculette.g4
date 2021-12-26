@@ -83,7 +83,7 @@ MUL_OU_DIV
 
 ADD_OU_SUB
  : SYMBOLE_PLUS { setText("ADD"); }
- | SYMBOLE_MOINS { setText("SUB"); }
+ | MOINS { setText("SUB"); }
 ;
 
 MOINS : SYMBOLE_MOINS;
