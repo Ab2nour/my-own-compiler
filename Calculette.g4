@@ -26,7 +26,7 @@ expr_arith returns [String code]
 ;
 
 nombre_entier returns [String code]
- : MOINS ENTIER {$code = "PUSHI " + -$ENTIER.int + '\n';}
+ : MOINS_UNAIRE ENTIER {$code = "PUSHI " + -$ENTIER.int + '\n';}
  | ENTIER {$code = "PUSHI " + $ENTIER.int + '\n';}
 ;
 
@@ -87,6 +87,7 @@ ADD_OU_SUB
 ;
 
 MOINS : SYMBOLE_MOINS;
+MOINS_UNAIRE : SYMBOLE_MOINS;
 
 fragment SYMBOLE_PLUS : '+';
 fragment SYMBOLE_MOINS : '-';
