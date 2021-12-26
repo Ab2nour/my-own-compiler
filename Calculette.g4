@@ -30,7 +30,7 @@ op_arith returns [String text]
 ;
 
 nombre_entier returns [String code]
- : '-' ENTIER {$code = "PUSHI " + -$ENTIER.int + '\n';}
+ : MOINS ENTIER {$code = "PUSHI " + -$ENTIER.int + '\n';}
  | ENTIER {$code = "PUSHI " + $ENTIER.int + '\n';}
 ;
 
@@ -90,7 +90,6 @@ ADD_OU_SUB
  | SYMBOLE_MOINS { setText("SUB"); }
 ;
 
-MOINS_UNAIRE : SYMBOLE_MOINS;
 MOINS : SYMBOLE_MOINS;
 
 fragment SYMBOLE_PLUS : '+';
