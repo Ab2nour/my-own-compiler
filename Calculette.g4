@@ -21,12 +21,13 @@ expr_arith returns [String code]
 
     }
  | a=expr_arith MUL_OU_DIV b=expr_arith {$code = $a.code + $b.code + $MUL_OU_DIV.getText() + "\n";}
- | a=expr_arith ADD_OU_SUB b=expr_arith {$code = $a.code + $b.code + $ADD_OU_SUB.getText() + "\n";}
+ | a=expr_arith PLUS b=expr_arith {$code = $a.code + $b.code + $PLUS.getText() + "\n";}
+ | a=expr_arith MOINS b=expr_arith {$code = $a.code + $b.code + $MOINS.getText() + "\n";}
  | nombre_entier {$code = $nombre_entier.code;}
 ;
 
 nombre_entier returns [String code]
- : MOINS_UNAIRE ENTIER {$code = "PUSHI " + -$ENTIER.int + '\n';}
+ : MOINS ENTIER {$code = "PUSHI " + -$ENTIER.int + '\n';}
  | ENTIER {$code = "PUSHI " + $ENTIER.int + '\n';}
 ;
 
@@ -81,13 +82,10 @@ MUL_OU_DIV
  | SYMBOLE_DIV { setText("DIV"); }
 ;
 
-ADD_OU_SUB
- : SYMBOLE_PLUS { setText("ADD"); }
- | MOINS { setText("SUB"); }
-;
+PLUS : SYMBOLE_PLUS { setText("ADD"); };
 
-MOINS : SYMBOLE_MOINS;
-MOINS_UNAIRE : SYMBOLE_MOINS;
+MOINS : SYMBOLE_MOINS { setText("SUB"); };
+
 
 fragment SYMBOLE_PLUS : '+';
 fragment SYMBOLE_MOINS : '-';
