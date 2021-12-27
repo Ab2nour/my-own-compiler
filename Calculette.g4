@@ -3,7 +3,7 @@ grammar Calculette;
 // règles de la grammaire
 start 
  @after {System.out.println("HALT\n");}
- : (expr fin_expression {System.out.println($expr.code);})+
+ : (expr fin_expression+ {System.out.println($expr.code);})+ EOF
 ;
 
 expr returns [String code]
@@ -63,11 +63,11 @@ expr_bool returns [String code]
 
 
 fin_expression
- : EOF | NEWLINE | ';'
+ : NEWLINE | ';'
 ;
 
 // règles du lexer. Skip pour dire ne rien faire
-NEWLINE : '\r'? '\n' -> skip;
+NEWLINE : '\r'? '\n';// -> skip;
 WS : (' ' | '\t')+ -> skip;
 
 ENTIER : ('0'..'9')+;
@@ -119,4 +119,4 @@ OR_LAZY : 'or_lazy';
 XOR : 'xor';
 NOT : 'not';
 
-UNMATCH : . -> skip;
+UNMATCH : . ;//-> skip;
