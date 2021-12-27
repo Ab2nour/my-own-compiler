@@ -39,7 +39,9 @@ function mvap () {
         cat "$nom_fichier" | grun Calculette 'start' > fichier.mvap
     else        
         expression="$1"
-        echo "$expression" | grun Calculette 'start' > fichier.mvap
+        echo "$expression" > entree.temp
+        cat entree.temp | grun Calculette 'start' > fichier.mvap
+        rm entree.temp
     fi
 
     compileMVAP fichier.mvap
