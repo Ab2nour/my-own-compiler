@@ -80,7 +80,7 @@ R_PARENTHESE : ')';
 // commentaire
 COMMENTAIRE
  : L_COMMENT .*? R_COMMENT
- | SLASH_COMMENT .*?
+ | SLASH_COMMENT .*? ~('\n' | '\r')*
 ;
 fragment SLASH_COMMENT : '//';
 fragment L_COMMENT : '/*';
