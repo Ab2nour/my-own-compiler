@@ -1,0 +1,21 @@
+
+42 // ceci doit être ignoré 2+2
+42
+
+==out==
+42
+42
+
+-----
+42 /* ignoré 2+2 */
+
+==out==
+42
+
+-----
+42 /* ignoré 2+2
+ignoré 2+2
+ignoré 2+2 */
+
+==out==
+42
