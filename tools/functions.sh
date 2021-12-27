@@ -123,12 +123,11 @@ function test_expr () {
 
     resultat=$(mvap_sans_init "$expr" | xargs) # xargs trims whitespace
 
-    if [ "$resultat" = "$resultat_attendu" ]
-    then
-    echo "✅ $expr = $resultat"
+    if [ "$resultat" = "$resultat_attendu" ] then
+        echo "✅ $expr = $resultat"
     else
-    echo "❌ $expr = $resultat   (!= $resultat_attendu)"      
-    let "nb_tests_faux+=1"
+        echo "❌ $expr = $resultat   (!= $resultat_attendu)"      
+        let "nb_tests_faux+=1"
     fi
 }
 
@@ -141,9 +140,8 @@ function affiche_bilan () {
     echo "✅ Il y a $(( nb_tests - nb_tests_faux )) tests passés avec succès."  
 
 
-    if (( $nb_tests_faux > 0 ))
-    then
-    echo "❌ Il y a $nb_tests_faux tests faux."  
-    exit 42
+    if (( $nb_tests_faux > 0 )) then
+        echo "❌ Il y a $nb_tests_faux tests faux."  
+        exit 42
     fi
 }
