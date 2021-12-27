@@ -34,8 +34,7 @@ function mvap () {
     javac *.java
 
     
-    if [ "$1" = "-f" ] ## si c'est un fichier
-    then
+    if [ "$1" = "-f" ]; then ## si c'est un fichier
         nom_fichier="$2"
         cat "$nom_fichier" | grun Calculette 'start' > fichier.mvap
     else        
@@ -119,7 +118,7 @@ function test_expr () {
 
     resultat=$(mvap_sans_init "$expr" | xargs) # xargs trims whitespace
 
-    if [ "$resultat" = "$resultat_attendu" ] then
+    if [ "$resultat" = "$resultat_attendu" ]; then
         echo "✅ $expr = $resultat"
     else
         echo "❌ $expr = $resultat   (!= $resultat_attendu)"      
@@ -136,7 +135,7 @@ function affiche_bilan () {
     echo "✅ Il y a $(( nb_tests - nb_tests_faux )) tests passés avec succès."  
 
 
-    if (( $nb_tests_faux > 0 )) then
+    if (( $nb_tests_faux > 0 )); then
         echo "❌ Il y a $nb_tests_faux tests faux."  
         exit 42
     fi
