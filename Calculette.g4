@@ -3,7 +3,7 @@ grammar Calculette;
 // règles de la grammaire
 start 
  @after {System.out.println("HALT\n");}
- : (expr fin_expression+ {System.out.println($expr.code);})+ EOF
+ : (expr COMMENTAIRE* fin_expression+ {System.out.println($expr.code);})+ EOF
 ;
 
 expr returns [String code]
@@ -67,8 +67,14 @@ fin_expression
 ;
 
 // règles du lexer. Skip pour dire ne rien faire
-NEWLINE : '\r'? '\n';// -> skip;
-WS : (' ' | '\t')+ -> skip;
+NEWLINE : BACKSLASH_R? BACKSLASH_N;
+fragment BACKSLASH_N : '\n';
+fragment BACKSLASH_R : '\r';
+
+
+WHITESPACE : (ESPACE| TAB)+ -> skip;
+fragment ESPACE : ' ';
+fragment TAB : '\t';
 
 ENTIER : ('0'..'9')+;
 BOOL : 'true' { setText("1"); } | 'false' { setText("0"); };
@@ -76,6 +82,19 @@ BOOL : 'true' { setText("1"); } | 'false' { setText("0"); };
 // parenthèses
 L_PARENTHESE : '(';
 R_PARENTHESE : ')';
+
+// commentaire
+COMMENTAIRE
+ : (L_COMMENT .*? R_COMMENT
+ // ANTLR4: on ne peut pas mettre de tokens dans les sets avec un '~' devant 
+ // -> on est obligé de mettre \n plutôt que BACKSLASH_N dans SLASH_COMMENT.
+ | SLASH_COMMENT .*? ~('\n' | '\r')*
+ ) -> skip
+; 
+
+fragment SLASH_COMMENT : '//';
+fragment L_COMMENT : '/*';
+fragment R_COMMENT : '*/';
 
 MUL_OU_DIV
  : SYMBOLE_FOIS { setText("MUL"); }
