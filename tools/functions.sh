@@ -25,6 +25,35 @@ function execMVAP () {
 
 
 function mvap () {
+    # Utilisation :
+    # mvap 'expression' -> évalue une expression
+    # mvap -f fichier.txt -> évalue un fichier
+    initialisation
+
+    antlr4 Calculette.g4                
+    javac *.java
+
+    
+    if [ "$1" = "-f" ] ## si c'est un fichier
+    then
+        nom_fichier="$2"
+    else
+    echo "❌ $expr = $resultat   (!= $resultat_attendu)"      
+    let "nb_tests_faux+=1"
+    fi
+
+    expr="$1"
+
+    echo "$expr" | grun Calculette 'start' > fichier.mvap
+
+    compileMVAP fichier.mvap
+
+    execMVAP fichier.mvap.cbap
+}
+
+
+function mvap_fichier () {
+    #
     initialisation
 
     antlr4 Calculette.g4                
