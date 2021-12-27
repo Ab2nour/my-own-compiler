@@ -77,6 +77,15 @@ BOOL : 'true' { setText("1"); } | 'false' { setText("0"); };
 L_PARENTHESE : '(';
 R_PARENTHESE : ')';
 
+// commentaire
+COMMENTAIRE
+ : L_COMMENT .*? R_COMMENT
+ | SLASH_COMMENT .*? NEWLINE
+;
+fragment SLASH_COMMENT : '//';
+fragment L_COMMENT : '/*';
+fragment R_COMMENT : '*/';
+
 MUL_OU_DIV
  : SYMBOLE_FOIS { setText("MUL"); }
  | SYMBOLE_DIV { setText("DIV"); }
