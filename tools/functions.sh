@@ -37,17 +37,13 @@ function mvap () {
     if [ "$1" = "-f" ] ## si c'est un fichier
     then
         nom_fichier="$2"
-    else
-    echo "❌ $expr = $resultat   (!= $resultat_attendu)"      
-    let "nb_tests_faux+=1"
+        cat "$nom_fichier" | grun Calculette 'start' > fichier.mvap
+    else        
+        expression="$1"
+        echo "$expression" | grun Calculette 'start' > fichier.mvap
     fi
 
-    expr="$1"
-
-    echo "$expr" | grun Calculette 'start' > fichier.mvap
-
     compileMVAP fichier.mvap
-
     execMVAP fichier.mvap.cbap
 }
 
