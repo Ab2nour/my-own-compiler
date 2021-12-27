@@ -12,23 +12,5 @@ jobs:
     - uses: actions/checkout@v2
     
     - name: Test d'expressions
-      run: |
-            cd .
-            
-            # on récupère toutes les fonctions de functions.sh
-            source tools/functions.sh
-
-
-            # code
-            init_mvap
-            
-            python3 tests/launch_tests.py  # crée le fichier launch_tests.sh
-            
-            nb_tests=0
-            nb_tests_faux=0
-            
-            source launch_tests.sh            
-
-            affiche_bilan 
-            
+      run: source tools/ci_script.sh
       shell: bash

@@ -25,6 +25,32 @@ function execMVAP () {
 
 
 function mvap () {
+    # Utilisation :
+    # mvap 'expression' -> évalue une expression
+    # mvap -f fichier.txt -> évalue un fichier
+    initialisation
+
+    antlr4 Calculette.g4                
+    javac *.java
+
+    
+    if [ "$1" = "-f" ]; then ## si c'est un fichier
+        nom_fichier="$2"
+        cat "$nom_fichier" | grun Calculette 'start' > fichier.mvap
+    else        
+        expression="$1"
+        echo "$expression" > entree.temp
+        cat entree.temp | grun Calculette 'start' > fichier.mvap
+        rm entree.temp
+    fi
+
+    compileMVAP fichier.mvap
+    execMVAP fichier.mvap.cbap
+}
+
+
+function mvap_fichier () {
+    #
     initialisation
 
     antlr4 Calculette.g4                
@@ -94,12 +120,11 @@ function test_expr () {
 
     resultat=$(mvap_sans_init "$expr" | xargs) # xargs trims whitespace
 
-    if [ "$resultat" = "$resultat_attendu" ]
-    then
-    echo "✅ $expr = $resultat"
+    if [ "$resultat" = "$resultat_attendu" ]; then
+        echo "✅ $expr = $resultat"
     else
-    echo "❌ $expr = $resultat   (!= $resultat_attendu)"      
-    let "nb_tests_faux+=1"
+        echo "❌ $expr = $resultat   (!= $resultat_attendu)"      
+        let "nb_tests_faux+=1"
     fi
 }
 
@@ -112,9 +137,8 @@ function affiche_bilan () {
     echo "✅ Il y a $(( nb_tests - nb_tests_faux )) tests passés avec succès."  
 
 
-    if (( $nb_tests_faux > 0 ))
-    then
-    echo "❌ Il y a $nb_tests_faux tests faux."  
-    exit 42
+    if (( $nb_tests_faux > 0 )); then
+        echo "❌ Il y a $nb_tests_faux tests faux."  
+        exit 42
     fi
 }
