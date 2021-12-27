@@ -10,9 +10,16 @@ grammar Calculette;
 }
 
 // règles de la grammaire
-start 
- @after {System.out.println("HALT\n");}
- : (expr COMMENTAIRE* fin_expression+ {System.out.println($expr.code);})+ EOF
+start returns [String code]
+ @init {$code = new String();}
+ @after {System.out.println($code + "HALT\n");}
+ : (declaration fin_expression+ {$code += $declaration.code;}) 
+ (expr fin_expression+ {$code += $expr.code;})+ EOF
+;
+
+declaration returns [String code]
+ : expr_arith {$code = $expr_arith.code + "WRITE\n" + "POP\n";}
+ | expr_bool {$code = $expr_bool.code + "WRITE\n" + "POP\n";}
 ;
 
 expr returns [String code]
