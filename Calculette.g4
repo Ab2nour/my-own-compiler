@@ -13,8 +13,8 @@ grammar Calculette;
 start returns [String code]
  @init {$code = new String();}
  @after {System.out.println($code + "HALT\n");}
- : (declaration fin_expression+ {$code += $declaration.code;}) 
- (expr fin_expression+ {$code += $expr.code;})+ EOF
+ : (declaration fin_expression+ {$code += $declaration.code;})*
+ (expr fin_expression+ {$code += $expr.code;})* EOF
 ;
 
 declaration returns [String code]
