@@ -49,17 +49,33 @@ instruction returns [String code]
 
 structure_conditionnelle returns [String code]
  @init {
-   String code_instruction = new String();
+   String code_if = new String();
+   String code_else = new String();
+
+   int label_if = label_actuel; label_actuel++;
+   int label_else = label_actuel; label_actuel++;
  }
  : IF (expr_bool) L_ACCOLADE 
-      (instruction fin_expression+ {code_instruction += $instruction.code;})+
+      (instruction fin_expression+ {code_if += $instruction.code;})+
    R_ACCOLADE {
    $code = $expr_bool.code;
-   $code += "JUMPF " + label_actuel + "\n";
-   $code += code_instruction;
-   $code += "LABEL " + label_actuel + "\n";
+   $code += "JUMPF " + label_if + "\n";
+   $code += code_if;
+   $code += "LABEL " + label_if + "\n";
+ }
+ | IF (expr_bool) L_ACCOLADE 
+      (instruction fin_expression+ {code_if += $instruction.code;})+
+   R_ACCOLADE ELSE L_ACCOLADE
+      (instruction fin_expression+ {code_else += $instruction.code;})+
+   R_ACCOLADE {
 
-   label_actuel++;
+   $code = $expr_bool.code;
+   $code += "JUMPF " + label_if + "\n";
+   $code += code_if;
+   $code += "JUMP " + label_else + "\n";
+   $code += "LABEL " + label_if + "\n";
+   $code += code_else;
+   $code += "LABEL " + label_else + "\n";
  }
 ;
 
@@ -243,6 +259,7 @@ FLOAT: 'float';
 
 // Structures de contrôle et boucles :
 IF : 'if';
+ELSE : 'else';
 WHILE : 'while';
 FOR : 'for';
 
