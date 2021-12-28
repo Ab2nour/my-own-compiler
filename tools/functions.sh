@@ -59,6 +59,7 @@ function mvap_sans_init () {
     else        
         expression="$1"
         echo "$expression" > entree.temp
+        
         cat entree.temp | grun Calculette 'start' > fichier.mvap
         rm entree.temp
     fi
@@ -77,10 +78,7 @@ function mvap_debug () {
     # - Mode debug pour grun (option `-tokens`)
     # - Mode debug pour mvap (option `-d`)
 
-    initialisation
-
-    antlr4 Calculette.g4                
-    javac *.java
+    init_mvap
 
     expr="$1"
 
