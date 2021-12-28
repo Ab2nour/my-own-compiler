@@ -2,7 +2,6 @@ grammar Calculette;
 
 @header {
     import java.util.HashMap;
-    
 }
 
 @members {
@@ -29,15 +28,20 @@ declaration returns [String code]
 ;
 
 instruction returns [String code]
- : affectation {$code = $affectation.code + "WRITE\n" + "POP\n";}
+ : affectation {$code = $affectation.code;}
+ | fonction_builtin {$code = $fonction_builtin.code;}
  | expr {$code = $expr.code;}
+;
+
+fonction_builtin returns [String code]
+ : PRINT L_PARENTHESE expr R_PARENTHESE
+  {}
 ;
 
 affectation returns [String code]
  : id=IDENTIFIANT EGAL expr {
    $code = "PUSHI " + $expr.code + "\n";
    $code += "STOREG " + memory.get($id.text) + "\n";
-   $code += "PUSHG " + memory.get($id.text) + "\n";
  }
 ;
 
@@ -115,10 +119,10 @@ fragment TAB : '\t';
 ENTIER : CHIFFRE+; // todo: les nombres commençant par 0 exemple : "042" ?
 fragment CHIFFRE : ('0'..'9');
 
-BOOLEEN : TRUE  | FALSE;
+BOOLEEN : TRUE { setText("1"); } | FALSE { setText("0"); };
 
-TRUE : 'true' { setText("1"); };
-FALSE : 'false' { setText("0"); };
+fragment TRUE : 'true';
+fragment FALSE : 'false';
 
 // parenthèses
 L_PARENTHESE : '(';
@@ -182,5 +186,9 @@ fragment LETTRE : [a-z] | [A-Z];
 
 VIRGULE : ',';
 EGAL : '=';
+
+// Fonctions built-in
+PRINT : 'print';
+READ : 'read';
 
 UNMATCH : . ;//-> skip;
