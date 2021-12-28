@@ -71,6 +71,12 @@ affectation returns [String code]
    $code = $expr.code;
    $code += "STOREG " + memory.get($id.text) + "\n";
  }
+ | id=IDENTIFIANT INCREMENTATION {
+   $code = "PUSHI 1\n";
+   $code += "PUSHG " + memory.get($id.text) + "\n";
+   $code += "ADD\n";
+   $code += "STOREG " + memory.get($id.text) + "\n";
+ }
 ;
 
 expr returns [String code]
@@ -128,6 +134,7 @@ expr_bool returns [String code]
  | a=expr_bool XOR b=expr_bool // (a xor b) === (a <> b)
   {$code = $a.code + $b.code + "NEQ\n";}
  | BOOLEEN {$code = "PUSHI " + $BOOLEEN.getText() + '\n';}
+ | id=IDENTIFIANT {$code = "PUSHG " + memory.get($id.text) + "\n";}
 ;
 
 
@@ -179,6 +186,8 @@ EXP : '^' | SYMBOLE_FOIS SYMBOLE_FOIS;
 PLUS : SYMBOLE_PLUS { setText("ADD"); };
 MOINS : SYMBOLE_MOINS { setText("SUB"); };
 
+INCREMENTATION : SYMBOLE_PLUS SYMBOLE_PLUS;
+DECREMENTATION : SYMBOLE_MOINS SYMBOLE_MOINS;
 
 fragment SYMBOLE_PLUS : '+';
 fragment SYMBOLE_MOINS : '-';
