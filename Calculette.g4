@@ -67,6 +67,7 @@ expr_arith returns [String code]
  | a=expr_arith PLUS b=expr_arith {$code = $a.code + $b.code + $PLUS.getText() + "\n";}
  | a=expr_arith MOINS b=expr_arith {$code = $a.code + $b.code + $MOINS.getText() + "\n";}
  | nombre_entier {$code = $nombre_entier.code;}
+ | id=IDENTIFIANT {$code = "STOREG " + memory.get($id.text) + "\n";}
 ;
 
 nombre_entier returns [String code]
