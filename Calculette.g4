@@ -5,14 +5,21 @@ grammar Calculette;
 }
 
 @members {
-    int place_variable = 0;
+    // place de la pile à laquelle on stocke la variable
+    // et, au passage, nombre de variables
+    int place_variable = 0; 
     HashMap<String, Integer> memory = new HashMap<String, Integer>();
 }
 
 // règles de la grammaire
 start returns [String code]
  @init {$code = new String();}
- @after {System.out.println($code + "HALT\n");}
+ @after {
+   for (int i = 0; i < place_variable; i++) {
+      $code += "POP\n"; // on pop toutes les variables de la pile
+   }
+   System.out.println($code + "HALT\n");
+ }
  : (declaration fin_expression+ {$code += $declaration.code;})*
  (instruction fin_expression+ {$code += $instruction.code;})* EOF
 ;
@@ -30,7 +37,7 @@ declaration returns [String code]
 instruction returns [String code]
  : affectation {$code = $affectation.code;}
  | fonction_builtin {$code = $fonction_builtin.code;}
- | expr {$code = $expr.code;}
+ | expr {$code = $expr.code + "POP\n";}
 ;
 
 fonction_builtin returns [String code]
