@@ -9,6 +9,8 @@ grammar Calculette;
     // et, au passage, nombre de variables
     int place_variable = 0; 
     HashMap<String, Integer> memory = new HashMap<String, Integer>();
+
+    int label_actuel = 0;
 }
 
 // règles de la grammaire
@@ -46,9 +48,18 @@ instruction returns [String code]
 ;
 
 structure_conditionnelle returns [String code]
- : PRINT L_PARENTHESE expr R_PARENTHESE {
-   $code = $expr.code;
-   $code += "WRITE\nPOP\n";
+ @init {
+   String code_instruction = new String();
+ }
+ : IF (expr_bool) L_ACCOLADE 
+      (instruction fin_expression+ {code_instruction += $instruction.code;})+
+   R_ACCOLADE {
+   $code = $expr_bool.code;
+   $code += "JUMPF " + label_actuel + "\n";
+   $code += code_instruction;
+   $code += "LABEL " + label_actuel + "\n";
+
+   label_actuel++;
  }
 ;
 
@@ -163,6 +174,8 @@ fragment FALSE : 'false';
 // parenthèses
 L_PARENTHESE : '(';
 R_PARENTHESE : ')';
+L_ACCOLADE : '{';
+R_ACCOLADE : '}';
 
 // commentaire
 COMMENTAIRE
