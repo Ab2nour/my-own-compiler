@@ -188,12 +188,12 @@ VIRGULE : ',';
 EGAL : '=';
 
 // Fonctions built-in
-PRINT : 'print';
-READ : 'read';
+PRINT : 'print' | 'afficher';
+READ : 'read' | 'lire';
 
 
 IDENTIFIANT : LETTRE (LETTRE | CHIFFRE)*;
 
 fragment LETTRE : [a-z] | [A-Z];
 
-UNMATCH : . ;//-> skip;
+UNMATCH : . -> skip;
