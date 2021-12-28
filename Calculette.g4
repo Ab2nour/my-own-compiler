@@ -20,9 +20,9 @@ start returns [String code]
 
 declaration returns [String code]
  : TYPE id=IDENTIFIANT {
-   memory.put(id, place_variable);
+   memory.put($id, place_variable);
    place_variable++;
-   
+
  }
  | TYPE (IDENTIFIANT VIRGULE)* IDENTIFIANT
  | TYPE affectation
