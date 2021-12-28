@@ -31,7 +31,7 @@ function mvap () {
 
     init_mvap
 
-    mvap_sans_init $@
+    mvap_sans_init "$@"
 }
 
 function init_mvap () {
@@ -59,7 +59,7 @@ function mvap_sans_init () {
     else        
         expression="$1"
         echo "$expression" > entree.temp
-        
+
         cat entree.temp | grun Calculette 'start' > fichier.mvap
         rm entree.temp
     fi
