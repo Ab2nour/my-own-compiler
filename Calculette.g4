@@ -6,6 +6,7 @@ grammar Calculette;
 }
 
 @members {
+    int place_variable = 0;
     HashMap<String, Integer> memory = new HashMap<String, Integer>();
 }
 
@@ -18,7 +19,11 @@ start returns [String code]
 ;
 
 declaration returns [String code]
- : TYPE IDENTIFIANT
+ : TYPE id=IDENTIFIANT {
+   memory.put(id, place_variable);
+   place_variable++;
+   
+ }
  | TYPE (IDENTIFIANT VIRGULE)* IDENTIFIANT
  | TYPE affectation
 ;
