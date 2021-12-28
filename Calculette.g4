@@ -108,9 +108,15 @@ affectation returns [String code]
    $code += "STOREG " + memory.get($id.text) + "\n";
  }
  | id=IDENTIFIANT INCREMENTATION {
-   $code = "PUSHI 1\n";
-   $code += "PUSHG " + memory.get($id.text) + "\n";
+   $code = "PUSHG " + memory.get($id.text) + "\n";
+   $code += "PUSHI 1\n";
    $code += "ADD\n";
+   $code += "STOREG " + memory.get($id.text) + "\n";
+ }
+ | id=IDENTIFIANT DECREMENTATION {
+   $code = "PUSHG " + memory.get($id.text) + "\n";
+   $code += "PUSHI 1\n";
+   $code += "SUB\n";
    $code += "STOREG " + memory.get($id.text) + "\n";
  }
 ;
