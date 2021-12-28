@@ -64,9 +64,18 @@ structure_conditionnelle returns [String code]
 ;
 
 boucle returns [String code]
- : PRINT L_PARENTHESE expr R_PARENTHESE {
-   $code = $expr.code;
-   $code += "WRITE\nPOP\n";
+ @init {
+   String code_instruction = new String();
+ }
+ : WHILE (expr_bool) L_ACCOLADE 
+      (instruction fin_expression+ {code_instruction += $instruction.code;})+
+   R_ACCOLADE {
+   $code = $expr_bool.code;
+   $code += "JUMPF " + label_actuel + "\n";
+   $code += code_instruction;
+   $code += "LABEL " + label_actuel + "\n";
+
+   label_actuel++;
  }
 ;
 
