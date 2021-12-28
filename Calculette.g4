@@ -34,20 +34,23 @@ instruction returns [String code]
 ;
 
 fonction_builtin returns [String code]
- : PRINT L_PARENTHESE expr R_PARENTHESE
-  {}
+ : PRINT L_PARENTHESE expr R_PARENTHESE {
+   $code = $expr.code;
+   $code += "WRITE\nPOP\n";
+ }
 ;
 
 affectation returns [String code]
  : id=IDENTIFIANT EGAL expr {
-   $code = "PUSHI " + $expr.code + "\n";
+   $code = $expr.code;
    $code += "STOREG " + memory.get($id.text) + "\n";
+   $code += "POP\n";
  }
 ;
 
 expr returns [String code]
- : expr_arith {$code = $expr_arith.code + "WRITE\n" + "POP\n";}
- | expr_bool {$code = $expr_bool.code + "WRITE\n" + "POP\n";}
+ : expr_arith {$code = $expr_arith.code;}
+ | expr_bool {$code = $expr_bool.code;}
 ;
 
 
@@ -180,9 +183,6 @@ INT: 'int';
 BOOL_TYPE: 'bool';
 FLOAT: 'float';
 
-IDENTIFIANT : LETTRE (LETTRE | CHIFFRE)*;
-
-fragment LETTRE : [a-z] | [A-Z];
 
 VIRGULE : ',';
 EGAL : '=';
@@ -190,5 +190,10 @@ EGAL : '=';
 // Fonctions built-in
 PRINT : 'print';
 READ : 'read';
+
+
+IDENTIFIANT : LETTRE (LETTRE | CHIFFRE)*;
+
+fragment LETTRE : [a-z] | [A-Z];
 
 UNMATCH : . ;//-> skip;
