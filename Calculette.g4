@@ -15,21 +15,30 @@ start returns [String code]
  @init {$code = new String();}
  @after {System.out.println($code + "HALT\n");}
  : (declaration fin_expression+ {$code += $declaration.code;})*
- (expr fin_expression+ {$code += $expr.code;})* EOF
+ (instruction fin_expression+ {$code += $instruction.code;})* EOF
 ;
 
 declaration returns [String code]
  : TYPE id=IDENTIFIANT {
-   memory.put($id, place_variable);
+   memory.put($id.text, place_variable);
    place_variable++;
-
+   $code = "PUSHI 0\n";
  }
  | TYPE (IDENTIFIANT VIRGULE)* IDENTIFIANT
  | TYPE affectation
 ;
 
+instruction returns [String code]
+ : affectation {$code = $affectation.code + "WRITE\n" + "POP\n";}
+ | expr {$code = $expr.code;}
+;
+
 affectation returns [String code]
- : IDENTIFIANT EGAL expr
+ : id=IDENTIFIANT EGAL expr {
+   $code = "PUSHI " + $expr.code + "\n";
+   $code += "STOREG " + memory.get($id.text) + "\n";
+   $code += "PUSHG " + memory.get($id.text) + "\n";
+ }
 ;
 
 expr returns [String code]
