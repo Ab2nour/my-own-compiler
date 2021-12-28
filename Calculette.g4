@@ -18,8 +18,13 @@ start returns [String code]
 ;
 
 declaration returns [String code]
- : expr_arith {$code = $expr_arith.code + "WRITE\n" + "POP\n";}
- | expr_bool {$code = $expr_bool.code + "WRITE\n" + "POP\n";}
+ : TYPE IDENTIFIANT
+ | TYPE (IDENTIFIANT VIRGULE)* IDENTIFIANT
+ | TYPE affectation
+;
+
+affectation returns [String code]
+ : IDENTIFIANT EGAL expr
 ;
 
 expr returns [String code]
@@ -75,7 +80,7 @@ expr_bool returns [String code]
     }
  | a=expr_bool XOR b=expr_bool // (a xor b) === (a <> b)
   {$code = $a.code + $b.code + "NEQ\n";}
- | BOOL {$code = "PUSHI" + $BOOL.text + '\n';}
+ | BOOLEEN {$code = "PUSHI " + $BOOLEEN.getText() + '\n';}
 ;
 
 
@@ -93,8 +98,13 @@ WHITESPACE : (ESPACE| TAB)+ -> skip;
 fragment ESPACE : ' ';
 fragment TAB : '\t';
 
-ENTIER : ('0'..'9')+;
-BOOL : 'true' { setText("1"); } | 'false' { setText("0"); };
+ENTIER : CHIFFRE+; // todo: les nombres commençant par 0 exemple : "042" ?
+fragment CHIFFRE : ('0'..'9');
+
+BOOLEEN : TRUE  | FALSE;
+
+TRUE : 'true' { setText("1"); };
+FALSE : 'false' { setText("0"); };
 
 // parenthèses
 L_PARENTHESE : '(';
@@ -145,5 +155,18 @@ OR : 'or';
 OR_LAZY : 'or_lazy';
 XOR : 'xor';
 NOT : 'not';
+
+// Déclaration de variables
+TYPE : INT | BOOL_TYPE | FLOAT;
+INT: 'int';
+BOOL_TYPE: 'bool';
+FLOAT: 'float';
+
+IDENTIFIANT : LETTRE (LETTRE | CHIFFRE)*;
+
+fragment LETTRE : [a-z] | [A-Z];
+
+VIRGULE : ',';
+EGAL : '=';
 
 UNMATCH : . ;//-> skip;
