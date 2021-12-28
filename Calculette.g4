@@ -37,7 +37,26 @@ declaration returns [String code]
 instruction returns [String code]
  : affectation {$code = $affectation.code;}
  | fonction_builtin {$code = $fonction_builtin.code;}
+ | structure_conditionnelle {$code = $structure_conditionnelle.code;}
+ | boucle {$code = $boucle.code;}
+  // Une instruction qui ne contient qu'une expr est
+  // inutile et sans effet de bord : on POP donc
+  // le résultat de celle-ci.
  | expr {$code = $expr.code + "POP\n";}
+;
+
+structure_conditionnelle returns [String code]
+ : PRINT L_PARENTHESE expr R_PARENTHESE {
+   $code = $expr.code;
+   $code += "WRITE\nPOP\n";
+ }
+;
+
+boucle returns [String code]
+ : PRINT L_PARENTHESE expr R_PARENTHESE {
+   $code = $expr.code;
+   $code += "WRITE\nPOP\n";
+ }
 ;
 
 fonction_builtin returns [String code]
@@ -156,8 +175,8 @@ MUL_OU_DIV
  | SYMBOLE_DIV { setText("DIV"); }
 ;
 
+EXP : '^' | SYMBOLE_FOIS SYMBOLE_FOIS;
 PLUS : SYMBOLE_PLUS { setText("ADD"); };
-
 MOINS : SYMBOLE_MOINS { setText("SUB"); };
 
 
@@ -190,6 +209,11 @@ INT: 'int';
 BOOL_TYPE: 'bool';
 FLOAT: 'float';
 
+
+// Structures de contrôle et boucles :
+IF : 'if';
+WHILE : 'while';
+FOR : 'for';
 
 VIRGULE : ',';
 EGAL : '=';
