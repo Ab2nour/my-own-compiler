@@ -11,11 +11,54 @@ grammar Calculette;
     HashMap<String, Integer> memory = new HashMap<String, Integer>();
 
     int label_actuel = 0;
+    String nouveauLabel() {
+       return Integer.toString(label_actuel++);
+    }
+
+    final String label_exp = nouveauLabel();
+
+    String fonction_exp() {
+      String label_while = nouveauLabel();
+      String label_return = nouveauLabel();
+
+      String code = "LABEL " + label_exp + "\n" +
+      "PUSHI 1\n" +
+      "STOREL -5\n" +
+      "LABEL " + label_while + "\n" +
+      "PUSHL -3\n" +
+      "PUSHI 0\n" +
+      "SUP\n" +
+      "JUMPF " + label_return + "\n" +
+      "PUSHL -5\n" +
+      "PUSHL -4\n" +
+      "MUL\n" +
+      "STOREL -5\n" +
+      "PUSHL -3\n" +
+      "PUSHI 1\n" +
+      "SUB\n" +
+      "STOREL -3\n" +
+      "JUMP " + label_while + "\n" +
+      "LABEL " + label_return + "\n" +
+      "RETURN\n";
+      return code;
+    }
+
+
+    String fonctions_builtin() { 
+      String label_debut = nouveauLabel();
+      String code = new String();
+      code += "JUMP " + label_debut + "\n";
+
+
+      code += "LABEL " + label_debut + "\n";
+
+      return code;
+    }
 }
 
 // règles de la grammaire
 start returns [String code]
- @init {$code = new String();}
+ @init {$code = new String(); $code += fonctions_builtin();}
  @after {
    for (int i = 0; i < place_variable; i++) {
       $code += "POP\n"; // on pop toutes les variables de la pile
@@ -52,8 +95,8 @@ structure_conditionnelle returns [String code]
    String code_if = new String();
    String code_else = new String();
 
-   int label_if = label_actuel; label_actuel++;
-   int label_else = label_actuel; label_actuel++;
+   String label_if = nouveauLabel();
+   String label_else = nouveauLabel();
  }
  : IF (expr_bool) L_ACCOLADE 
       (instruction fin_expression+ {code_if += $instruction.code;})+
@@ -86,6 +129,7 @@ boucle returns [String code]
  : WHILE (expr_bool) L_ACCOLADE 
       (instruction fin_expression+ {code_instruction += $instruction.code;})+
    R_ACCOLADE {
+     // TODO !!!
    $code = $expr_bool.code;
    $code += "JUMPF " + label_actuel + "\n";
    $code += code_instruction;
