@@ -140,6 +140,13 @@ boucle returns [String code]
 ;
 
 fonction_builtin returns [String code]
+ : print
+;
+
+print returns [String code]
+ @init {
+   String code_arguments = new String();
+ }
  : PRINT L_PARENTHESE expr R_PARENTHESE {
    $code = $expr.code;
    $code += "WRITE\nPOP\n";
@@ -234,13 +241,16 @@ expr_bool returns [String code]
 
 
 fin_expression
- : NEWLINE | ';'
+ : NEWLINE | POINT_VIRGULE
 ;
 
 // règles du lexer. Skip pour dire ne rien faire
 NEWLINE : BACKSLASH_R? BACKSLASH_N;
 fragment BACKSLASH_N : '\n';
 fragment BACKSLASH_R : '\r';
+
+POINT_VIRGULE : ';';
+VIRGULE : ',';
 
 
 WHITESPACE : (ESPACE| TAB)+ -> skip;
