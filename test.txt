@@ -1,11 +1,7 @@
 PUSHI 42
 
-PUSHI 0 # résultat -> -5
-PUSHI 2 # nombre -> -4
-PUSHI 4 # exposant -> -3
+PUSHI 0
 CALL 0
-POP
-POP
 
 WRITE
 POP
@@ -14,35 +10,29 @@ PUSHI 142
 POP
 HALT
 
-# fonction exposant (a, b)
-# renvoie 1 entier : a^b
 LABEL 0
-    # variable qui stocke la valeur de a^b à chaque étape
-    # -> place locale (à partir de fp) : 0
-    PUSHI 1 # valeur_a^b = 1
+    PUSHI 1
+    PUSHI 2
+    PUSHI 4
 
-    LABEL 1 # while exposant > 0
-        PUSHL -3 # exposant
+    LABEL 1
+        PUSHL 2
         PUSHI 0
-        SUP # if (exposant > 0)
-        JUMPF 2
 
-        # valeur_a^b *= nombre
+        SUP
+        JUMPF 3
+
         PUSHL 0
-        PUSHL -4
+        PUSHL 1
         MUL
         STOREL 0
 
-        # exposant -= 1
-        PUSHL -3
+        PUSHL 2
         PUSHI 1
         SUB
-        STOREL -3
-
+        STOREL 2
         JUMP 1
-
-        LABEL 2
-            # résultat = valeur_a^b
+        LABEL 3
             PUSHL 0
-            STOREL -5
+            STOREL -3
             RETURN

@@ -107,12 +107,6 @@ affectation returns [String code]
    $code = $expr.code;
    $code += "STOREG " + memory.get($id.text) + "\n";
  }
- | id=IDENTIFIANT PLUS EGAL expr {
-   $code = "PUSHG " + memory.get($id.text) + "\n";
-   $code += $expr.code;
-   $code += "ADD\n";
-   $code += "STOREG " + memory.get($id.text) + "\n";
- }
  | id=IDENTIFIANT INCREMENTATION {
    $code = "PUSHG " + memory.get($id.text) + "\n";
    $code += "PUSHI 1\n";
