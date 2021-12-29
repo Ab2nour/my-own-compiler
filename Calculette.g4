@@ -332,7 +332,6 @@ ELSE : 'else';
 WHILE : 'while';
 FOR : 'for';
 
-VIRGULE : ',';
 EGAL : '=';
 
 // Fonctions built-in
