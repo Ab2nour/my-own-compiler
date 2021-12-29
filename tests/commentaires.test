@@ -8,7 +8,7 @@ print(42)
 
 -----
 print(42); // ceci doit être ignoré print(42)
-42
+print(42)
 
 ==out==
 42
@@ -16,7 +16,7 @@ print(42); // ceci doit être ignoré print(42)
 
 -----
 print(42) /* ignoré print(42) */
-42
+print(42)
 
 ==out==
 42
