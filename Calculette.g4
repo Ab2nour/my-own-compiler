@@ -157,11 +157,11 @@ affectation returns [String code]
    $code += "ADD\n";
    $code += "STOREG " + memory.get($id.text) + "\n";
  }
- | incr_ou_decr
+ | incr_ou_decr {$code = $incr_ou_decr.code;}
 ;
 
 incr_ou_decr returns [String code]
- : id=IDENTIFIANT (operateur=INCREMENTATION | operateur=DECREMENTATION) {
+ : id=IDENTIFIANT operateur=(INCREMENTATION | DECREMENTATION) {
    $code = "PUSHG " + memory.get($id.text) + "\n";
    $code += "PUSHI 1\n";
    $code += $operateur.getText() + "\n";
