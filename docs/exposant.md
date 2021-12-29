@@ -1,3 +1,5 @@
+**Attention** aux INT overflow avec MVaP : `2^3^4` suffit à faire un INT overflow par exemple.
+
 Ce code MVAP affiche le résultat de 2^3.
 ```py
 JUMP 4
