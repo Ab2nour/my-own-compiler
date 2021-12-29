@@ -151,7 +151,7 @@ affectation returns [String code]
    $code = $expr.code;
    $code += "STOREG " + memory.get($id.text) + "\n";
  }
- | raccourci_affectation
+ | raccourci_affectation {$code = $raccourci_affectation.code;}
  | incr_ou_decr {$code = $incr_ou_decr.code;}
 ;
 
