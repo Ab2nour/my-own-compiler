@@ -1,38 +1,38 @@
-true and false or true and not true
+print(true and false or true and not true)
 
 ==out==
 0
 
 -----
-true or false and false
+print(true or false and false)
 
 ==out==
 1
 
 -----
-true or (false or false)
+print(true or (false or false))
 
 ==out==
 1
 
 -----
-false or (true and not false)
+print(false or (true and not false))
 
 ==out==
 1
 
 -----
-(not true and false) or (true and not false)
+print((not true and false) or (true and not false))
 
 ==out==
 1
 
 -----
-true and false or true and not true
-true or false and false
-true or (false or false)
-false or (true and not false)
-(not true and false) or (true and not false)
+print(true and false or true and not true)
+print(true or false and false)
+print(true or (false or false))
+print(false or (true and not false))
+print((not true and false) or (true and not false))
 
 ==out==
 0
