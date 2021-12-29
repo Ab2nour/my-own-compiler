@@ -36,3 +36,28 @@ print(x)
 
 ==out==
 42
+
+-----
+int x;
+x = 0;
+
+x += 42;
+print(x);
+
+x = 84
+x -= 42;
+print(x);
+
+x = 14
+x *= 3;
+print(x);
+
+x = 168
+x /= 4;
+print(x);
+
+==out==
+42
+42
+42
+42

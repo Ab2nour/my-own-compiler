@@ -151,13 +151,17 @@ affectation returns [String code]
    $code = $expr.code;
    $code += "STOREG " + memory.get($id.text) + "\n";
  }
- | id=IDENTIFIANT PLUS EGAL expr {
+ | raccourci_affectation
+ | incr_ou_decr {$code = $incr_ou_decr.code;}
+;
+
+raccourci_affectation returns [String code]
+ : id=IDENTIFIANT operateur=(PLUS | MOINS | MUL_OU_DIV) EGAL expr {
    $code = "PUSHG " + memory.get($id.text) + "\n";
    $code += $expr.code;
-   $code += "ADD\n";
+   $code += $operateur.getText() + "\n";
    $code += "STOREG " + memory.get($id.text) + "\n";
  }
- | incr_ou_decr {$code = $incr_ou_decr.code;}
 ;
 
 incr_ou_decr returns [String code]
