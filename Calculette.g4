@@ -130,9 +130,9 @@ expr returns [String code]
 // expression arithmétique
 expr_arith returns [String code]
  : L_PARENTHESE a=expr_arith R_PARENTHESE {$code = $a.code;}
- | a=expr_arith '^' b=expr_arith {
-     //todo: décrémenter b jusqu'à trouver 0 et multiplier a par a pendant ce temps
-     //todo: gérer les exposants négatifs
+ //todo: gérer les exposants négatifs
+ | a=expr_arith EXP b=expr_arith {
+
      $code = $a.code + $b.code + "DIV\n";
 
     }
