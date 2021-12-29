@@ -1,20 +1,16 @@
-PUSHI 0 # résultat -> -5
-PUSHI 2 # nombre -> -4
-PUSHI 4 # exposant -> -3
-CALL 0
-POP # exposant
-POP # nombre
-
-WRITE # print(résultat)
-POP # résultat
-HALT
-
-# fonction exposant (a, b)
-# renvoie 1 entier : a^b
+JUMP 4
+# ---------- fonction EXP(nombre, exposant) ----------
+# Renvoie résultat = nombre^exposant
+#
+# Places locales :
+#   résultat -> -5
+#   nombre -> -4
+#   exposant -> -3
 LABEL 0
-    # variable qui stocke la valeur de a^b à chaque étape
-    # -> place locale (à partir de fp) : 0
-    PUSHI 1 # valeur_a^b = 1
+    # résultat stocke la valeur de a^b à chaque étape
+    # et contient la valeur nombre^exposant à la fin
+    PUSHI 1 # résultat = 1
+    STOREL -5
 
     LABEL 1 # while exposant > 0
         PUSHL -3 # exposant
@@ -24,7 +20,7 @@ LABEL 0
 
         # valeur_a^b *= nombre
         PUSHL 0
-        PUSHL -4
+        PUSHL -4 # nombre
         MUL
         STOREL 0
 
@@ -41,3 +37,17 @@ LABEL 0
             PUSHL 0
             STOREL -5
             RETURN
+
+LABEL 4
+PUSHI 0 # résultat -> -5
+PUSHI 2 # nombre -> -4
+PUSHI 4 # exposant -> -3
+CALL 0
+POP # exposant
+POP # nombre
+
+WRITE # print(résultat)
+POP # résultat
+HALT
+
+
