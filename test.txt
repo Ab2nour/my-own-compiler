@@ -1,17 +1,12 @@
-PUSHI 42
-
 PUSHI 0 # résultat -> -5
 PUSHI 2 # nombre -> -4
 PUSHI 4 # exposant -> -3
 CALL 0
-POP
-POP
+POP # exposant
+POP # nombre
 
-WRITE
-POP
-POP
-PUSHI 142
-POP
+WRITE # print(résultat)
+POP # résultat
 HALT
 
 # fonction exposant (a, b)
