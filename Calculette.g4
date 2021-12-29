@@ -157,16 +157,14 @@ affectation returns [String code]
    $code += "ADD\n";
    $code += "STOREG " + memory.get($id.text) + "\n";
  }
- | id=IDENTIFIANT INCREMENTATION {
+ | incr_ou_decr
+;
+
+incr_ou_decr returns [String code]
+ : id=IDENTIFIANT operateur=(INCREMENTATION | DECREMENTATION) {
    $code = "PUSHG " + memory.get($id.text) + "\n";
    $code += "PUSHI 1\n";
-   $code += "ADD\n";
-   $code += "STOREG " + memory.get($id.text) + "\n";
- }
- | id=IDENTIFIANT DECREMENTATION {
-   $code = "PUSHG " + memory.get($id.text) + "\n";
-   $code += "PUSHI 1\n";
-   $code += "SUB\n";
+   $code += $operateur.getText() + "\n";
    $code += "STOREG " + memory.get($id.text) + "\n";
  }
 ;
@@ -281,8 +279,8 @@ EXP : '^' | SYMBOLE_FOIS SYMBOLE_FOIS;
 PLUS : SYMBOLE_PLUS { setText("ADD"); };
 MOINS : SYMBOLE_MOINS { setText("SUB"); };
 
-INCREMENTATION : SYMBOLE_PLUS SYMBOLE_PLUS;
-DECREMENTATION : SYMBOLE_MOINS SYMBOLE_MOINS;
+INCREMENTATION : SYMBOLE_PLUS SYMBOLE_PLUS { setText("ADD"); };
+DECREMENTATION : SYMBOLE_MOINS SYMBOLE_MOINS { setText("SUB"); };
 
 fragment SYMBOLE_PLUS : '+';
 fragment SYMBOLE_MOINS : '-';
