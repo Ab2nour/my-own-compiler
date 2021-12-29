@@ -140,9 +140,19 @@ boucle returns [String code]
 ;
 
 fonction_builtin returns [String code]
- : PRINT L_PARENTHESE expr R_PARENTHESE {
-   $code = $expr.code;
-   $code += "WRITE\nPOP\n";
+ : print {$code = $print.code;}
+;
+
+print returns [String code]
+ @init {
+   $code = new String();
+   String code_arguments = new String();
+   String code_affichage = "WRITE\nPOP\n";
+ }
+ : PRINT L_PARENTHESE 
+      (expr VIRGULE {$code += $expr.code + code_affichage;})* e=expr
+   R_PARENTHESE {
+   $code += $e.code + code_affichage;
  }
 ;
 
@@ -234,13 +244,16 @@ expr_bool returns [String code]
 
 
 fin_expression
- : NEWLINE | ';'
+ : NEWLINE | POINT_VIRGULE
 ;
 
 // règles du lexer. Skip pour dire ne rien faire
 NEWLINE : BACKSLASH_R? BACKSLASH_N;
 fragment BACKSLASH_N : '\n';
 fragment BACKSLASH_R : '\r';
+
+POINT_VIRGULE : ';';
+VIRGULE : ',';
 
 
 WHITESPACE : (ESPACE| TAB)+ -> skip;
@@ -322,7 +335,6 @@ ELSE : 'else';
 WHILE : 'while';
 FOR : 'for';
 
-VIRGULE : ',';
 EGAL : '=';
 
 // Fonctions built-in
