@@ -181,9 +181,9 @@ expr returns [String code]
 expr_arith returns [String code]
  : L_PARENTHESE a=expr_arith R_PARENTHESE {$code = $a.code;}
  //todo: gérer les exposants négatifs
- | a=expr_arith EXP b=expr_arith {
+ | <assoc=right> a=expr_arith EXP b=expr_arith {
     $code = "PUSHI 0\n";
-    $code += $b.code + $a.code;
+    $code += $a.code + $b.code;
     $code += "CALL " + label_exp + "\n";
     $code += "POP\nPOP\n";
   }
