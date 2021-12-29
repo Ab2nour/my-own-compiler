@@ -13,7 +13,7 @@ print(x)
 
 -----
 int x;
-x+= 40+2;
+x += 40+2;
 print(x);
 
 ==out==
@@ -23,6 +23,15 @@ print(x);
 int x;
 x = 40;
 x++; x++;
+print(x)
+
+==out==
+42
+
+-----
+int x;
+x = 44;
+x--; x--;
 print(x)
 
 ==out==
