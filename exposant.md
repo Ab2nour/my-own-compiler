@@ -1,5 +1,5 @@
 Ce code MVAP affiche le résultat de 2^3.
-```
+```py
 JUMP 4
 
 # ---------- fonction EXP(nombre, exposant) ----------
