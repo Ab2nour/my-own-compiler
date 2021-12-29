@@ -1,4 +1,5 @@
 JUMP 4
+
 # ---------- fonction EXP(nombre, exposant) ----------
 # Renvoie résultat = nombre^exposant
 #
@@ -18,11 +19,11 @@ LABEL 0
         SUP # if (exposant > 0)
         JUMPF 2
 
-        # valeur_a^b *= nombre
-        PUSHL 0
+        # résultat *= nombre
+        PUSHL -5 # résultat
         PUSHL -4 # nombre
         MUL
-        STOREL 0
+        STOREL -5
 
         # exposant -= 1
         PUSHL -3
@@ -33,21 +34,21 @@ LABEL 0
         JUMP 1
 
         LABEL 2
-            # résultat = valeur_a^b
-            PUSHL 0
-            STOREL -5
+            # ici on a résultat = nombre^exposant
             RETURN
 
 LABEL 4
-PUSHI 0 # résultat -> -5
-PUSHI 2 # nombre -> -4
-PUSHI 4 # exposant -> -3
-CALL 0
-POP # exposant
-POP # nombre
+    PUSHI 0 # résultat -> -5
+    PUSHI 2 # nombre -> -4
+    PUSHI 3 # exposant -> -3
 
-WRITE # print(résultat)
-POP # résultat
+    CALL 0 # EXP(2, 3)
+
+    POP # exposant
+    POP # nombre
+
+    WRITE # print(résultat)
+    POP # résultat
 HALT
 
 
