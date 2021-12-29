@@ -149,7 +149,9 @@ print returns [String code]
    String code_arguments = new String();
    String code_affichage = "WRITE\nPOP\n";
  }
- : PRINT L_PARENTHESE (expr VIRGULE {$code += $expr.code + code_affichage;})* e=expr R_PARENTHESE {
+ : PRINT L_PARENTHESE 
+      (expr VIRGULE {$code += $expr.code + code_affichage;})* e=expr
+   R_PARENTHESE {
    $code += $e.code + code_affichage;
  }
 ;
