@@ -8,7 +8,7 @@ JUMP 4
 #   nombre -> -4
 #   exposant -> -3
 LABEL 0
-    # résultat stocke la valeur de a^b à chaque étape
+    # à chaque étape i, 0 <= i <= exposant, résultat stocke la valeur nombre^i
     # et contient la valeur nombre^exposant à la fin
     PUSHI 1 # résultat = 1
     STOREL -5
@@ -33,8 +33,8 @@ LABEL 0
 
         JUMP 1
 
+        # ici on a résultat = nombre^exposant
         LABEL 2
-            # ici on a résultat = nombre^exposant
             RETURN
 
 LABEL 4
