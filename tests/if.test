@@ -60,12 +60,12 @@ if (i < 41) {
 -----
 int variable
 variable = 42
-if (i == 40) {
+if (variable == 40) {
     print(41)
     print(41)
 } else {
-    print(i)
-    print(i)
+    print(variable)
+    print(variable)
 }
 
 
