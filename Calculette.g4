@@ -91,48 +91,39 @@ instruction returns [String code]
 ;
 
 structure_conditionnelle returns [String code]
-//todo: renommer code_if en instruction_if
+//todo: renommer instruction_if en instruction_if
  @init {
-   String code_if = new String();
-   String code_else = new String();
+   String instruction_if = new String();
+   String instruction_else = new String();
 
    String label_if = nouveauLabel();
    String label_else = nouveauLabel();
  }
  : IF L_PARENTHESE expr_bool R_PARENTHESE L_ACCOLADE NEWLINE*
-      (instruction fin_expression+ {code_if += $instruction.code;})+
-   R_ACCOLADE {
+      (instruction fin_expression+ {instruction_if += $instruction.code;})+
+   R_ACCOLADE (ELSE L_ACCOLADE NEWLINE*
+      (instruction fin_expression+ {instruction_else += $instruction.code;})+
+   R_ACCOLADE)? {
    $code = $expr_bool.code;
    $code += "JUMPF " + label_if + "\n";
-   $code += code_if;
-   $code += "LABEL " + label_if + "\n";
- }
- | IF L_PARENTHESE expr_bool R_PARENTHESE L_ACCOLADE NEWLINE*
-      (instruction fin_expression+ {code_if += $instruction.code;})+
-   R_ACCOLADE ELSE L_ACCOLADE NEWLINE*
-      (instruction fin_expression+ {code_else += $instruction.code;})+
-   R_ACCOLADE {
-
-   $code = $expr_bool.code;
-   $code += "JUMPF " + label_if + "\n";
-   $code += code_if;
+   $code += instruction_if;
    $code += "JUMP " + label_else + "\n";
    $code += "LABEL " + label_if + "\n";
-   $code += code_else;
+   $code += instruction_else;
    $code += "LABEL " + label_else + "\n";
  }
  | IF L_PARENTHESE expr_bool R_PARENTHESE NEWLINE*
-      instruction NEWLINE {code_if += $instruction.code;}
+      instruction NEWLINE {instruction_if += $instruction.code;}
    ELSE (IF) NEWLINE*
-      instruction NEWLINE+ {code_else += $instruction.code;}
+      instruction NEWLINE+ {instruction_else += $instruction.code;}
    R_ACCOLADE {
 
    $code = $expr_bool.code;
    $code += "JUMPF " + label_if + "\n";
-   $code += code_if;
+   $code += instruction_if;
    $code += "JUMP " + label_else + "\n";
    $code += "LABEL " + label_if + "\n";
-   $code += code_else;
+   $code += instruction_else;
    $code += "LABEL " + label_else + "\n";
  }
 ;
@@ -167,26 +158,26 @@ structure_else returns [String code]
    String label_else = nouveauLabel();
  }
  : ELSE L_ACCOLADE NEWLINE*
-      (instruction fin_expression+ {code_else += $instruction.code;})+
+      (instruction fin_expression+ {instruction_else += $instruction.code;})+
 //todo reprendre ici
    R_ACCOLADE {
    $code += "JUMP " + label_else + "\n";
    $code += "LABEL " + label_if + "\n";
-   $code += code_else;
+   $code += instruction_else;
    $code += "LABEL " + label_else + "\n";
  }
  | IF L_PARENTHESE expr_bool R_PARENTHESE NEWLINE*
-      instruction NEWLINE {code_if += $instruction.code;}
+      instruction NEWLINE {instruction_if += $instruction.code;}
    ELSE (IF) NEWLINE*
-      instruction NEWLINE+ {code_else += $instruction.code;}
+      instruction NEWLINE+ {instruction_else += $instruction.code;}
    R_ACCOLADE {
 
    $code = $expr_bool.code;
    $code += "JUMPF " + label_if + "\n";
-   $code += code_if;
+   $code += instruction_if;
    $code += "JUMP " + label_else + "\n";
    $code += "LABEL " + label_if + "\n";
-   $code += code_else;
+   $code += instruction_else;
    $code += "LABEL " + label_else + "\n";
  }
 ;
