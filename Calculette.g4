@@ -81,7 +81,7 @@ declaration returns [String code]
 
 bloc_instructions returns [String code]
  @init {
-   String $code = new String();
+   $code = new String();
  }
  : L_ACCOLADE NEWLINE*
       (instruction fin_expression+ {$code += $instruction.code;})+
@@ -109,13 +109,7 @@ structure_conditionnelle returns [String code]
    String label_else = nouveauLabel();
  }
  : IF L_PARENTHESE expr_bool R_PARENTHESE NEWLINE*
-   (bloc_instructions {instruction_if += $bloc_instructions.code;
-   
-   System.out.println("HELLO WORLD 2");
-   System.out.println(" ");
-   System.out.println("instruction if");
-   System.out.println($bloc_instructions.code);
-   }
+   (bloc_instructions {instruction_if += $bloc_instructions.code;}
     | instruction {instruction_if += $instruction.code;}
    )
    (ELSE L_ACCOLADE NEWLINE*
@@ -124,18 +118,11 @@ structure_conditionnelle returns [String code]
    $code = $expr_bool.code;
    $code += "JUMPF " + label_if + "\n";
    $code += instruction_if;
-   System.out.println("HELLO WORLD");
-   System.out.println(" ");
-   System.out.println("instruction if");
-   System.out.println(instruction_if);
-   System.out.println(" ");
-   System.out.println(" ");
-   System.out.println(" ");
    if (instruction_else != "") {$code += "JUMP " + label_else + "\n";}
    $code += "LABEL " + label_if + "\n";
    if (instruction_else != "") {
-    $code += instruction_else;
-    $code += "LABEL " + label_else + "\n";
+      $code += instruction_else;
+      $code += "LABEL " + label_else + "\n";
    }
  }
  | IF L_PARENTHESE expr_bool R_PARENTHESE NEWLINE*
