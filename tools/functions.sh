@@ -126,9 +126,9 @@ function test_expr () {
         echo "----- Entrée -----"
         echo "$expr"
         echo "----- Résultat attendu -----"
-        echo "$resultat"
-        echo "----- Résultat obtenu ❌ -----"
         echo "$resultat_attendu"
+        echo "----- Résultat obtenu ❌ -----"
+        echo "$resultat"
         echo; echo;     
         let "nb_tests_faux+=1"
     fi
