@@ -101,14 +101,16 @@ instruction returns [String code]
 
 structure_conditionnelle returns [String code]
  @init {
-   /*String instruction_if = new String();*/
+   String instruction_if = new String();
    String instruction_else = new String();
 
    String label_if = nouveauLabel();
    String label_else = nouveauLabel();
  }
  : IF L_PARENTHESE expr_bool R_PARENTHESE NEWLINE*
-   (instruction_if=bloc_instructions | instruction_if=instruction NEWLINE)
+   (bloc_instructions {instruction_if += $bloc_instructions.code;}
+    | instruction NEWLINE {instruction_if += $instruction.code;}
+   )
    (ELSE L_ACCOLADE NEWLINE*
       (instruction fin_expression+ {instruction_else += $instruction.code;})+
    R_ACCOLADE)? {
