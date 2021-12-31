@@ -1,0 +1,74 @@
+int i
+i=11
+if (i < 11) i=i+2
+print(i)
+
+==out==
+11
+
+-----
+int i
+i=10
+if (i < 11) i=i+2
+print(i)
+
+==out==
+12
+
+-----
+int i
+i=10
+if (i < 11)
+    i = i+2
+print(i)
+
+==out==
+12
+
+-----
+int i
+i=10
+if (i < 11)
+    i = i+2;
+print(i)
+
+==out==
+12
+
+-----
+int i
+i = 11
+if (i < 11) {
+    i = i+2;
+    print(i);
+}
+
+==out==
+
+
+-----
+int i
+i = 40
+if (i < 41) {
+    i = i+2;
+    print(i);
+}
+
+==out==
+42
+
+-----
+int variable
+variable = 42
+if (variable == 40) {
+    print(41)
+    print(41)
+} else {
+    print(variable)
+    print(variable)
+}
+
+
+==out==
+42
+42

@@ -79,11 +79,21 @@ declaration returns [String code]
  | TYPE affectation
 ;
 
+bloc_instructions returns [String code]
+ @init {
+   $code = new String();
+ }
+ : L_ACCOLADE NEWLINE*
+      (instruction fin_expression+ {$code += $instruction.code;})+
+   R_ACCOLADE
+;
+
 instruction returns [String code]
  : affectation {$code = $affectation.code;}
  | fonction_builtin {$code = $fonction_builtin.code;}
  | structure_conditionnelle {$code = $structure_conditionnelle.code;}
  | boucle {$code = $boucle.code;}
+ | bloc_instructions {$code = $bloc_instructions.code;}
   // Une instruction qui ne contient qu'une expr est
   // inutile et sans effet de bord : on POP donc
   // le résultat de celle-ci.
@@ -92,35 +102,46 @@ instruction returns [String code]
 
 structure_conditionnelle returns [String code]
  @init {
-   String code_if = new String();
-   String code_else = new String();
+   String instruction_if = new String();
+   String instruction_else = new String();
 
    String label_if = nouveauLabel();
    String label_else = nouveauLabel();
  }
- : IF (expr_bool) L_ACCOLADE 
-      (instruction fin_expression+ {code_if += $instruction.code;})+
-   R_ACCOLADE {
+ : IF L_PARENTHESE expr_bool R_PARENTHESE NEWLINE*
+   (bloc_instructions {instruction_if += $bloc_instructions.code;}
+    | instruction {instruction_if += $instruction.code;}
+   )
+   (ELSE L_ACCOLADE NEWLINE*
+      (instruction fin_expression+ {instruction_else += $instruction.code;})+
+   R_ACCOLADE)? {
    $code = $expr_bool.code;
    $code += "JUMPF " + label_if + "\n";
-   $code += code_if;
+   $code += instruction_if;
+   if (instruction_else != "") {$code += "JUMP " + label_else + "\n";}
    $code += "LABEL " + label_if + "\n";
+   if (instruction_else != "") {
+      $code += instruction_else;
+      $code += "LABEL " + label_else + "\n";
+   }
  }
- | IF (expr_bool) L_ACCOLADE 
-      (instruction fin_expression+ {code_if += $instruction.code;})+
-   R_ACCOLADE ELSE L_ACCOLADE
-      (instruction fin_expression+ {code_else += $instruction.code;})+
-   R_ACCOLADE {
-
+ | IF L_PARENTHESE expr_bool R_PARENTHESE NEWLINE*
+      instruction NEWLINE {instruction_if += $instruction.code;}
+   (ELSE NEWLINE*
+      instruction NEWLINE+ {instruction_else += $instruction.code;}
+   R_ACCOLADE)? {
    $code = $expr_bool.code;
    $code += "JUMPF " + label_if + "\n";
-   $code += code_if;
-   $code += "JUMP " + label_else + "\n";
+   $code += instruction_if;
+   if (instruction_else != "") {$code += "JUMP " + label_else + "\n";}
    $code += "LABEL " + label_if + "\n";
-   $code += code_else;
-   $code += "LABEL " + label_else + "\n";
+   if (instruction_else != "") {
+    $code += instruction_else;
+    $code += "LABEL " + label_else + "\n";
+   }
  }
 ;
+
 
 boucle returns [String code]
  @init {
@@ -307,7 +328,7 @@ fragment SYMBOLE_DIV : '/';
 
 // un des opérateurs de comparaison
 OP_COMPARAISON
- : '==' { setText("EQ"); }
+ : '==' { setText("EQUAL"); }
  | '<>' { setText("NEQ"); }
  | '<=' { setText("INFEQ"); }
  | '<' { setText("INF"); }

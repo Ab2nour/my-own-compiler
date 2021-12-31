@@ -115,9 +115,21 @@ function test_expr () {
     resultat=$(mvap_sans_init "$expr" | xargs) # xargs trims whitespace
 
     if [ "$resultat" = "$resultat_attendu" ]; then
-        echo "✅ $expr = $resultat"
+        echo "✅ Test passé avec succès"
+        echo "----- Entrée -----"
+        echo "$expr"
+        echo "----- Résultat attendu -----"
+        echo "$resultat"
+        echo; echo;
     else
-        echo "❌ $expr = $resultat   (!= $resultat_attendu)"      
+        echo "❌ Echec du test"
+        echo "----- Entrée -----"
+        echo "$expr"
+        echo "----- Résultat attendu -----"
+        echo "$resultat_attendu"
+        echo "----- Résultat obtenu ❌ -----"
+        echo "$resultat"
+        echo; echo;     
         let "nb_tests_faux+=1"
     fi
 }
