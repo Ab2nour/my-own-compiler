@@ -91,6 +91,7 @@ instruction returns [String code]
 ;
 
 structure_conditionnelle returns [String code]
+//todo: renommer code_if en instruction_if
  @init {
    String code_if = new String();
    String code_else = new String();
