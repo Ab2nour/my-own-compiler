@@ -117,7 +117,6 @@ structure_conditionnelle returns [String code]
    (ELSE NEWLINE*
       instruction NEWLINE+ {instruction_else += $instruction.code;}
    R_ACCOLADE) {
-
    $code = $expr_bool.code;
    $code += "JUMPF " + label_if + "\n";
    $code += instruction_if;
