@@ -98,7 +98,7 @@ structure_conditionnelle returns [String code]
    String label_if = nouveauLabel();
    String label_else = nouveauLabel();
  }
- : IF (expr_bool) L_ACCOLADE 
+ : IF L_PARENTHESE expr_bool R_PARENTHESE L_ACCOLADE NEWLINE*
       (instruction fin_expression+ {code_if += $instruction.code;})+
    R_ACCOLADE {
    $code = $expr_bool.code;
@@ -106,9 +106,9 @@ structure_conditionnelle returns [String code]
    $code += code_if;
    $code += "LABEL " + label_if + "\n";
  }
- | IF (expr_bool) L_ACCOLADE 
+ | IF L_PARENTHESE expr_bool R_PARENTHESE L_ACCOLADE NEWLINE*
       (instruction fin_expression+ {code_if += $instruction.code;})+
-   R_ACCOLADE ELSE L_ACCOLADE
+   R_ACCOLADE ELSE L_ACCOLADE NEWLINE*
       (instruction fin_expression+ {code_else += $instruction.code;})+
    R_ACCOLADE {
 
@@ -307,7 +307,7 @@ fragment SYMBOLE_DIV : '/';
 
 // un des opérateurs de comparaison
 OP_COMPARAISON
- : '==' { setText("EQ"); }
+ : '==' { setText("EQUAL"); }
  | '<>' { setText("NEQ"); }
  | '<=' { setText("INFEQ"); }
  | '<' { setText("INF"); }
