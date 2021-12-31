@@ -79,6 +79,15 @@ declaration returns [String code]
  | TYPE affectation
 ;
 
+bloc_instructions returns [String code]
+ @init {
+   String code = new String();
+ }
+ : L_ACCOLADE NEWLINE*
+      (instruction fin_expression+ {code += $instruction.code;})+
+   R_ACCOLADE
+;
+
 instruction returns [String code]
  : affectation {$code = $affectation.code;}
  | fonction_builtin {$code = $fonction_builtin.code;}
@@ -91,22 +100,21 @@ instruction returns [String code]
 ;
 
 structure_conditionnelle returns [String code]
-//todo: renommer instruction_if en instruction_if
  @init {
-   String instruction_if = new String();
+   /*String instruction_if = new String();*/
    String instruction_else = new String();
 
    String label_if = nouveauLabel();
    String label_else = nouveauLabel();
  }
- : IF L_PARENTHESE expr_bool R_PARENTHESE L_ACCOLADE NEWLINE*
-      (instruction fin_expression+ {instruction_if += $instruction.code;})+
-   R_ACCOLADE (ELSE L_ACCOLADE NEWLINE*
+ : IF L_PARENTHESE expr_bool R_PARENTHESE NEWLINE*
+   (instruction_if=bloc_instructions | instruction_if=instruction NEWLINE)
+   (ELSE L_ACCOLADE NEWLINE*
       (instruction fin_expression+ {instruction_else += $instruction.code;})+
    R_ACCOLADE)? {
    $code = $expr_bool.code;
    $code += "JUMPF " + label_if + "\n";
-   $code += instruction_if;
+   $code += $instruction_if.code;
    $code += "JUMP " + label_else + "\n";
    $code += "LABEL " + label_if + "\n";
    $code += instruction_else;
