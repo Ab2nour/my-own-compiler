@@ -109,7 +109,7 @@ structure_conditionnelle returns [String code]
  }
  : IF L_PARENTHESE expr_bool R_PARENTHESE NEWLINE*
    (bloc_instructions {instruction_if += $bloc_instructions.code;}
-    | instruction NEWLINE {instruction_if += $instruction.code;}
+    | instruction {instruction_if += $instruction.code;}
    )
    (ELSE L_ACCOLADE NEWLINE*
       (instruction fin_expression+ {instruction_else += $instruction.code;})+
