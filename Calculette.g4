@@ -117,10 +117,12 @@ structure_conditionnelle returns [String code]
    $code = $expr_bool.code;
    $code += "JUMPF " + label_if + "\n";
    $code += instruction_if;
-   $code += "JUMP " + label_else + "\n";
+   if (instruction_else != "") {$code += "JUMP " + label_else + "\n";}
    $code += "LABEL " + label_if + "\n";
-   $code += instruction_else;
-   $code += "LABEL " + label_else + "\n";
+   if (instruction_else != "") {
+    $code += instruction_else;
+    $code += "LABEL " + label_else + "\n";
+   }
  }
  | IF L_PARENTHESE expr_bool R_PARENTHESE NEWLINE*
       instruction NEWLINE {instruction_if += $instruction.code;}
@@ -130,10 +132,12 @@ structure_conditionnelle returns [String code]
    $code = $expr_bool.code;
    $code += "JUMPF " + label_if + "\n";
    $code += instruction_if;
-   $code += "JUMP " + label_else + "\n";
+   if (instruction_else != "") {$code += "JUMP " + label_else + "\n";}
    $code += "LABEL " + label_if + "\n";
-   $code += instruction_else;
-   $code += "LABEL " + label_else + "\n";
+   if (instruction_else != "") {
+    $code += instruction_else;
+    $code += "LABEL " + label_else + "\n";
+   }
  }
 ;
 
