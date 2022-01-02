@@ -47,4 +47,4 @@ Maintenant, on veut exécuter l'instruction `variable = variable + 10`.
   
   `bas [2, 5, variable + 10, 6, 3, 87] sommet`
   
-Et voilà, on a fini d'effectuer `variable = variable +10` !
+Et voilà, on a fini d'effectuer `variable = variable + 10` !
