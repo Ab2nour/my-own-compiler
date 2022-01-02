@@ -15,7 +15,7 @@ cd projet-compilation # on suppose qu'on est dans ce dossier
 
 On commence par charger les fonctions :
 ```bash
-. tools/functions # (on peut remplacer le "." par "bash")
+. tools/functions.sh # (on peut remplacer le "." par "bash")
 ```
 
 ## Utilisation
