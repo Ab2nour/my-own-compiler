@@ -12,6 +12,7 @@ Soit `adresse_variable` l'adresse de notre variable dans la pile.
 # Exemple
 
 Soit `variable` un entier de valeur inconnue.
+
 Voici un exemple de pile, avec le bas de la pile à gauche, et le sommet à droite (on empile à droite)
 
 `bas [2, 5, variable, 6, 3, 87] sommet`  
@@ -29,16 +30,21 @@ Maintenant, on veut exécuter l'instruction `variable = variable + 10`.
   `bas [2, 5, variable, 6, 3, 87, variable] sommet`
 
 **2) On rajoute 10 dans la pile**
+
   `PUSHI 10`
+  
+  `bas [2, 5, variable, 6, 3, 87, variable, 10] sommet`
+    
+**3) On additionne `variable` et 10**
 
-  début [2, 5, variable, 6, 3, 87, variable, 10] fin
-ADD
+  `ADD`
+  
+  `bas [2, 5, variable, 6, 3, 87, variable + 10] sommet`
 
-début [2, 5, variable, 6, 3, 87, variable+10] fin
-STOREG adresse => pile[adresse] = sommet de pile
-STOREG 2
-début [2, 5, variable+10, 6, 3, 87] fin
-HashMap['variable'] = 2
-autre exemple, la pile est vide
-int x
-HashMap['x'] = 0
+**4) On stocke `variable + 10` dans `variable`**
+
+  `STOREG 2`
+  
+  `bas [2, 5, variable + 10, 6, 3, 87] sommet`
+  
+Et voilà, on a fini d'effectuer `variable = variable +10` !
