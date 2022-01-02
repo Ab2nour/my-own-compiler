@@ -18,17 +18,6 @@ On commence par charger les fonctions :
 . tools/functions # (on peut remplacer le "." par "bash")
 ```
 
-## Initialisation
-On suppose que, à chaque commande exécutée, on se situe dans le dossier racine `projet-compilation` : 
-```bash
-cd projet-compilation # on suppose qu'on est dans ce dossier
-```
-
-On commence par charger les fonctions :
-```bash
-. tools/functions # (on peut remplacer le "." par "bash")
-```
-
 ## Utilisation
 ### `mvap`
 On utilise principalement la commande `mvap` qui permet de tout faire (génération des fichiers ANTLR4, génération du code MVaP avec `grun`, puis compilation et exécution du code MVaP).
