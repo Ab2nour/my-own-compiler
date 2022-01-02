@@ -1,4 +1,6 @@
 #!/usr/bin/bash
+# On suppose que le script est lancé depuis le dossier `projet-compilation`.
+
 # ---------------- Fonctions ----------------            
 function initialisation () {
     export CLASSPATH=.:tools/antlr-4.9.2-complete.jar:tools/mvap/MVaP.jar:$CLASSPATH
@@ -36,8 +38,6 @@ function mvap () {
 
 function init_mvap () {
     # Effectue l'initialisation nécessaire à la fonction `mvap_sans_init`
-    initialisation
-
     antlr4 Calculette.g4                
     javac *.java
 }
@@ -53,7 +53,7 @@ function mvap_sans_init () {
     # On considère donc que l'initialisation des fichiers de la
     # grammaire a déjà été effectuée.
     
-    if [ "$1" = "-f" ]; then ## si c'est un fichier
+    if [ "$1" = "-f" ]; then # si c'est un fichier
         nom_fichier="$2"
         cat "$nom_fichier" | grun Calculette 'start' > fichier.mvap
     else        
@@ -82,7 +82,7 @@ function mvap_debug () {
 
     expr="$1"
 
-    if [ "$1" = "-f" ]; then ## si c'est un fichier
+    if [ "$1" = "-f" ]; then # si c'est un fichier
         nom_fichier="$2"
 
         cat "$nom_fichier" | grun Calculette 'start' -tokens
@@ -148,3 +148,6 @@ function affiche_bilan () {
         exit 42
     fi
 }
+
+# On initialise MVaP
+initialisation
