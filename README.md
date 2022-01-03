@@ -3,6 +3,15 @@ Il s'agit d'un projet de L3 visant à créer son propre (petit) langage de progr
 - **ANTLR4** pour gérer la grammaire, l'analyse lexicale et syntaxique,
 - **MVàP** (Machine Virtuelle à Pile), qu'on peut considérer comme de l'assembleur simplifié sur plusieurs points, soit un langage de (très) bas niveau.
 
+## Structure du projet
+Le projet est structuré de cette façon :
+- [`projet-compilation/`](https://github.com/Ab2nour/projet-compilation/tree/main/)
+  - [`docs/`](https://github.com/Ab2nour/projet-compilation/tree/main/docs) : Documentation du projet
+  - [`tests/`](https://github.com/Ab2nour/projet-compilation/tree/main/tests) : Tests
+  - [`tools/`](https://github.com/Ab2nour/projet-compilation/tree/main/tests) : Fonctions utiles, **ANTLR4** _(v4.9.2)_ et **MVaP**
+  - [`Calculette.g4`](https://github.com/Ab2nour/projet-compilation/blob/main/Calculette.g4) : la grammaire du langage
+
+
 # MVaP et ANTLR4
 On utilise une version spécifique de MVaP et ANTLR4, qui est disponible dans le dossier `tools`.
 
