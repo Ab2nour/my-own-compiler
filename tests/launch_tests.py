@@ -3,6 +3,10 @@ import subprocess
 import os
 
 
+# ---------- Constantes ----------
+NOM_FICHIER_SH = 'launch_tests.sh'
+
+
 # ---------- Fonctions ----------
 def add_tests(name, title):
     """
@@ -31,7 +35,7 @@ def add_tests(name, title):
             tests[i][1] = tests[i][1].replace('\n', ' ') 
 
 
-    with open('launch_tests.sh', mode='a') as fichier_sortie:
+    with open(NOM_FICHIER_SH, mode='a') as fichier_sortie:
         fichier_sortie.write(f"echo; echo\n")
 
         padded_title = (' ' + title + ' ')
