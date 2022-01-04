@@ -369,8 +369,9 @@ PRINT : 'print' | 'afficher';
 READ : 'read' | 'lire';
 
 
-IDENTIFIANT : LETTRE (LETTRE | CHIFFRE)*;
+IDENTIFIANT : (LETTRE | UNDERSCORE) (LETTRE | CHIFFRE | UNDERSCORE)*;
 
 fragment LETTRE : [a-z] | [A-Z];
+fragment UNDERSCORE : '_';
 
 UNMATCH : . -> skip;
