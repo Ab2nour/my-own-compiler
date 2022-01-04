@@ -101,6 +101,10 @@ instruction returns [String code]
 ;
 
 structure_conditionnelle returns [String code]
+  : if {$code = $if.code;}
+;
+
+if returns [String code]
  @init {
    String instruction_if = new String();
    String instruction_else = new String();
@@ -115,6 +119,7 @@ structure_conditionnelle returns [String code]
    (ELSE NEWLINE*
    (bloc_instructions {instruction_else += $bloc_instructions.code;}
     | instruction {instruction_else += $instruction.code;}
+    | if {instruction_else += $if.code;}
    ))? {
    $code = $expr_bool.code;
    $code += "JUMPF " + label_if + "\n";
