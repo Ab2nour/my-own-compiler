@@ -162,6 +162,7 @@ boucle returns [String code]
 
 fonction_builtin returns [String code]
  : print {$code = $print.code;}
+ | read {$code = "READ\n";}
 ;
 
 print returns [String code]
