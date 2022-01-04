@@ -19,7 +19,7 @@ x = 38
 print(x)
 
 do x = x+1
-while (x < 43)
+while (x < 42)
 
 print(x)
 
