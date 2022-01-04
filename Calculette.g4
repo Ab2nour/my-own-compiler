@@ -112,7 +112,7 @@ structure_conditionnelle returns [String code]
    (bloc_instructions {instruction_if += $bloc_instructions.code;}
     | instruction {instruction_if += $instruction.code;}
    )
-   (ELSE L_ACCOLADE NEWLINE*
+   (ELSE NEWLINE*
    (bloc_instructions {instruction_else += $bloc_instructions.code;}
     | instruction {instruction_else += $instruction.code;}
    ))? {
