@@ -148,9 +148,20 @@ boucle returns [String code]
     | instruction fin_expression+ {code_instruction += $instruction.code;}
    ) WHILE L_PARENTHESE bool R_PARENTHESE {
         String label_instructions = nouveauLabel(); // instructions du do while
-        String label_condition = nouveauLabel();
-        String label_fin = nouveauLabel();
-        $code = 
+        String label_condition = nouveauLabel(); // vérification de la condition
+        String label_fin = nouveauLabel(); // fin du do while
+        
+        $code = "JUMP" + label_instructions + "\n";
+        
+        $code += "LABEL" + label_condition + "\n";
+        $code += $bool.code;
+        $code += "JUMPF" + label_fin + "\n";
+        
+        $code += "LABEL" + label_instructions + "\n";
+        $code += code_instruction;
+        $code += "JUMP" + label_condition + "\n";
+        
+        $code += "LABEL" + label_fin + "\n";
    }
 ;
 
