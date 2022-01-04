@@ -110,11 +110,11 @@ structure_conditionnelle returns [String code]
  }
  : IF L_PARENTHESE expr_bool R_PARENTHESE NEWLINE*
    (bloc_instructions {instruction_if += $bloc_instructions.code;}
-    | instruction fin_expression+ {instruction_if += $instruction.code;}
+    | instruction {instruction_if += $instruction.code;}
    )
    (ELSE L_ACCOLADE NEWLINE*
    (bloc_instructions {instruction_else += $bloc_instructions.code;}
-    | instruction fin_expression+ {instruction_else += $instruction.code;}
+    | instruction {instruction_else += $instruction.code;}
    ))? {
    $code = $expr_bool.code;
    $code += "JUMPF " + label_if + "\n";
@@ -145,23 +145,23 @@ boucle returns [String code]
    label_actuel++;
  }
  | DO NEWLINE* (bloc_instructions {code_instruction += $bloc_instructions.code;}
-    | instruction fin_expression+ {code_instruction += $instruction.code;}
+    | instruction {code_instruction += $instruction.code;}
    ) WHILE L_PARENTHESE expr_bool R_PARENTHESE {
         String label_instructions = nouveauLabel(); // instructions du do while
         String label_condition = nouveauLabel(); // vérification de la condition
         String label_fin = nouveauLabel(); // fin du do while
         
-        $code = "JUMP" + label_instructions + "\n";
+        $code = "JUMP " + label_instructions + "\n";
         
-        $code += "LABEL" + label_condition + "\n";
+        $code += "LABEL " + label_condition + "\n";
         $code += $expr_bool.code;
         $code += "JUMPF" + label_fin + "\n";
         
-        $code += "LABEL" + label_instructions + "\n";
+        $code += "LABEL " + label_instructions + "\n";
         $code += code_instruction;
-        $code += "JUMP" + label_condition + "\n";
+        $code += "JUMP " + label_condition + "\n";
         
-        $code += "LABEL" + label_fin + "\n";
+        $code += "LABEL " + label_fin + "\n";
    }
 ;
 
