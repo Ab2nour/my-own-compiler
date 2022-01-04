@@ -80,6 +80,7 @@ declaration returns [String code]
         memory.put($id.text, placeProchaineVariable());
         $code = "PUSHI 0\n";})* IDENTIFIANT
     | TYPE affectation
+    id=IDENTIFIANT EGAL expr 
 ;
 
 bloc_instructions returns [String code]
