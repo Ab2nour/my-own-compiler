@@ -110,11 +110,12 @@ structure_conditionnelle returns [String code]
  }
  : IF L_PARENTHESE expr_bool R_PARENTHESE NEWLINE*
    (bloc_instructions {instruction_if += $bloc_instructions.code;}
-    | instruction {instruction_if += $instruction.code;}
+    | instruction fin_expression+ {instruction_if += $instruction.code;}
    )
    (ELSE L_ACCOLADE NEWLINE*
-      (instruction fin_expression+ {instruction_else += $instruction.code;})+
-   R_ACCOLADE)? {
+   (bloc_instructions {instruction_else += $bloc_instructions.code;}
+    | instruction fin_expression+ {instruction_else += $instruction.code;}
+   ))? {
    $code = $expr_bool.code;
    $code += "JUMPF " + label_if + "\n";
    $code += instruction_if;
@@ -123,21 +124,6 @@ structure_conditionnelle returns [String code]
    if (instruction_else != "") {
       $code += instruction_else;
       $code += "LABEL " + label_else + "\n";
-   }
- }
- | IF L_PARENTHESE expr_bool R_PARENTHESE NEWLINE*
-      instruction NEWLINE {instruction_if += $instruction.code;}
-   (ELSE NEWLINE*
-      instruction NEWLINE+ {instruction_else += $instruction.code;}
-   R_ACCOLADE)? {
-   $code = $expr_bool.code;
-   $code += "JUMPF " + label_if + "\n";
-   $code += instruction_if;
-   if (instruction_else != "") {$code += "JUMP " + label_else + "\n";}
-   $code += "LABEL " + label_if + "\n";
-   if (instruction_else != "") {
-    $code += instruction_else;
-    $code += "LABEL " + label_else + "\n";
    }
  }
 ;
@@ -158,6 +144,14 @@ boucle returns [String code]
 
    label_actuel++;
  }
+ | DO (bloc_instructions {code_instruction += $bloc_instructions.code;}
+    | instruction fin_expression+ {code_instruction += $instruction.code;}
+   ) WHILE L_PARENTHESE bool R_PARENTHESE {
+        String label_instructions = nouveauLabel(); // instructions du do while
+        String label_condition = nouveauLabel();
+        String label_fin = nouveauLabel();
+        $code = 
+   }
 ;
 
 fonction_builtin returns [String code]
@@ -351,10 +345,11 @@ FLOAT: 'float';
 
 
 // Structures de contrôle et boucles :
-IF : 'if';
-ELSE : 'else';
-WHILE : 'while';
-FOR : 'for';
+IF : 'if' | 'si';
+ELSE : 'else' | 'sinon';
+WHILE : 'while' | 'tantque';
+FOR : 'for' | 'pour';
+DO : 'do' | 'repeter';
 
 EGAL : '=';
 
