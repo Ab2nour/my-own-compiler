@@ -145,7 +145,7 @@ boucle returns [String code]
    label_actuel++;
  }
  | DO NEWLINE* (bloc_instructions {code_instruction += $bloc_instructions.code;}
-    | instruction {code_instruction += $instruction.code;}
+    | instruction POINT_VIRGULE? NEWLINE* {code_instruction += $instruction.code;}
    ) WHILE L_PARENTHESE expr_bool R_PARENTHESE {
         String label_instructions = nouveauLabel(); // instructions du do while
         String label_condition = nouveauLabel(); // vérification de la condition
