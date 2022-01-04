@@ -146,7 +146,7 @@ boucle returns [String code]
     : WHILE (expr_bool) L_ACCOLADE 
         (instruction fin_expression+ {code_instruction += $instruction.code;})+
     R_ACCOLADE {
-        // TODO !!!
+        // todo
     }
     | DO NEWLINE* (bloc_instructions {code_instruction += $bloc_instructions.code;}
         | instruction POINT_VIRGULE? NEWLINE* {code_instruction += $instruction.code;}
@@ -170,111 +170,111 @@ boucle returns [String code]
 ;
 
 fonction_builtin returns [String code]
-: print {$code = $print.code;}
+    : print {$code = $print.code;}
 ;
 
 print returns [String code]
-@init {
-$code = new String();
-String code_arguments = new String();
-String code_affichage = "WRITE\nPOP\n";
-}
-: PRINT L_PARENTHESE 
-(expr VIRGULE {$code += $expr.code + code_affichage;})* e=expr
-R_PARENTHESE {
-$code += $e.code + code_affichage;
-}
+    @init {
+        $code = new String();
+        String code_arguments = new String();
+        String code_affichage = "WRITE\nPOP\n";
+    }
+    : PRINT L_PARENTHESE 
+        (expr VIRGULE {$code += $expr.code + code_affichage;})* e=expr
+    R_PARENTHESE {
+        $code += $e.code + code_affichage;
+    }
 ;
 
 affectation returns [String code]
-: id=IDENTIFIANT EGAL expr {
-$code = $expr.code;
-$code += "STOREG " + memory.get($id.text) + "\n";
-}
-| raccourci_affectation {$code = $raccourci_affectation.code;}
-| incr_ou_decr {$code = $incr_ou_decr.code;}
+    : id=IDENTIFIANT EGAL expr {
+        $code = $expr.code;
+        $code += "STOREG " + memory.get($id.text) + "\n";
+    }
+    | raccourci_affectation {$code = $raccourci_affectation.code;}
+    | incr_ou_decr {$code = $incr_ou_decr.code;}
 ;
 
 raccourci_affectation returns [String code]
-: id=IDENTIFIANT operateur=(PLUS | MOINS | MUL_OU_DIV) EGAL expr {
-$code = "PUSHG " + memory.get($id.text) + "\n";
-$code += $expr.code;
-$code += $operateur.getText() + "\n";
-$code += "STOREG " + memory.get($id.text) + "\n";
-}
+    : id=IDENTIFIANT operateur=(PLUS | MOINS | MUL_OU_DIV) EGAL expr {
+        $code = "PUSHG " + memory.get($id.text) + "\n";
+        $code += $expr.code;
+        $code += $operateur.getText() + "\n";
+        $code += "STOREG " + memory.get($id.text) + "\n";
+    }
 ;
 
 incr_ou_decr returns [String code]
-: id=IDENTIFIANT operateur=(INCREMENTATION | DECREMENTATION) {
-$code = "PUSHG " + memory.get($id.text) + "\n";
-$code += "PUSHI 1\n";
-$code += $operateur.getText() + "\n";
-$code += "STOREG " + memory.get($id.text) + "\n";
-}
+    : id=IDENTIFIANT operateur=(INCREMENTATION | DECREMENTATION) {
+        $code = "PUSHG " + memory.get($id.text) + "\n";
+        $code += "PUSHI 1\n";
+        $code += $operateur.getText() + "\n";
+        $code += "STOREG " + memory.get($id.text) + "\n";
+    }
 ;
 
 expr returns [String code]
-: expr_arith {$code = $expr_arith.code;}
-| expr_bool {$code = $expr_bool.code;}
+    : expr_arith {$code = $expr_arith.code;}
+    | expr_bool {$code = $expr_bool.code;}
 ;
 
 
 // expression arithmétique
 expr_arith returns [String code]
-: L_PARENTHESE a=expr_arith R_PARENTHESE {$code = $a.code;}
-//todo: gérer les exposants négatifs
-| <assoc=right> a=expr_arith EXP b=expr_arith {
-$code = "PUSHI 0\n";
-$code += $a.code + $b.code;
-$code += "CALL " + label_exp + "\n";
-$code += "POP\nPOP\n";
-}
-| a=expr_arith MUL_OU_DIV b=expr_arith {$code = $a.code + $b.code + $MUL_OU_DIV.getText() + "\n";}
-| a=expr_arith PLUS b=expr_arith {$code = $a.code + $b.code + $PLUS.getText() + "\n";}
-| a=expr_arith MOINS b=expr_arith {$code = $a.code + $b.code + $MOINS.getText() + "\n";}
-| nombre_entier {$code = $nombre_entier.code;}
-| id=IDENTIFIANT {$code = "PUSHG " + memory.get($id.text) + "\n";}
+    : L_PARENTHESE a=expr_arith R_PARENTHESE {$code = $a.code;}
+    //todo: gérer les exposants négatifs
+    | <assoc=right> a=expr_arith EXP b=expr_arith {
+        $code = "PUSHI 0\n";
+        $code += $a.code + $b.code;
+        $code += "CALL " + label_exp + "\n";
+        $code += "POP\nPOP\n";
+    }
+    | a=expr_arith MUL_OU_DIV b=expr_arith {$code = $a.code + $b.code + $MUL_OU_DIV.getText() + "\n";}
+    | a=expr_arith PLUS b=expr_arith {$code = $a.code + $b.code + $PLUS.getText() + "\n";}
+    | a=expr_arith MOINS b=expr_arith {$code = $a.code + $b.code + $MOINS.getText() + "\n";}
+    | nombre_entier {$code = $nombre_entier.code;}
+    | id=IDENTIFIANT {$code = "PUSHG " + memory.get($id.text) + "\n";}
 ;
 
 nombre_entier returns [String code]
-: MOINS ENTIER {$code = "PUSHI " + -$ENTIER.int + '\n';}
-| ENTIER {$code = "PUSHI " + $ENTIER.int + '\n';}
+    : MOINS ENTIER {$code = "PUSHI " + -$ENTIER.int + '\n';}
+    | ENTIER {$code = "PUSHI " + $ENTIER.int + '\n';}
 ;
 
 // expression booléenne
 expr_bool returns [String code]
-: L_PARENTHESE a=expr_bool R_PARENTHESE {$code = $a.code;}
-| NOT a=expr_bool {$code = "PUSHI 1\n" + $a.code + "SUB\n";} // (not a) === (1 - a)
-| c=expr_arith OP_COMPARAISON d=expr_arith
-{$code = $c.code + $d.code + $OP_COMPARAISON.text + "\n";}
-| a=expr_bool AND b=expr_bool {$code = $a.code + $b.code + "MUL\n";} // (a and b) === (a * b)
-| a=expr_bool OR b=expr_bool // (a or b) === ((a+b) <> 0)
-{
-$code = $a.code + $b.code + "ADD\n";
-$code += "PUSHI 0\n" + "NEQ\n";
-}
-| a=expr_bool OR_LAZY b=expr_bool // tentative de or avec lazy evaluation
-{
-$code = $a.code + '\n' + "PUSHG 0\n";
+    : L_PARENTHESE a=expr_bool R_PARENTHESE {$code = $a.code;}
+    | NOT a=expr_bool {$code = "PUSHI 1\n" + $a.code + "SUB\n";} // (not a) === (1 - a)
+    | c=expr_arith OP_COMPARAISON d=expr_arith {
+        $code = $c.code + $d.code + $OP_COMPARAISON.text + "\n";
+    }
+    | a=expr_bool AND b=expr_bool {$code = $a.code + $b.code + "MUL\n";} // (a and b) === (a * b)
+    | a=expr_bool OR b=expr_bool { // (a or b) === ((a+b) <> 0)
+        $code = $a.code + $b.code + "ADD\n";
+        $code += "PUSHI 0\n" + "NEQ\n";
+    }
+    | a=expr_bool OR_LAZY b=expr_bool { // tentative de or avec lazy evaluation    
+        $code = $a.code + '\n' + "PUSHG 0\n";
 
-$code += "PUSHI 1\n"; // if
-$code += "NEQ \n"; // (a == true) === not (a <> 1)
-$code += "JUMPF else\n";
+        $code += "PUSHI 1\n"; // if
+        $code += "NEQ \n"; // (a == true) === not (a <> 1)
+        $code += "JUMPF else\n";
 
-$code += $b.code + '\n'; // then
-$code += "ADD\n" + "PUSHI 1\n" + "SUPEQ\n";
-$code += "JUMP else\n";
-$code += "LABEL else\n" ; //else
-}
-| a=expr_bool XOR b=expr_bool // (a xor b) === (a <> b)
-{$code = $a.code + $b.code + "NEQ\n";}
-| BOOLEEN {$code = "PUSHI " + $BOOLEEN.getText() + '\n';}
-| id=IDENTIFIANT {$code = "PUSHG " + memory.get($id.text) + "\n";}
+        $code += $b.code + '\n'; // then
+        $code += "ADD\n" + "PUSHI 1\n" + "SUPEQ\n";
+        $code += "JUMP else\n";
+        $code += "LABEL else\n" ; //else
+    }
+    | a=expr_bool XOR b=expr_bool { // (a xor b) === (a <> b)
+        $code = $a.code + $b.code + "NEQ\n";
+    }
+    | BOOLEEN {$code = "PUSHI " + $BOOLEEN.getText() + "\n";}
+    | id=IDENTIFIANT {$code = "PUSHG " + memory.get($id.text) + "\n";}
 ;
 
 
 fin_expression
-: NEWLINE | POINT_VIRGULE
+    : NEWLINE | POINT_VIRGULE
 ;
 
 // règles du lexer. Skip pour dire ne rien faire
@@ -286,7 +286,7 @@ POINT_VIRGULE : ';';
 VIRGULE : ',';
 
 
-WHITESPACE : (ESPACE| TAB)+ -> skip;
+WHITESPACE : (ESPACE | TAB)+ -> skip;
 fragment ESPACE : ' ';
 fragment TAB : '\t';
 
@@ -306,11 +306,12 @@ R_ACCOLADE : '}';
 
 // commentaire
 COMMENTAIRE
-: (L_COMMENT .*? R_COMMENT
-// ANTLR4: on ne peut pas mettre de tokens dans les sets avec un '~' devant 
-// -> on est obligé de mettre \n plutôt que BACKSLASH_N dans SLASH_COMMENT.
-| SLASH_COMMENT .*? ~('\n' | '\r')*
-) -> skip
+    : (L_COMMENT .*? R_COMMENT
+
+    // ANTLR4: on ne peut pas mettre de tokens dans les sets avec un '~' devant 
+    // -> on est obligé de mettre \n plutôt que BACKSLASH_N dans SLASH_COMMENT.
+    | SLASH_COMMENT .*? ~('\n' | '\r')*
+    ) -> skip
 ; 
 
 fragment SLASH_COMMENT : '//';
@@ -318,8 +319,8 @@ fragment L_COMMENT : '/*';
 fragment R_COMMENT : '*/';
 
 MUL_OU_DIV
-: SYMBOLE_FOIS { setText("MUL"); }
-| SYMBOLE_DIV { setText("DIV"); }
+    : SYMBOLE_FOIS { setText("MUL"); }
+    | SYMBOLE_DIV { setText("DIV"); }
 ;
 
 EXP : '^' | SYMBOLE_FOIS SYMBOLE_FOIS;
@@ -337,15 +338,15 @@ fragment SYMBOLE_DIV : '/';
 
 // un des opérateurs de comparaison
 OP_COMPARAISON
-: '==' { setText("EQUAL"); }
-| '<>' { setText("NEQ"); }
-| '<=' { setText("INFEQ"); }
-| '<' { setText("INF"); }
-| '>=' { setText("SUPEQ"); }
-| '>' { setText("SUP"); }
+    : '==' { setText("EQUAL"); }
+    | '<>' { setText("NEQ"); }
+    | '<=' { setText("INFEQ"); }
+    | '<' { setText("INF"); }
+    | '>=' { setText("SUPEQ"); }
+    | '>' { setText("SUP"); }
 ;
 
-// Symboles de comparaison
+// Opérateurs booléens
 AND : 'and';
 OR : 'or';
 OR_LAZY : 'or_lazy';
