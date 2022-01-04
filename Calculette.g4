@@ -140,39 +140,33 @@ structure_if returns [String code]
 
 
 boucle returns [String code]
-@init {
-String code_instruction = new String();
-}
-: WHILE (expr_bool) L_ACCOLADE 
-(instruction fin_expression+ {code_instruction += $instruction.code;})+
-R_ACCOLADE {
-// TODO !!!
-$code = $expr_bool.code;
-$code += "JUMPF " + label_actuel + "\n";
-$code += code_instruction;
-$code += "LABEL " + label_actuel + "\n";
+    @init {
+        String code_instruction = new String();
+    }
+    : WHILE (expr_bool) L_ACCOLADE 
+        (instruction fin_expression+ {code_instruction += $instruction.code;})+
+    R_ACCOLADE {
+        // TODO !!!
+    }
+    | DO NEWLINE* (bloc_instructions {code_instruction += $bloc_instructions.code;}
+        | instruction POINT_VIRGULE? NEWLINE* {code_instruction += $instruction.code;}
+    ) WHILE L_PARENTHESE expr_bool R_PARENTHESE {
+        String label_instructions = nouveauLabel(); // instructions du do while
+        String label_condition = nouveauLabel(); // vérification de la condition
+        String label_fin = nouveauLabel(); // fin du do while
 
-label_actuel++;
-}
-| DO NEWLINE* (bloc_instructions {code_instruction += $bloc_instructions.code;}
-| instruction POINT_VIRGULE? NEWLINE* {code_instruction += $instruction.code;}
-) WHILE L_PARENTHESE expr_bool R_PARENTHESE {
-String label_instructions = nouveauLabel(); // instructions du do while
-String label_condition = nouveauLabel(); // vérification de la condition
-String label_fin = nouveauLabel(); // fin du do while
+        $code = "JUMP " + label_instructions + "\n";
 
-$code = "JUMP " + label_instructions + "\n";
+        $code += "LABEL " + label_condition + "\n";
+        $code += $expr_bool.code;
+        $code += "JUMPF" + label_fin + "\n";
 
-$code += "LABEL " + label_condition + "\n";
-$code += $expr_bool.code;
-$code += "JUMPF" + label_fin + "\n";
+        $code += "LABEL " + label_instructions + "\n";
+        $code += code_instruction;
+        $code += "JUMP " + label_condition + "\n";
 
-$code += "LABEL " + label_instructions + "\n";
-$code += code_instruction;
-$code += "JUMP " + label_condition + "\n";
-
-$code += "LABEL " + label_fin + "\n";
-}
+        $code += "LABEL " + label_fin + "\n";
+    }
 ;
 
 fonction_builtin returns [String code]
