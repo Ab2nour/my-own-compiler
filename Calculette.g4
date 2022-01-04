@@ -146,7 +146,7 @@ boucle returns [String code]
  }
  | DO NEWLINE* (bloc_instructions {code_instruction += $bloc_instructions.code;}
     | instruction fin_expression+ {code_instruction += $instruction.code;}
-   ) WHILE L_PARENTHESE bool R_PARENTHESE {
+   ) WHILE L_PARENTHESE expr_bool R_PARENTHESE {
         String label_instructions = nouveauLabel(); // instructions du do while
         String label_condition = nouveauLabel(); // vérification de la condition
         String label_fin = nouveauLabel(); // fin du do while
@@ -154,7 +154,7 @@ boucle returns [String code]
         $code = "JUMP" + label_instructions + "\n";
         
         $code += "LABEL" + label_condition + "\n";
-        $code += $bool.code;
+        $code += $expr_bool.code;
         $code += "JUMPF" + label_fin + "\n";
         
         $code += "LABEL" + label_instructions + "\n";
