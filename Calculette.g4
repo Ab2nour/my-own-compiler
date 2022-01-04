@@ -58,79 +58,84 @@ grammar Calculette;
 
 // règles de la grammaire
 start returns [String code]
-@init {$code = new String(); $code += fonctions_builtin();}
-@after {
-for (int i = 0; i < place_variable; i++) {
-$code += "POP\n"; // on pop toutes les variables de la pile
-}
-System.out.println($code + "HALT\n");
-}
-: (declaration fin_expression+ {$code += $declaration.code;})*
-(instruction fin_expression+ {$code += $instruction.code;})* EOF
+    @init {$code = new String(); $code += fonctions_builtin();}
+    @after {
+        for (int i = 0; i < place_variable; i++) {
+            $code += "POP\n"; // on pop toutes les variables de la pile
+        }
+        System.out.println($code + "HALT\n");
+    }
+    : (declaration fin_expression+ {$code += $declaration.code;})*
+    (instruction fin_expression+ {$code += $instruction.code;})* EOF
 ;
 
 declaration returns [String code]
-: TYPE id=IDENTIFIANT {
-memory.put($id.text, place_variable);
-place_variable++;
-$code = "PUSHI 0\n";
-}
-| TYPE (IDENTIFIANT VIRGULE)* IDENTIFIANT
-| TYPE affectation
+    : TYPE id=IDENTIFIANT {
+        memory.put($id.text, place_variable);
+        place_variable++;
+        $code = "PUSHI 0\n";
+    }
+    | TYPE (IDENTIFIANT VIRGULE)* IDENTIFIANT
+    | TYPE affectation
 ;
 
 bloc_instructions returns [String code]
-@init {
-$code = new String();
-}
-: L_ACCOLADE NEWLINE*
-(instruction fin_expression+ {$code += $instruction.code;})+
-R_ACCOLADE
+    @init {
+        $code = new String();
+    }
+    : L_ACCOLADE NEWLINE*
+        (instruction fin_expression+ {$code += $instruction.code;})+
+    R_ACCOLADE
 ;
 
 instruction returns [String code]
-: affectation {$code = $affectation.code;}
-| fonction_builtin {$code = $fonction_builtin.code;}
-| structure_conditionnelle {$code = $structure_conditionnelle.code;}
-| boucle {$code = $boucle.code;}
-| bloc_instructions {$code = $bloc_instructions.code;}
-// Une instruction qui ne contient qu'une expr est
-// inutile et sans effet de bord : on POP donc
-// le résultat de celle-ci.
-| expr {$code = $expr.code + "POP\n";}
+    : affectation {$code = $affectation.code;}
+    | fonction_builtin {$code = $fonction_builtin.code;}
+    | structure_conditionnelle {$code = $structure_conditionnelle.code;}
+    | boucle {$code = $boucle.code;}
+    | bloc_instructions {$code = $bloc_instructions.code;}
+
+    // Une instruction qui ne contient qu'une expr est
+    // inutile et sans effet de bord : on POP donc
+    // le résultat de celle-ci.
+    | expr {$code = $expr.code + "POP\n";}
 ;
 
 structure_conditionnelle returns [String code]
-: structure_if {$code = $structure_if.code;}
+    : structure_if {$code = $structure_if.code;}
 ;
 
 structure_if returns [String code]
-@init {
-String instruction_if = new String();
-String instruction_else = new String();
+    @init {
+        String instruction_if = new String();
+        String instruction_else = new String();
 
-String label_if = nouveauLabel();
-String label_else = nouveauLabel();
-}
-: IF L_PARENTHESE expr_bool R_PARENTHESE NEWLINE*
-(bloc_instructions {instruction_if += $bloc_instructions.code;}
-| instruction {instruction_if += $instruction.code;}
-)
-(ELSE NEWLINE*
-(bloc_instructions {instruction_else += $bloc_instructions.code;}
-| instruction {instruction_else += $instruction.code;}
-| structure_if {instruction_else += $structure_if.code;}
-))? {
-$code = $expr_bool.code;
-$code += "JUMPF " + label_if + "\n";
-$code += instruction_if;
-if (instruction_else != "") {$code += "JUMP " + label_else + "\n";}
-$code += "LABEL " + label_if + "\n";
-if (instruction_else != "") {
-$code += instruction_else;
-$code += "LABEL " + label_else + "\n";
-}
-}
+        String label_if = nouveauLabel();
+        String label_else = nouveauLabel();
+    }
+    : IF L_PARENTHESE expr_bool R_PARENTHESE NEWLINE*
+        (bloc_instructions {instruction_if += $bloc_instructions.code;}
+        | instruction {instruction_if += $instruction.code;}
+        )
+    (ELSE NEWLINE*
+        (bloc_instructions {instruction_else += $bloc_instructions.code;}
+        | instruction {instruction_else += $instruction.code;}
+        | structure_if {instruction_else += $structure_if.code;}
+        ))? {
+            $code = $expr_bool.code;
+
+            $code += "JUMPF " + label_if + "\n";
+            $code += instruction_if;
+
+            if (instruction_else != "") {$code += "JUMP " + label_else + "\n";}
+
+            $code += "LABEL " + label_if + "\n";
+
+            if (instruction_else != "") {
+                $code += instruction_else;
+                $code += "LABEL " + label_else + "\n";
+            }
+        }
 ;
 
 
