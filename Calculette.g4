@@ -76,11 +76,9 @@ start returns [String code]
 ;
 
 declaration returns [String code]
-    : TYPE id=IDENTIFIANT {
+    : TYPE (id=IDENTIFIANT VIRGULE {
         memory.put($id.text, placeProchaineVariable());
-        $code = "PUSHI 0\n";
-    }
-    | TYPE (IDENTIFIANT VIRGULE)* IDENTIFIANT
+        $code = "PUSHI 0\n";})* IDENTIFIANT
     | TYPE affectation
 ;
 
