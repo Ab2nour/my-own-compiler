@@ -7,10 +7,16 @@ grammar Calculette;
 @members {
     // place de la pile à laquelle on stocke la variable
     // et, au passage, nombre de variables
-    int place_variable = 0; 
+    int place_variable = 0;
+
+    /* Renvoie la place de la prochaine variable disponible */
+    int placeProchaineVariable() {
+        return place_variable++;
+    }
     HashMap<String, Integer> memory = new HashMap<String, Integer>();
 
     int label_actuel = 0;
+
     String nouveauLabel() {
         return Integer.toString(label_actuel++);
     }
@@ -70,13 +76,18 @@ start returns [String code]
 ;
 
 declaration returns [String code]
-    : TYPE id=IDENTIFIANT {
-        memory.put($id.text, place_variable);
-        place_variable++;
-        $code = "PUSHI 0\n";
+    @init {
+        $code = new String();
     }
-    | TYPE (IDENTIFIANT VIRGULE)* IDENTIFIANT
-    | TYPE affectation
+    : TYPE (id=IDENTIFIANT VIRGULE {
+        memory.put($id.text, placeProchaineVariable());
+        $code += "PUSHI 0\n";
+    })* 
+    id=IDENTIFIANT {
+        memory.put($id.text, placeProchaineVariable());
+        $code += "PUSHI 0\n";
+    }
+    //todo : déclaration & assignation simultanées | TYPE id=IDENTIFIANT EGAL expr
 ;
 
 bloc_instructions returns [String code]
@@ -137,7 +148,6 @@ structure_if returns [String code]
             }
         }
 ;
-
 
 boucle returns [String code]
     @init {
