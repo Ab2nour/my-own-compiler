@@ -79,7 +79,7 @@ declaration returns [String code]
     : TYPE (id=IDENTIFIANT VIRGULE {
         memory.put($id.text, placeProchaineVariable());
         $code = "PUSHI 0\n";})* IDENTIFIANT
-    | TYPE id=IDENTIFIANT EGAL expr
+    //todo : déclaration & assignation simultanées | TYPE id=IDENTIFIANT EGAL expr
 ;
 
 bloc_instructions returns [String code]
