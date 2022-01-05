@@ -63,6 +63,10 @@ grammar Calculette;
 }
 
 // règles de la grammaire
+calcul returns [String code]
+    : start {$code = $start.code;}
+;
+
 start returns [String code]
     @init {$code = new String(); $code += fonctions_builtin();}
     @after {
@@ -72,14 +76,26 @@ start returns [String code]
         System.out.println($code + "HALT\n");
     }
     : (declaration fin_expression+ {$code += $declaration.code;})*
-    (instruction fin_expression+ {$code += $instruction.code;})* EOF
+    (instruction fin_expression+ {$code += $instruction.code;})*
+    EOF
 ;
 
+/* ----------------------------------------------------------------------
+# Déclaration de variable. 
+Syntaxes acceptées :
+
+int x;
+
+int x, y, z;
+
+int x,
+    y;
+---------------------------------------------------------------------- */
 declaration returns [String code]
     @init {
         $code = new String();
     }
-    : TYPE (id=IDENTIFIANT VIRGULE {
+    : TYPE (id=IDENTIFIANT VIRGULE NEWLINE* {
         memory.put($id.text, placeProchaineVariable());
         $code += "PUSHI 0\n";
     })* 
@@ -150,15 +166,14 @@ structure_if returns [String code]
 ;
 
 boucle returns [String code]
+    : boucle_do_while {$code = $boucle_do_while.code;}
+;
+
+boucle_do_while returns [String code]
     @init {
         String code_instruction = new String();
     }
-    : WHILE (expr_bool) L_ACCOLADE 
-        (instruction fin_expression+ {code_instruction += $instruction.code;})+
-    R_ACCOLADE {
-        // todo
-    }
-    | DO NEWLINE* (bloc_instructions {code_instruction += $bloc_instructions.code;}
+    : DO NEWLINE* (bloc_instructions {code_instruction += $bloc_instructions.code;}
         | instruction POINT_VIRGULE? NEWLINE* {code_instruction += $instruction.code;}
     ) WHILE L_PARENTHESE expr_bool R_PARENTHESE {
         String label_instructions = nouveauLabel(); // instructions du do while
