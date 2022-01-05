@@ -68,14 +68,15 @@ calcul returns [String code]
     : start {$code = $start.code;}
 ;
  */
- 
+
 start returns [String code]
     @init {$code = new String(); $code += fonctions_builtin();}
     @after {
         for (int i = 0; i < place_variable; i++) {
             $code += "POP\n"; // on pop toutes les variables de la pile
         }
-        System.out.println($code + "HALT\n");
+        $code += "HALT\n";
+        System.out.println($code);
     }
     : (declaration fin_expression+ {$code += $declaration.code;})*
     (instruction fin_expression+ {$code += $instruction.code;})*
