@@ -60,12 +60,6 @@ grammar Calculette;
 
         return code;
     }
-
-    
-    void declareVariable(String nom) {
-        memory.put(nom, placeProchaineVariable());
-        $code = "PUSHI 0\n";
-    }
 }
 
 // règles de la grammaire
@@ -83,9 +77,16 @@ start returns [String code]
 
 declaration returns [String code]
     @init {
+        $code = new String();
     }
-    : TYPE (id=IDENTIFIANT VIRGULE {declareVariable($id.text);})* 
-    id=IDENTIFIANT {declareVariable($id.text);}
+    : TYPE (id=IDENTIFIANT VIRGULE {
+        memory.put($id.text, placeProchaineVariable());
+        $code += "PUSHI 0\n";
+    })* 
+    id=IDENTIFIANT {
+        memory.put($id.text, placeProchaineVariable());
+        $code += "PUSHI 0\n";
+    }
     //todo : déclaration & assignation simultanées | TYPE id=IDENTIFIANT EGAL expr
 ;
 
