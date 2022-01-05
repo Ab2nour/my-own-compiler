@@ -1,18 +1,18 @@
 # Fonctionnement des tests
-Chaque test est constitué d'un fichier `nom_fichier.test` contenant les entrées des tests et les sorties attendues.
+Chaque test est constitué d'un fichier `nom_fichier.xml` contenant les entrées des tests et les sorties attendues.
 
 
 ## Format attendu
 
-Les entrées sont séparées par `-----` et la sortie est séparée par l'entrée par `==out==`.
+On attend que les tests soient au format `xml`.
   
 Un exemple vaut mieux qu'un long discours...  
 
 
-### Exemple : `exemple.test`
+### Exemple : `exemple.xml`
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<tests titre="" description="">
+<tests titre="Exemple" description="Ces tests vont juste servir d'exemple">
     <test>
       <titre>Premier test</titre>
       <description>Ceci est le test numéro 1</description>
