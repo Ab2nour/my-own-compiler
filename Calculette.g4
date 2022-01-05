@@ -174,8 +174,8 @@ boucle_do_while returns [String code]
         String code_instruction = new String();
     }
     : DO NEWLINE* (bloc_instructions {code_instruction += $bloc_instructions.code;}
-        | instruction POINT_VIRGULE? NEWLINE* {code_instruction += $instruction.code;}
-    ) WHILE L_PARENTHESE expr_bool R_PARENTHESE {
+        | instruction POINT_VIRGULE? {code_instruction += $instruction.code;}) NEWLINE*
+    WHILE L_PARENTHESE expr_bool R_PARENTHESE {
         String label_instructions = nouveauLabel(); // instructions du do while
         String label_condition = nouveauLabel(); // vérification de la condition
         String label_fin = nouveauLabel(); // fin du do while
