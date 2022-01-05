@@ -76,9 +76,14 @@ start returns [String code]
 ;
 
 declaration returns [String code]
-    : TYPE (id=IDENTIFIANT VIRGULE {
-        memory.put($id.text, placeProchaineVariable());
-        $code = "PUSHI 0\n";})* IDENTIFIANT
+    @init {
+        void declareVariable() {
+            memory.put($id.text, placeProchaineVariable());
+            $code = "PUSHI 0\n";
+        }
+    }
+    : TYPE (id=IDENTIFIANT VIRGULE { declareVariable();})* 
+    id=IDENTIFIANT {declareVariable}
     //todo : déclaration & assignation simultanées | TYPE id=IDENTIFIANT EGAL expr
 ;
 
