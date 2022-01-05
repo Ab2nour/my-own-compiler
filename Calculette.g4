@@ -79,8 +79,7 @@ declaration returns [String code]
     : TYPE (id=IDENTIFIANT VIRGULE {
         memory.put($id.text, placeProchaineVariable());
         $code = "PUSHI 0\n";})* IDENTIFIANT
-    | TYPE affectation
-    id=IDENTIFIANT EGAL expr 
+    | TYPE id=IDENTIFIANT EGAL expr
 ;
 
 bloc_instructions returns [String code]
