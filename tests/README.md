@@ -21,8 +21,8 @@ Un exemple vaut mieux qu'un long discours...
     </test>
     
     <test>
-      <titre></titre>
-      <description></description>
+      <!-- description optionnelle -->
+      <titre>Plusieurs lignes</titre>
       <entree>
           entrée2
           sur
