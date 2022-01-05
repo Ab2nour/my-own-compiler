@@ -10,27 +10,37 @@ Un exemple vaut mieux qu'un long discours...
 
 
 ### Exemple : `exemple.test`
-```
-entrée1
-
-==out==
-sortie1
-
------
-entrée2
-sur
-plusieurs lignes
-
-==out==
-sortie2
-sur
-plusieurs lignes
-
------
-entrée 3
-
-==out==
-sortie3
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<tests titre="" description="">
+    <test>
+      <titre>Premier test</titre>
+      <description>Ceci est le test numéro 1</description>
+      <entree>entrée1</entree>
+      <sortie>sortie1</sortie>
+    </test>
+    
+    <test>
+      <titre></titre>
+      <description></description>
+      <entree>
+          entrée2
+          sur
+          plusieurs lignes
+      </entree>
+      <sortie>
+          sortie2
+          sur
+          plusieurs lignes
+      </sortie>
+    </test>
+    
+    <test>
+      <!-- titre et description optionnels -->
+      <entree>entrée 3</entree>
+      <sortie>sortie3</sortie>
+    </test>
+</tests>
 ``` 
 
 _Les espaces et retours à la ligne sont optionnels mais très fortement recommandés._
