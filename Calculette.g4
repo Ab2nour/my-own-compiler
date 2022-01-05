@@ -63,10 +63,12 @@ grammar Calculette;
 }
 
 // règles de la grammaire
+/*
 calcul returns [String code]
     : start {$code = $start.code;}
 ;
-
+ */
+ 
 start returns [String code]
     @init {$code = new String(); $code += fonctions_builtin();}
     @after {
