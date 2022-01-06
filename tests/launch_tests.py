@@ -27,6 +27,7 @@ def format_whitespace(s):
 
     return s
 
+
 def create_tests_list(filename):
     """
     Given the filename of an XML test file, returns the tests list.
@@ -80,6 +81,8 @@ def create_tests_list(filename):
 
             tests.append(t_dict)
 
+    return tests
+
 def add_tests(filename, title):
     """
     Cette fonction ajoute les tests au fichier launch_tests.sh.
@@ -88,7 +91,7 @@ def add_tests(filename, title):
     filename: nom du fichier de test (sans l'extension '.xml')
     title: titre affiché dans le script Bash
     """
-
+    tests = create_tests_list(filename)
 
 
 
@@ -99,7 +102,13 @@ def add_tests(filename, title):
         fichier_sortie.write(f"echo {padded_title.center(67, '-')}\n")
         fichier_sortie.write(f"echo\n")
 
-        for entree, sortie in tests:
+        for test in tests:
+            titre = test['titre']
+            description = test['description']
+            entree = test['entree']
+            sortie = test['sortie']
+            stdin = test['stdin']
+
             fichier_sortie.write(f"test_expr '{entree}' '{sortie}'\n")
 
 
