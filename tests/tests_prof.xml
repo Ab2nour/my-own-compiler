@@ -415,7 +415,6 @@
         </entree>
         <sortie>
             2
-            2
             3
             1
             2
@@ -451,8 +450,7 @@
             1
         </sortie>
         <stdin>
-            42
-            42
+            5
         </stdin>
     </test>
 
@@ -470,7 +468,7 @@
             afficher(z)
             z=x^y+z
             afficher(z)
-            z=x^(3y+1)
+            z=x^(3*y+1)
             afficher(z)
             z=x^((5*6*7*11 + 2)/11*5-1008)
             afficher(z)
