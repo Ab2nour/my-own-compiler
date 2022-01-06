@@ -3,7 +3,8 @@ import xml.etree.ElementTree as ET
 
 # ---------- Constantes ----------
 NOM_FICHIER_SH = 'launch_tests.sh'
-TAGS = ("titre", "description", "entree", "sortie", "stdin")
+XML_HEADER = '?xml version="1.0" encoding="UTF-8"?'
+TAGS = ("titre", "description", "entree", "sortie", "stdin", XML_HEADER)
 
 # ---------- Fonctions ----------
 def format_whitespace(s):
@@ -103,26 +104,31 @@ def create_tests_list(filename):
 
             try:
                 t_dict['titre'] = t.findall('titre')[0].text
+                t_dict['titre'] = unescape_xml_entities(t_dict['titre'])
             except:
                 t_dict['titre'] = ''
 
             try:
                 t_dict['description'] = t.findall('description')[0].text
+                t_dict['description'] = unescape_xml_entities(t_dict['description'])
             except:
                 t_dict['description'] = ''
 
             try:
                 t_dict['entree'] = format_whitespace(t.findall('entree')[0].text.strip())
+                t_dict['entree'] = unescape_xml_entities(t_dict['entree'])
             except:
                 t_dict['entree'] = ''
 
             try:
                 t_dict['sortie'] = format_whitespace(t.findall('sortie')[0].text.strip())
+                t_dict['sortie'] = unescape_xml_entities(t_dict['sortie'])
             except:
                 t_dict['sortie'] = ''
 
             try:
                 t_dict['stdin'] = format_whitespace(t.findall('stdin')[0].text.strip())
+                t_dict['stdin'] = unescape_xml_entities(t_dict['stdin'])
             except:
                 t_dict['stdin'] = ''
 
