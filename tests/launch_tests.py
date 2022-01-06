@@ -3,7 +3,7 @@ import xml.etree.ElementTree as ET
 
 # ---------- Constantes ----------
 NOM_FICHIER_SH = 'launch_tests.sh'
-
+TAGS = ("titre", "description", "entree", "sortie", "stdin")
 
 # ---------- Fonctions ----------
 def format_whitespace(s):
@@ -28,6 +28,52 @@ def format_whitespace(s):
     return s
 
 
+def escape_xml_entities(s):
+    """
+    Given a string s containing XML, escapes <, > and &, BUT it keeps the TAGS
+    of the test format.
+
+    Example : "5 < 3" becomes "5 &lt; 3"
+
+    ---
+    s: XML string
+    """
+    LEFT = "-----LEFT_CHEVRON-----"
+    RIGHT = "-----RIGHT_CHEVRON-----"
+
+    for tag in TAGS:
+        s = s.replace(f"<{tag}>", "{LEFT}{tag}{RIGHT}")
+        s = s.replace(f"</{tag}>", "{LEFT}/{tag}{RIGHT}")
+
+    s = s.replace("&", "&amp;")
+    s = s.replace("<", "&lt;")
+    s = s.replace("<", "&gt;")
+
+    for tag in TAGS:
+        s = s.replace("{LEFT}{tag}{RIGHT}", f"<{tag}>")
+        s = s.replace("{LEFT}/{tag}{RIGHT}", f"</{tag}>")
+
+    return s
+
+
+
+def unescape_xml_entities(s):
+    """
+    Given a string s containing XML, unescapes <, > and &.
+
+    Example : "5 &lt; 3" becomes "5 < 3"
+
+    ---
+    s: XML string
+    """
+
+    s = s.replace("&amp;", "&")
+    s = s.replace("&lt;", "<")
+    s = s.replace("&gt;", "<")
+
+    return s
+
+
 def create_tests_list(filename):
     """
     Given the filename of an XML test file, returns the tests list.
@@ -36,7 +82,8 @@ def create_tests_list(filename):
     filename: name of the xml test file
     """
     with open(f'tests/{filename}.xml') as fichier_test:
-        root = ET.fromstring(fichier_test.read())
+        xml_text = escape_xml_entities(fichier_test.read())
+        root = ET.fromstring(xml_text)
 
         try:
             titre_tests = root.attrib['titre']
