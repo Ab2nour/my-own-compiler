@@ -243,12 +243,20 @@
     </test>
 
     <test>
-        <titre>comparaison1</titre>
+        <titre>ifelse11</titre>
         <entree>
-            print(false or not (true and not 42 == 42))
+            int u
+            int za
+            u = 1
+            za = 42
+            si (za > u) {
+            u = u+1
+            afficher(u)
+            }
+            sinon afficher(za)
         </entree>
         <sortie>
-            1
+            2
         </sortie>
     </test>
 
