@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests>
+    <titre>Print</titre>
+    
+    <test>
+        <entree>
+            int x;
+            int y;
+            int z;
+            x = 42
+            y = 142
+            z = 242
+            print(x, y, z)
+        </entree>
+        <sortie>
+            42
+            142
+            242
+        </sortie>
+    </test>
+</tests>

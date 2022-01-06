@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests>
+    <titre>Commentaires</titre>
+    
+    <test>
+        <entree>
+            print(42) // ceci doit être ignoré print(42)
+            print(42)
+        </entree>
+        <sortie>
+            42
+            42
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            print(42); // ceci doit être ignoré print(42)
+            print(42)
+        </entree>
+        <sortie>
+            42
+            42
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            print(42) /* ignoré print(42) */
+            print(42)
+        </entree>
+        <sortie>
+            42
+            42
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            print(42); /* ignoré print(42) */
+        </entree>
+        <sortie>
+            42
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            print(42) /* ignoré print(42)
+            ignoré print(42)
+            ignoré print(42) */
+        </entree>
+        <sortie>
+            42
+        </sortie>
+    </test>
+</tests>
