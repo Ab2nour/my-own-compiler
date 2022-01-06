@@ -162,7 +162,7 @@ boucle returns [String code]
 
 fonction_builtin returns [String code]
  : print {$code = $print.code;}
- | read {$code = "READ\n";}
+ | read {$code = $read.code"READ\n";}
 ;
 
 print returns [String code]
@@ -176,6 +176,13 @@ print returns [String code]
    R_PARENTHESE {
    $code += $e.code + code_affichage;
  }
+;
+
+read returns [String code]
+    : READ L_PARENTHESE id=IDENTIFIANT R_PARENTHESE {
+        $code = "READ\n";
+        $code += "STOREG " + memory.get($id.text) + "\n";
+    }
 ;
 
 affectation returns [String code]
