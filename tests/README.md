@@ -1,36 +1,70 @@
 # Fonctionnement des tests
-Chaque test est constitué d'un fichier `nom_fichier.test` contenant les entrées des tests et les sorties attendues.
+Chaque test est constitué d'un fichier `nom_fichier.xml` contenant les entrées des tests et les sorties attendues.
 
 
 ## Format attendu
 
-Les entrées sont séparées par `-----` et la sortie est séparée par l'entrée par `==out==`.
+On attend que les tests soient au format `xml`.
   
 Un exemple vaut mieux qu'un long discours...  
 
 
-### Exemple : `exemple.test`
-```
-entrée1
+### Exemple : `exemple.xml`
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
 
-==out==
-sortie1
+<tests titre="Exemple" description="Ces tests vont juste servir d'exemple">
+    <test>
+        <titre>Premier test</titre>
+        <description>Ceci est le test numéro 1</description>
+        <entree>entrée1</entree>
+        <sortie>sortie1</sortie>
+    </test>
 
------
-entrée2
-sur
-plusieurs lignes
+    <test>
+        <!-- description optionnelle -->
+        <titre>Plusieurs lignes</titre>
+        <entree>
+            entrée2
+            sur
+            plusieurs lignes
+        </entree>
+        <sortie>
+            sortie2
+            sur
+            plusieurs lignes
+        </sortie>
+    </test>
 
-==out==
-sortie2
-sur
-plusieurs lignes
+    <test>
+        <!-- titre et description optionnels -->
+        <entree>entrée 3</entree>
+        <sortie>sortie3</sortie>
+    </test>
 
------
-entrée 3
-
-==out==
-sortie3
+    <test>
+        <titre>Donner une entrée standard au programme</titre>
+        <entree>
+            int x;
+            
+            read(x);
+            print(x + 2);
+            
+            read(x);
+            print(x + 40);
+        </entree>
+        <sortie>
+            42
+            42
+        </sortie>
+        
+        <!-- Entrée standard donnée au programme -->
+        <stdin>
+            40
+            2
+        </stdin>
+    </test>
+</tests>
 ``` 
 
 _Les espaces et retours à la ligne sont optionnels mais très fortement recommandés._

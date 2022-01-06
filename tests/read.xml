@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests>
+    <titre>Read</titre>
+    
+    <test>
+        <titre>Lecture de 2 entiers</titre>
+        <description>Permet de voir si on arrive à lire deux fois de suite</description>
+        <entree>
+            int x;
+            
+            read(x);
+            print(x + 40);
+            
+            read(x);
+            print(x + 2);
+        </entree>
+        <sortie>
+            42
+            42
+        </sortie>
+        <stdin>
+            2
+            40
+        </stdin>
+    </test>
+</tests>

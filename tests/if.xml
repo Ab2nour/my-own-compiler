@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests>
+    <titre>If</titre>
+    
+    <test>
+        <entree>
+            int i
+            i=11
+            if (i < 11) i=i+2
+            print(i)
+        </entree>
+        <sortie>
+            11
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            int i
+            i=10
+            if (i < 11) i=i+2
+            print(i)
+        </entree>
+        <sortie>
+            12
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            int i
+            i=10
+            if (i < 11)
+                i = i+2
+            print(i)
+        </entree>
+        <sortie>
+            12
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            int i
+            i=10
+            if (i < 11)
+                i = i+2;
+            print(i)
+        </entree>
+        <sortie>
+            12
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            int i
+            i = 11
+            if (i < 11) {
+                i = i+2;
+                print(i);
+            }
+        </entree>
+        <sortie>
+            
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            int i
+            i = 40
+            if (i < 41) {
+                i = i+2;
+                print(i);
+            }
+        </entree>
+        <sortie>
+            42
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            int variable
+            variable = 42
+            if (variable == 40) {
+                print(41)
+                print(41)
+            } else {
+                print(variable)
+                print(variable)
+            }
+        </entree>
+        <sortie>
+            42
+            42
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            int variable
+            variable = 42
+            if (variable == 40)
+            {
+                print(41)
+                print(41)
+            }
+            else
+            {
+                print(variable)
+                print(variable)
+            }
+        </entree>
+        <sortie>
+            42
+            42
+        </sortie>
+    </test>
+</tests>
