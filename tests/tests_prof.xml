@@ -387,61 +387,101 @@
     <test>
         <titre>while1</titre>
         <entree>
-            print(false or not (true and not 42 == 42))
+            int y
+            int za
+            int x
+            int endthen
+            int endelse
+
+            endthen = 0
+            endelse = 0
+
+            lire(x)
+            lire(y)
+            lire(za)
+
+            repeter {
+                afficher(y)
+                endthen=1
+            } tantque (x == 0 and endthen == 0)
+
+            repeter {
+                afficher(za)
+                endelse=2
+            } tantque (x<> 0 and endelse == 0)
+
+            afficher(endthen)
+            afficher(endelse)
         </entree>
         <sortie>
+            2
+            2
+            3
             1
+            2
         </sortie>
+        <stdin>
+            1
+            2
+            3
+        </stdin>
     </test>
 
     <test>
         <titre>while2</titre>
         <entree>
-            print(false or not (true and not 42 == 42))
+            int f
+            int f1
+            int f2
+            int n
+            lire(n)
+            f1 = 1
+            f2=1
+            f=1
+            repeter {
+            f=f1+f2
+            f2=f1
+            f1=f
+            n=n-1
+            } tantque(n>=2)
+            
+            afficher(f)
         </entree>
         <sortie>
             1
         </sortie>
+        <stdin>
+            42
+            42
+        </stdin>
     </test>
 
     <test>
         <titre>exponentiels</titre>
         <entree>
-            print(false or not (true and not 42 == 42))
+            int x
+            int y
+            int z
+            lire(x)
+            lire(y)
+            z=2^x+y
+            afficher(z)
+            z=2^(x+y)
+            afficher(z)
+            z=x^y+z
+            afficher(z)
+            z=x^(3y+1)
+            afficher(z)
+            z=x^((5*6*7*11 + 2)/11*5-1008)
+            afficher(z)
         </entree>
         <sortie>
             1
         </sortie>
-    </test>
-
-    <test>
-        <titre>comparaison1</titre>
-        <entree>
-            print(false or not (true and not 42 == 42))
-        </entree>
-        <sortie>
-            1
-        </sortie>
-    </test>
-
-    <test>
-        <titre>comparaison1</titre>
-        <entree>
-            print(false or not (true and not 42 == 42))
-        </entree>
-        <sortie>
-            1
-        </sortie>
-    </test>
-
-    <test>
-        <titre>comparaison1</titre>
-        <entree>
-            print(false or not (true and not 42 == 42))
-        </entree>
-        <sortie>
-            1
-        </sortie>
+        <stdin>
+            42
+            42
+        </stdin>
     </test>
 </tests>
 
