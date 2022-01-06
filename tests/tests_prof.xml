@@ -502,11 +502,79 @@
             afficher(z)
         </entree>
         <sortie>
+            4
+            8
+            9
+            1
             1
         </sortie>
         <stdin>
-            42
-            42
+            1
+            2
+        </stdin>
+    </test>
+
+    <test>
+        <titre>exponentiels 2</titre>
+        <entree>
+            int x
+            int y
+            int z
+            lire(x)
+            lire(y)
+            z=2^x+y
+            afficher(z)
+            z=2^(x+y)
+            afficher(z)
+            z=x^y+z
+            afficher(z)
+            z=x^(3*y+1)
+            afficher(z)
+            z=x^((5*6*7*11 + 2)/11*5-1008)
+            afficher(z)
+        </entree>
+        <sortie>
+            5
+            16
+            17
+            1
+            1
+        </sortie>
+        <stdin>
+            1
+            3
+        </stdin>
+    </test>
+
+    <test>
+        <titre>exponentiels 3</titre>
+        <entree>
+            int x
+            int y
+            int z
+            lire(x)
+            lire(y)
+            z=2^x+y
+            afficher(z)
+            z=2^(x+y)
+            afficher(z)
+            z=x^y+z
+            afficher(z)
+            z=x^(3*y+1)
+            afficher(z)
+            z=x^((5*6*7*11 + 2)/11*5-1008)
+            afficher(z)
+        </entree>
+        <sortie>
+            7
+            32
+            40
+            1024
+            4398046511104
+        </sortie>
+        <stdin>
+            2
+            3
         </stdin>
     </test>
 </tests>
