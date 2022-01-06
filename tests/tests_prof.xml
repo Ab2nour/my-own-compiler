@@ -427,7 +427,7 @@
     </test>
 
     <test>
-        <titre>while2</titre>
+        <titre>while2 (Fibonacci n+2)</titre>
         <entree>
             int f
             int f1
@@ -447,7 +447,35 @@
             afficher(f)
         </entree>
         <sortie>
-            1
+            8
+        </sortie>
+        <stdin>
+            5
+        </stdin>
+    </test>
+
+    <test>
+        <titre>while2 (Fibonacci n+2)</titre>
+        <entree>
+            int f
+            int f1
+            int f2
+            int n
+            lire(n)
+            f1 = 1
+            f2=1
+            f=1
+            repeter {
+            f=f1+f2
+            f2=f1
+            f1=f
+            n=n-1
+            } tantque(n>=2)
+            
+            afficher(f)
+        </entree>
+        <sortie>
+            13
         </sortie>
         <stdin>
             5
