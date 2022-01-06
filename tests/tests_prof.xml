@@ -4,7 +4,7 @@
     <titre>Tests prof</titre>
     
     <test>
-        <description>affectations-ctes</description>
+        <titre>affectations-ctes</titre>
         <entree>
             int x
             int y
@@ -22,7 +22,7 @@
     </test>
     
     <test>
-        <description>affectations-exp</description>
+        <titre>affectations-exp</titre>
         <entree>
             int x
             int y
@@ -48,7 +48,7 @@
     </test>
     
     <test>
-        <description>affichages</description>
+        <titre>affichages</titre>
         <entree>
             int x
             int y
@@ -85,6 +85,34 @@
         <stdin>
             3
         </stdin>
+    </test>
+
+    <test>
+        <titre>booleens</titre>
+        <entree>
+            print(false or not (true and not 42 == 42))
+            print(false or 42 <= 40)
+            print(false or (5*6*7*11 + 2)/11*5-1008 <= 5*8+2*-1/-1)
+            print(50 <>  51)
+            print(42+1+2+-3 <> 5*8+2*-1/-1)
+            print((5*6*7*11 + 2)/11/5 < (5*6*7*11 + 2)/(11/5)-1114)
+            print((5*6*7*11 + 2)/11/5 <= (5*6*7*11 + 2)/(11/5)-1114)
+            print(5*8+2*1 > 6*4/5+38)
+            print(5*8+2*1 >= 6*4/5+38)
+            print(42 == (5*6*7*11 + 2)/11/5)
+        </entree>
+        <sortie>
+            1
+            0
+            1
+            1
+            0
+            0
+            1
+            0
+            1
+            1
+        </sortie>
     </test>
 </tests>
 
