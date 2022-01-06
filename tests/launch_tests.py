@@ -40,16 +40,16 @@ def escape_xml_entities(s):
     RIGHT = "-----RIGHT_CHEVRON-----"
 
     for tag in TAGS:
-        s = s.replace(f"<{tag}>", "{LEFT}{tag}{RIGHT}")
-        s = s.replace(f"</{tag}>", "{LEFT}/{tag}{RIGHT}")
+        s = s.replace(f"<{tag}>", f"{LEFT}{tag}{RIGHT}")
+        s = s.replace(f"</{tag}>", f"{LEFT}/{tag}{RIGHT}")
 
     s = s.replace("&", "&amp;")
     s = s.replace("<", "&lt;")
     s = s.replace(">", "&gt;")
 
     for tag in TAGS:
-        s = s.replace("{LEFT}{tag}{RIGHT}", f"<{tag}>")
-        s = s.replace("{LEFT}/{tag}{RIGHT}", f"</{tag}>")
+        s = s.replace(f"{LEFT}{tag}{RIGHT}", f"<{tag}>")
+        s = s.replace(f"{LEFT}/{tag}{RIGHT}", f"</{tag}>")
 
     return s
 
