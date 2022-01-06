@@ -53,41 +53,40 @@
             int x
             int y
             int xy
+            int z
+
             x=42
-            y= (5*6*7*11 + 2)/11*5-1008
+            y=(5*6*7*11 + 2)/11*5-1008
             xy=x-y
 
-            print(xy)
+            afficher(xy)
 
             xy=x+42
+            
+            afficher(xy)
+            
+            lire(z)
+            afficher(x)
 
-            print(x)
-            print(y)
-            print(xy)
+            x=x*z
+
+            afficher(x)
+            afficher(z)
+            afficher(x*z)
         </entree>
         <sortie>
             0
             42
             42
-            84
+            126
+            3
+            126
         </sortie>
+        <stdin>
+            3
+        </stdin>
     </test>
 </tests>
 
-int x
-int y
-int xy
-int z
-x=42
-y=(5*6*7*11 + 2)/11*5-1008
-xy=x-y
-afficher(xy)
-xy=x+42
-afficher(xy)
-lire(z)
-afficher(x)
-x=x*z
-afficher(x)
-afficher(z)
-afficher(x*z)
+
 
