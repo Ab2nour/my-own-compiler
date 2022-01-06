@@ -261,12 +261,30 @@
     </test>
 
     <test>
-        <titre>comparaison1</titre>
+        <titre>op-arith</titre>
         <entree>
-            print(false or not (true and not 42 == 42))
+            print(42)
+            print(24+24-6)
+            print(5*8+2*1)
+            print(6*4/5+38)
+            print(42+1+2+-3)
+            print(5*8+2*-1/-1)
+            print((5*6*7*11 + 2)/11*5-1008)
+            print((5*6*7*11 + 2)/(11*5))
+            print((5*6*7*11 + 2)/11/5)
+            print((5*6*7*11 + 2)/(11/5)-1114)
         </entree>
         <sortie>
-            1
+            42
+            42
+            42
+            42
+            42
+            42
+            42
+            42
+            42
+            42
         </sortie>
     </test>
 
