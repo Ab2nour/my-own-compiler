@@ -116,6 +116,19 @@
     </test>
 
     <test>
+        <titre>if</titre>
+        <entree>
+            int i
+            i=10
+            si(i<11) i=i+2
+            afficher(i)
+        </entree>
+        <sortie>
+            12
+        </sortie>
+    </test>
+
+    <test>
         <titre>ifelse</titre>
         <entree>
             int u
@@ -314,12 +327,17 @@
     </test>
 
     <test>
-        <titre>comparaison1</titre>
+        <titre>while</titre>
         <entree>
-            print(false or not (true and not 42 == 42))
+            int i
+            i = 0
+            repeter i = i + 2
+            tantque ( false or i <= 40)
+
+            afficher(i)
         </entree>
         <sortie>
-            1
+            42
         </sortie>
     </test>
 
