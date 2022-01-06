@@ -1,0 +1,58 @@
+int x
+x = 40
+
+print(x)
+
+do x = x+1
+while (x < 40)
+
+print(x)
+
+==out==
+40
+41
+
+-----
+int x
+x = 38
+
+print(x)
+
+do x = x+1
+while (x < 42)
+
+print(x)
+
+==out==
+38
+42
+
+-----
+int x
+x = 40
+
+print(x)
+
+do {x = x+1;}
+while (x < 40)
+
+print(x)
+
+==out==
+40
+41
+
+-----
+int x
+x = 38
+
+print(x)
+
+do {x = x+1;}
+while (x < 42)
+
+print(x)
+
+==out==
+38
+42

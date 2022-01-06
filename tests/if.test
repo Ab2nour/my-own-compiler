@@ -72,3 +72,22 @@ if (variable == 40) {
 ==out==
 42
 42
+
+-----
+int variable
+variable = 42
+if (variable == 40)
+{
+    print(41)
+    print(41)
+}
+else
+{
+    print(variable)
+    print(variable)
+}
+
+
+==out==
+42
+42
