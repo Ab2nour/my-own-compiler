@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests titre="Exemple" description="Ces tests vont juste servir d'exemple">
+
+    <entree>
+int i
+i = 42
+
+if (i < 11) {
+  print(45);
+} else if (i < 40) {
+  print(25);
+} else {
+  print(42)
+}
+    </entree>
+    <sortie>
+42
+    </sortie>
+    <entree>
+int i
+i = 42
+
+if (i < 45) {
+  print(42);
+} else if (i < 45) {
+  print(25);
+} else {
+  print(42)
+}
+    </entree>
+    <sortie>
+42
+    </sortie>
+    <entree>
+int i
+i = 42
+
+if (i < 40) {
+  print(42);
+} else if (i < 45) {
+  print(42);
+} else {
+  print(42)
+}
+    </entree>
+    <sortie>
+42
+    </sortie>
+</tests>

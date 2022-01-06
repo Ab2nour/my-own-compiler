@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests titre="Exemple" description="Ces tests vont juste servir d'exemple">
+
+    <entree>
+int x;
+int y;
+int z;
+x = 42
+y = 142
+z = 242
+print(x, y, z)
+    </entree>
+    <sortie>
+42 142 242
+    </sortie>
+</tests>

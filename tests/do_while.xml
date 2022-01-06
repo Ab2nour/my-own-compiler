@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests titre="Exemple" description="Ces tests vont juste servir d'exemple">
+
+    <entree>
+int x
+x = 40
+
+print(x)
+
+do x = x+1
+while (x < 40)
+
+print(x)
+    </entree>
+    <sortie>
+40 41
+    </sortie>
+    <entree>
+int x
+x = 38
+
+print(x)
+
+do x = x+1
+while (x < 42)
+
+print(x)
+    </entree>
+    <sortie>
+38 42
+    </sortie>
+    <entree>
+int x
+x = 40
+
+print(x)
+
+do {x = x+1;}
+while (x < 40)
+
+print(x)
+    </entree>
+    <sortie>
+40 41
+    </sortie>
+    <entree>
+int x
+x = 38
+
+print(x)
+
+do {x = x+1;}
+while (x < 42)
+
+print(x)
+    </entree>
+    <sortie>
+38 42
+    </sortie>
+</tests>
