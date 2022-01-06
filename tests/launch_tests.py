@@ -11,10 +11,8 @@ TAGS = ("tests", "test", "titre", "description", "entree", "sortie",
 def format_whitespace(s):
     """
     Replace multiple whitespaces with only one, but keeping `\n`.
-
     ---
     s: string to which you replace whitespaces.
-
     Source : https://stackoverflow.com/questions/2077897/substitute-multiple-whitespace-with-single-whitespace-in-python/2077944#comment112437185_2077944
     """
     s = s.splitlines()
@@ -34,9 +32,7 @@ def escape_xml_entities(s):
     """
     Given a string s containing XML, escapes <, > and &, BUT it keeps the TAGS
     of the test format.
-
     Example : "5 < 3" becomes "5 &lt; 3"
-
     ---
     s: XML string
     """
@@ -62,9 +58,7 @@ def escape_xml_entities(s):
 def unescape_xml_entities(s):
     """
     Given a string s containing XML, unescapes <, > and &.
-
     Example : "5 &lt; 3" becomes "5 < 3"
-
     ---
     s: XML string
     """
@@ -79,7 +73,6 @@ def unescape_xml_entities(s):
 def create_tests_list(filename):
     """
     Given the filename of an XML test file, returns the tests list.
-
     ---
     filename: name of the xml test file
     """
@@ -141,7 +134,6 @@ def create_tests_list(filename):
 def add_tests(filename, title):
     """
     Cette fonction ajoute les tests au fichier launch_tests.sh.
-
     ---
     filename: nom du fichier de test (sans l'extension '.xml')
     title: titre affiché dans le script Bash
