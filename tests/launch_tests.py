@@ -27,32 +27,69 @@ def format_whitespace(s):
 
     return s
 
+def create_tests_list(filename):
+    """
+    Given the filename of an XML test file, returns the tests list.
 
-def add_tests(name, title):
+    ---
+    filename: name of the xml test file
+    """
+    with open(f'tests/{filename}.xml') as fichier_test:
+        root = ET.fromstring(fichier_test)
+
+        try:
+            titre_tests = root.attrib['titre']
+        except:
+            titre_tests = ''
+
+        try:
+            description_tests = root.attrib['description']
+        except:
+            description_tests = ''
+
+        tests = []
+
+
+        for t in root.findall('test'):
+            t_dict = {}
+
+            try:
+                t_dict['titre'] = t.findall('titre')[0].text
+            except:
+                t_dict['titre'] = ''
+
+            try:
+                t_dict['description'] = t.findall('description')[0].text
+            except:
+                t_dict['description'] = ''
+
+            try:
+                t_dict['entree'] = format_whitespace(t.findall('entree')[0].text.strip())
+            except:
+                t_dict['entree'] = ''
+
+            try:
+                t_dict['sortie'] = format_whitespace(t.findall('sortie')[0].text.strip())
+            except:
+                t_dict['sortie'] = ''
+
+            try:
+                t_dict['stdin'] = format_whitespace(t.findall('stdin')[0].text.strip())
+            except:
+                t_dict['stdin'] = ''
+
+            tests.append(t_dict)
+
+def add_tests(filename, title):
     """
     Cette fonction ajoute les tests au fichier launch_tests.sh.
 
     ---
-    name: nom du fichier de test (sans l'extension '.test')
+    filename: nom du fichier de test (sans l'extension '.xml')
     title: titre affiché dans le script Bash
     """
-    with open(f'tests/{name}.test') as fichier_test:
-        tests = fichier_test.read()
 
-        # On sépare tous les tests
-        tests = tests.split('-----')
 
-        # Au sein de chaque test, on sépare entrée et sortie attendue
-        tests = list(map(lambda x: x.split('==out=='), tests))
-
-        # On enlève les espaces et sauts à la ligne
-        for i in range(len(tests)):
-            tests[i][0] = tests[i][0].strip()
-            tests[i][1] = tests[i][1].strip()
-
-            # on remplace retours à la ligne par espaces
-            # car MVaP n'affiche pas de retour à la ligne
-            tests[i][1] = tests[i][1].replace('\n', ' ')
 
 
     with open(NOM_FICHIER_SH, mode='a') as fichier_sortie:
