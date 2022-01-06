@@ -146,7 +146,7 @@ def add_tests(filename):
 
         padded_title = (' ' + titre_tests + ' ')
         fichier_sortie.write(f"echo '{padded_title.center(67, '-')}'\n")
-        fichier_sortie.write(f"echo '{description}'\n")
+        fichier_sortie.write(f"echo '{description_tests}'\n")
         fichier_sortie.write(f"echo\n")
 
         for test in tests:
