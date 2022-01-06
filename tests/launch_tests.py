@@ -82,12 +82,12 @@ def create_tests_list(filename):
         root = ET.fromstring(xml_text)
 
         try:
-            titre_tests = root.attrib['titre']
+            titre_tests = root.findall('titre')[0].text
         except:
             titre_tests = ''
 
         try:
-            description_tests = root.attrib['description']
+            description_tests = root.findall('description')[0].text
         except:
             description_tests = ''
 
@@ -131,6 +131,7 @@ def create_tests_list(filename):
 
     return titre_tests, description_tests, tests
 
+
 def add_tests(filename):
     """
     Cette fonction ajoute les tests au fichier launch_tests.sh.
@@ -146,7 +147,8 @@ def add_tests(filename):
 
         padded_title = (' ' + titre_tests + ' ')
         fichier_sortie.write(f"echo '{padded_title.center(67, '-')}'\n")
-        fichier_sortie.write(f"echo '{description_tests}'\n")
+        if description_tests != '':
+            fichier_sortie.write(f"echo '{description_tests}'\n")
         fichier_sortie.write(f"echo\n")
 
         for test in tests:
