@@ -88,7 +88,7 @@
     </test>
 
     <test>
-        <titre>booleens</titre>
+        <titre>comparaison</titre>
         <entree>
             print(false or not (true and not 42 == 42))
             print(false or 42 <= 40)
@@ -111,6 +111,233 @@
             1
             0
             1
+            1
+        </sortie>
+    </test>
+
+    <test>
+        <titre>ifelse</titre>
+        <entree>
+            int u
+            int za
+            u = 1
+            za = 42
+            si (za < u) afficher(u)  
+            sinon afficher (za)
+        </entree>
+        <sortie>
+            42
+        </sortie>
+    </test>
+
+    <test>
+        <titre>ifelse01</titre>
+        <entree>
+            int u
+            int za
+            u = 1
+            za = 42
+
+            si (za < u) {
+            afficher(u)
+            }
+            sinon {
+            za = za - 1
+            afficher(za)
+            }
+        </entree>
+        <sortie>
+            41
+        </sortie>
+    </test>
+
+    <test>
+        <titre>ifelse1</titre>
+        <entree>
+            int u
+            int za
+            u = 1
+            za = 42
+            si (za > u) afficher(u)  
+            sinon afficher(za)
+
+        </entree>
+        <sortie>
+            1
+        </sortie>
+    </test>
+
+    <test>
+        <titre>ifelse2</titre>
+        <entree>
+            int u
+            int e
+            int za
+            e=0
+            lire(u)
+            lire(za)
+
+            si (za < u) afficher(u)  
+            sinon {
+            si (za > u) afficher(za)
+            sinon afficher(e)
+            }
+        </entree>
+        <sortie>
+            42
+        </sortie>
+        <stdin>
+            1
+            42
+        </stdin>
+    </test>
+
+    <test>
+        <titre>ifelse2 (2eme input)</titre>
+        <entree>
+            int u
+            int e
+            int za
+            e=0
+            lire(u)
+            lire(za)
+
+            si (za < u) afficher(u)  
+            sinon {
+            si (za > u) afficher(za)
+            sinon afficher(e)
+            }
+        </entree>
+        <sortie>
+            42
+        </sortie>
+        <stdin>
+            42
+            1
+        </stdin>
+    </test>
+
+    <test>
+        <titre>ifelse2 (3eme input)</titre>
+        <entree>
+            int u
+            int e
+            int za
+            e=0
+            lire(u)
+            lire(za)
+
+            si (za < u) afficher(u)  
+            sinon {
+            si (za > u) afficher(za)
+            sinon afficher(e)
+            }
+        </entree>
+        <sortie>
+            0
+        </sortie>
+        <stdin>
+            42
+            42
+        </stdin>
+    </test>
+
+    <test>
+        <titre>comparaison1</titre>
+        <entree>
+            print(false or not (true and not 42 == 42))
+        </entree>
+        <sortie>
+            1
+        </sortie>
+    </test>
+
+    <test>
+        <titre>comparaison1</titre>
+        <entree>
+            print(false or not (true and not 42 == 42))
+        </entree>
+        <sortie>
+            1
+        </sortie>
+    </test>
+
+    <test>
+        <titre>comparaison1</titre>
+        <entree>
+            print(false or not (true and not 42 == 42))
+        </entree>
+        <sortie>
+            1
+        </sortie>
+    </test>
+
+    <test>
+        <titre>comparaison1</titre>
+        <entree>
+            print(false or not (true and not 42 == 42))
+        </entree>
+        <sortie>
+            1
+        </sortie>
+    </test>
+
+    <test>
+        <titre>comparaison1</titre>
+        <entree>
+            print(false or not (true and not 42 == 42))
+        </entree>
+        <sortie>
+            1
+        </sortie>
+    </test>
+
+    <test>
+        <titre>comparaison1</titre>
+        <entree>
+            print(false or not (true and not 42 == 42))
+        </entree>
+        <sortie>
+            1
+        </sortie>
+    </test>
+
+    <test>
+        <titre>comparaison1</titre>
+        <entree>
+            print(false or not (true and not 42 == 42))
+        </entree>
+        <sortie>
+            1
+        </sortie>
+    </test>
+
+    <test>
+        <titre>comparaison1</titre>
+        <entree>
+            print(false or not (true and not 42 == 42))
+        </entree>
+        <sortie>
+            1
+        </sortie>
+    </test>
+
+    <test>
+        <titre>comparaison1</titre>
+        <entree>
+            print(false or not (true and not 42 == 42))
+        </entree>
+        <sortie>
+            1
+        </sortie>
+    </test>
+
+    <test>
+        <titre>comparaison1</titre>
+        <entree>
+            print(false or not (true and not 42 == 42))
+        </entree>
+        <sortie>
             1
         </sortie>
     </test>
