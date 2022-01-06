@@ -36,7 +36,7 @@ def create_tests_list(filename):
     filename: name of the xml test file
     """
     with open(f'tests/{filename}.xml') as fichier_test:
-        root = ET.fromstring(fichier_test)
+        root = ET.fromstring(fichier_test.read())
 
         try:
             titre_tests = root.attrib['titre']
