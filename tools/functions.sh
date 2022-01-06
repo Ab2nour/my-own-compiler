@@ -106,13 +106,17 @@ function test_expr () {
     ### Cette fonction teste une expression
     # D'abord l'expression
     # Puis la valeur attendue
+    # $3 : entrée standard donnée au programme
+    # $4 : description du test (affiché en cas d'erreur)
 
     let "nb_tests+=1"
 
-    expr=$1
-    resultat_attendu=$2
+    expr="$1"
+    resultat_attendu="$2"
+    stdin="$3"
+    description="$4"
 
-    resultat=$(mvap_sans_init "$expr" | xargs) # xargs trims whitespace
+    resultat=$(stdin | mvap_sans_init "$expr" | xargs) # xargs trims whitespace
 
     if [ "$resultat" = "$resultat_attendu" ]; then
         echo "✅ Test passé avec succès"
@@ -123,6 +127,8 @@ function test_expr () {
         echo; echo;
     else
         echo "❌ Echec du test"
+        echo "----- Description -----"
+        echo "$description"
         echo "----- Entrée -----"
         echo "$expr"
         echo "----- Résultat attendu -----"
