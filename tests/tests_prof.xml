@@ -563,7 +563,7 @@
             z=x^(3*y+1)
             afficher(z)
             z=x^((5*6*7*11 + 2)/11*5-1008)
-            afficher(z)
+            afficher(z+1)
         </entree>
         <sortie>
             7
