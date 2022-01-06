@@ -145,7 +145,7 @@ structure_if returns [String code]
     : IF L_PARENTHESE expr_bool R_PARENTHESE NEWLINE*
         (bloc_instructions {instruction_if += $bloc_instructions.code;}
         | instruction {instruction_if += $instruction.code;}
-        )
+        ) NEWLINE*
     (ELSE NEWLINE*
         (bloc_instructions {instruction_else += $bloc_instructions.code;}
         | instruction {instruction_else += $instruction.code;}
