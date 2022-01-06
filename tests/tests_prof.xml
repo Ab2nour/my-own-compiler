@@ -289,11 +289,26 @@
     </test>
 
     <test>
-        <titre>comparaison1</titre>
+        <titre>op-bool</titre>
         <entree>
-            print(false or not (true and not 42 == 42))
+            print(true and false or true and not true)
+            print((true and false) or (true and not true))
+            print(true or false and false)
+            print(true or (false and false))
+            print(false or (true and not false))
+            print(false or true and not false)
+            print((false or true) and not false)
+            print((not true and false) or (true and not false))
+
         </entree>
         <sortie>
+            0
+            0
+            1
+            1
+            1
+            1
+            1
             1
         </sortie>
     </test>
