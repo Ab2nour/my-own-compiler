@@ -116,7 +116,7 @@ function test_expr () {
     stdin="$3"
     description="$4"
 
-    resultat=$(stdin | mvap_sans_init "$expr" | xargs) # xargs trims whitespace
+    resultat=$(echo "$stdin" | mvap_sans_init "$expr" | xargs) # xargs trims whitespace
 
     if [ "$resultat" = "$resultat_attendu" ]; then
         echo "✅ Test passé avec succès"
