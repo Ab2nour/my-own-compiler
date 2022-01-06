@@ -197,7 +197,8 @@ boucle_do_while returns [String code]
 ;
 
 fonction_builtin returns [String code]
-    : print {$code = $print.code;}
+    : print {$code = $print.code;} 
+    | read {$code = $read.code;}
 ;
 
 print returns [String code]
@@ -210,6 +211,13 @@ print returns [String code]
         (expr VIRGULE {$code += $expr.code + code_affichage;})* e=expr
     R_PARENTHESE {
         $code += $e.code + code_affichage;
+    }
+;
+
+read returns [String code]
+    : READ L_PARENTHESE id=IDENTIFIANT R_PARENTHESE {
+        $code = "READ\n";
+        $code += "STOREG " + memory.get($id.text) + "\n";
     }
 ;
 
