@@ -129,6 +129,49 @@
     </test>
 
     <test>
+        <titre>if01</titre>
+        <entree>
+            int i
+            i=10
+            si(i<11) {
+            i=i+2
+            afficher(i)
+            }
+
+            afficher(100)
+
+        </entree>
+        <sortie>
+            12
+            100
+        </sortie>
+    </test>
+
+    <test>
+        <titre>if1</titre>
+        <entree>
+            int i
+            i=11
+            si (i<11) i=i+2
+            afficher(i)
+        </entree>
+        <sortie></sortie>
+    </test>
+
+    <test>
+        <titre>if11</titre>
+        <entree>
+            int i
+            i=11
+            si (i<11) {
+            i=i+2
+            afficher(i)
+            }
+        </entree>
+        <sortie></sortie>
+    </test>
+
+    <test>
         <titre>ifelse</titre>
         <entree>
             int u
