@@ -334,6 +334,7 @@ fragment BACKSLASH_R : '\r';
 
 POINT_VIRGULE : ';';
 VIRGULE : ',';
+POINT : '.';
 
 
 WHITESPACE : (ESPACE | TAB)+ -> skip;
@@ -341,7 +342,10 @@ fragment ESPACE : ' ';
 fragment TAB : '\t';
 
 ENTIER : CHIFFRE+; // todo: les nombres commençant par 0 exemple : "042" ?
+FLOAT : CHIFFRE+ (POINT | VIRGULE) CHIFFRE+ | CHIFFRE+ FLOAT_EXPONENT CHIFFRE+;
+
 fragment CHIFFRE : ('0'..'9');
+fragment FLOAT_EXPONENT : 'e';
 
 BOOLEEN : TRUE { setText("1"); } | FALSE { setText("0"); };
 
@@ -404,10 +408,10 @@ XOR : 'xor';
 NOT : 'not';
 
 // Déclaration de variables
-TYPE : INT | BOOL_TYPE | FLOAT;
-INT: 'int';
-BOOL_TYPE: 'bool';
-FLOAT: 'float';
+TYPE : INT | BOOL_TYPE | FLOAT_TYPE;
+INT : 'int';
+BOOL_TYPE : 'bool';
+FLOAT_TYPE : 'float';
 
 
 // Structures de contrôle et boucles :
