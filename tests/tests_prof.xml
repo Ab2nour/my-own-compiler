@@ -548,6 +548,7 @@
 
     <test>
         <titre>exponentiels 3</titre>
+        <descrption>affiche 2^42 = 0 car le plus grand entier MVAP est 2^42-1</descrption>
         <entree>
             int x
             int y
@@ -563,14 +564,14 @@
             z=x^(3*y+1)
             afficher(z)
             z=x^((5*6*7*11 + 2)/11*5-1008)
-            afficher(z+1)
+            afficher(z)
         </entree>
         <sortie>
             7
             32
             40
             1024
-            4398046511104
+            0
         </sortie>
         <stdin>
             2
