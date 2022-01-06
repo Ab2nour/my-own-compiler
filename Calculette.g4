@@ -123,7 +123,6 @@ instruction returns [String code]
     | fonction_builtin {$code = $fonction_builtin.code;}
     | structure_conditionnelle {$code = $structure_conditionnelle.code;}
     | boucle {$code = $boucle.code;}
-    | bloc_instructions {$code = $bloc_instructions.code;}
 
     // Une instruction qui ne contient qu'une expr est
     // inutile et sans effet de bord : on POP donc
