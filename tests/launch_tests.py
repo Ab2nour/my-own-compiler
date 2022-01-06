@@ -4,7 +4,8 @@ import xml.etree.ElementTree as ET
 # ---------- Constantes ----------
 NOM_FICHIER_SH = 'launch_tests.sh'
 XML_HEADER = '?xml version="1.0" encoding="UTF-8"?'
-TAGS = ("titre", "description", "entree", "sortie", "stdin", XML_HEADER)
+TAGS = ("tests", "test", "titre", "description", "entree", "sortie",
+        "stdin", XML_HEADER)
 
 # ---------- Fonctions ----------
 def format_whitespace(s):
@@ -48,7 +49,7 @@ def escape_xml_entities(s):
 
     s = s.replace("&", "&amp;")
     s = s.replace("<", "&lt;")
-    s = s.replace("<", "&gt;")
+    s = s.replace(">", "&gt;")
 
     for tag in TAGS:
         s = s.replace("{LEFT}{tag}{RIGHT}", f"<{tag}>")
@@ -70,7 +71,7 @@ def unescape_xml_entities(s):
 
     s = s.replace("&amp;", "&")
     s = s.replace("&lt;", "<")
-    s = s.replace("&gt;", "<")
+    s = s.replace("&gt;", ">")
 
     return s
 
@@ -84,6 +85,7 @@ def create_tests_list(filename):
     """
     with open(f'tests/{filename}.xml') as fichier_test:
         xml_text = escape_xml_entities(fichier_test.read())
+
         root = ET.fromstring(xml_text)
 
         try:
