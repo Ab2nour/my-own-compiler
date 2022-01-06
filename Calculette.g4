@@ -63,23 +63,42 @@ grammar Calculette;
 }
 
 // règles de la grammaire
+/*
+calcul returns [String code]
+    : start {$code = $start.code;}
+;
+ */
+
 start returns [String code]
     @init {$code = new String(); $code += fonctions_builtin();}
     @after {
         for (int i = 0; i < place_variable; i++) {
             $code += "POP\n"; // on pop toutes les variables de la pile
         }
-        System.out.println($code + "HALT\n");
+        $code += "HALT\n";
+        System.out.println($code);
     }
     : (declaration fin_expression+ {$code += $declaration.code;})*
-    (instruction fin_expression+ {$code += $instruction.code;})* EOF
+    (instruction fin_expression+ {$code += $instruction.code;})*
+    EOF
 ;
 
+/* ----------------------------------------------------------------------
+# Déclaration de variable. 
+Syntaxes acceptées :
+
+int x;
+
+int x, y, z;
+
+int x,
+    y;
+---------------------------------------------------------------------- */
 declaration returns [String code]
     @init {
         $code = new String();
     }
-    : TYPE (id=IDENTIFIANT VIRGULE {
+    : TYPE (id=IDENTIFIANT VIRGULE NEWLINE* {
         memory.put($id.text, placeProchaineVariable());
         $code += "PUSHI 0\n";
     })* 
@@ -104,7 +123,6 @@ instruction returns [String code]
     | fonction_builtin {$code = $fonction_builtin.code;}
     | structure_conditionnelle {$code = $structure_conditionnelle.code;}
     | boucle {$code = $boucle.code;}
-    | bloc_instructions {$code = $bloc_instructions.code;}
 
     // Une instruction qui ne contient qu'une expr est
     // inutile et sans effet de bord : on POP donc
@@ -127,7 +145,7 @@ structure_if returns [String code]
     : IF L_PARENTHESE expr_bool R_PARENTHESE NEWLINE*
         (bloc_instructions {instruction_if += $bloc_instructions.code;}
         | instruction {instruction_if += $instruction.code;}
-        )
+        ) NEWLINE*
     (ELSE NEWLINE*
         (bloc_instructions {instruction_else += $bloc_instructions.code;}
         | instruction {instruction_else += $instruction.code;}
@@ -150,17 +168,16 @@ structure_if returns [String code]
 ;
 
 boucle returns [String code]
+    : boucle_do_while {$code = $boucle_do_while.code;}
+;
+
+boucle_do_while returns [String code]
     @init {
         String code_instruction = new String();
     }
-    : WHILE (expr_bool) L_ACCOLADE 
-        (instruction fin_expression+ {code_instruction += $instruction.code;})+
-    R_ACCOLADE {
-        // todo
-    }
-    | DO NEWLINE* (bloc_instructions {code_instruction += $bloc_instructions.code;}
-        | instruction POINT_VIRGULE? NEWLINE* {code_instruction += $instruction.code;}
-    ) WHILE L_PARENTHESE expr_bool R_PARENTHESE {
+    : DO NEWLINE* (bloc_instructions {code_instruction += $bloc_instructions.code;}
+        | instruction POINT_VIRGULE? {code_instruction += $instruction.code;}) NEWLINE*
+    WHILE L_PARENTHESE expr_bool R_PARENTHESE {
         String label_instructions = nouveauLabel(); // instructions du do while
         String label_condition = nouveauLabel(); // vérification de la condition
         String label_fin = nouveauLabel(); // fin du do while
