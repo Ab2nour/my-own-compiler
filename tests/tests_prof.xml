@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests>
+    <titre>Tests prof</titre>
+    
+    <test>
+        <titre>affectations-ctes</titre>
+        <entree>
+            int x
+            int y
+
+            x=42
+            y=43
+
+            print(x)
+            print(y)
+        </entree>
+        <sortie>
+            42
+            43
+        </sortie>
+    </test>
+    
+    <test>
+        <titre>affectations-exp</titre>
+        <entree>
+            int x
+            int y
+            int xy
+            x=42
+            y= (5*6*7*11 + 2)/11*5-1008
+            xy=x-y
+
+            print(xy)
+
+            xy=x+42
+
+            print(x)
+            print(y)
+            print(xy)
+        </entree>
+        <sortie>
+            0
+            42
+            42
+            84
+        </sortie>
+    </test>
+    
+    <test>
+        <titre>affichages</titre>
+        <entree>
+            int x
+            int y
+            int xy
+            int z
+
+            x=42
+            y=(5*6*7*11 + 2)/11*5-1008
+            xy=x-y
+
+            afficher(xy)
+
+            xy=x+42
+            
+            afficher(xy)
+            
+            lire(z)
+            afficher(x)
+
+            x=x*z
+
+            afficher(x)
+            afficher(z)
+            afficher(x*z)
+        </entree>
+        <sortie>
+            0
+            84
+            42
+            126
+            3
+            378
+        </sortie>
+        <stdin>
+            3
+        </stdin>
+    </test>
+
+    <test>
+        <titre>comparaison</titre>
+        <entree>
+            print(false or not (true and not 42 == 42))
+            print(false or 42 <= 40)
+            print(false or (5*6*7*11 + 2)/11*5-1008 <= 5*8+2*-1/-1)
+            print(50 <>  51)
+            print(42+1+2+-3 <> 5*8+2*-1/-1)
+            print((5*6*7*11 + 2)/11/5 < (5*6*7*11 + 2)/(11/5)-1114)
+            print((5*6*7*11 + 2)/11/5 <= (5*6*7*11 + 2)/(11/5)-1114)
+            print(5*8+2*1 > 6*4/5+38)
+            print(5*8+2*1 >= 6*4/5+38)
+            print(42 == (5*6*7*11 + 2)/11/5)
+        </entree>
+        <sortie>
+            1
+            0
+            1
+            1
+            0
+            0
+            1
+            0
+            1
+            1
+        </sortie>
+    </test>
+
+    <test>
+        <titre>if</titre>
+        <entree>
+            int i
+            i=10
+            si(i<11) i=i+2
+            afficher(i)
+        </entree>
+        <sortie>
+            12
+        </sortie>
+    </test>
+
+    <test>
+        <titre>if01</titre>
+        <entree>
+            int i
+            i=10
+            si(i<11) {
+            i=i+2
+            afficher(i)
+            }
+
+            afficher(100)
+
+        </entree>
+        <sortie>
+            12
+            100
+        </sortie>
+    </test>
+
+    <test>
+        <titre>if1</titre>
+        <entree>
+            int i
+            i=11
+            si (i<11) i=i+2
+            afficher(i)
+        </entree>
+        <sortie>11</sortie>
+    </test>
+
+    <test>
+        <titre>if11</titre>
+        <entree>
+            int i
+            i=11
+            si (i<11) {
+            i=i+2
+            afficher(i)
+            }
+        </entree>
+        <sortie></sortie>
+    </test>
+
+    <test>
+        <titre>ifelse</titre>
+        <entree>
+            int u
+            int za
+            u = 1
+            za = 42
+            si (za < u) afficher(u)  
+            sinon afficher (za)
+        </entree>
+        <sortie>
+            42
+        </sortie>
+    </test>
+
+    <test>
+        <titre>ifelse01</titre>
+        <entree>
+            int u
+            int za
+            u = 1
+            za = 42
+
+            si (za < u) {
+            afficher(u)
+            }
+            sinon {
+            za = za - 1
+            afficher(za)
+            }
+        </entree>
+        <sortie>
+            41
+        </sortie>
+    </test>
+
+    <test>
+        <titre>ifelse1</titre>
+        <entree>
+            int u
+            int za
+            u = 1
+            za = 42
+            si (za > u) afficher(u)  
+            sinon afficher(za)
+
+        </entree>
+        <sortie>
+            1
+        </sortie>
+    </test>
+
+    <test>
+        <titre>ifelse2</titre>
+        <entree>
+            int u
+            int e
+            int za
+            e=0
+            lire(u)
+            lire(za)
+
+            si (za < u) afficher(u)  
+            sinon {
+            si (za > u) afficher(za)
+            sinon afficher(e)
+            }
+        </entree>
+        <sortie>
+            42
+        </sortie>
+        <stdin>
+            1
+            42
+        </stdin>
+    </test>
+
+    <test>
+        <titre>ifelse2 (2eme input)</titre>
+        <entree>
+            int u
+            int e
+            int za
+            e=0
+            lire(u)
+            lire(za)
+
+            si (za < u) afficher(u)  
+            sinon {
+            si (za > u) afficher(za)
+            sinon afficher(e)
+            }
+        </entree>
+        <sortie>
+            42
+        </sortie>
+        <stdin>
+            42
+            1
+        </stdin>
+    </test>
+
+    <test>
+        <titre>ifelse2 (3eme input)</titre>
+        <entree>
+            int u
+            int e
+            int za
+            e=0
+            lire(u)
+            lire(za)
+
+            si (za < u) afficher(u)  
+            sinon {
+            si (za > u) afficher(za)
+            sinon afficher(e)
+            }
+        </entree>
+        <sortie>
+            0
+        </sortie>
+        <stdin>
+            42
+            42
+        </stdin>
+    </test>
+
+    <test>
+        <titre>ifelse11</titre>
+        <entree>
+            int u
+            int za
+            u = 1
+            za = 42
+            si (za > u) {
+            u = u+1
+            afficher(u)
+            }
+            sinon afficher(za)
+        </entree>
+        <sortie>
+            2
+        </sortie>
+    </test>
+
+    <test>
+        <titre>op-arith</titre>
+        <entree>
+            print(42)
+            print(24+24-6)
+            print(5*8+2*1)
+            print(6*4/5+38)
+            print(42+1+2+-3)
+            print(5*8+2*-1/-1)
+            print((5*6*7*11 + 2)/11*5-1008)
+            print((5*6*7*11 + 2)/(11*5))
+            print((5*6*7*11 + 2)/11/5)
+            print((5*6*7*11 + 2)/(11/5)-1114)
+        </entree>
+        <sortie>
+            42
+            42
+            42
+            42
+            42
+            42
+            42
+            42
+            42
+            42
+        </sortie>
+    </test>
+
+    <test>
+        <titre>op-bool</titre>
+        <entree>
+            print(true and false or true and not true)
+            print((true and false) or (true and not true))
+            print(true or false and false)
+            print(true or (false and false))
+            print(false or (true and not false))
+            print(false or true and not false)
+            print((false or true) and not false)
+            print((not true and false) or (true and not false))
+
+        </entree>
+        <sortie>
+            0
+            0
+            1
+            1
+            1
+            1
+            1
+            1
+        </sortie>
+    </test>
+
+    <test>
+        <titre>while</titre>
+        <entree>
+            int i
+            i = 0
+            repeter i = i + 2
+            tantque ( false or i <= 40)
+
+            afficher(i)
+        </entree>
+        <sortie>
+            42
+        </sortie>
+    </test>
+
+    <test>
+        <titre>while1</titre>
+        <entree>
+            int y
+            int za
+            int x
+            int endthen
+            int endelse
+
+            endthen = 0
+            endelse = 0
+
+            lire(x)
+            lire(y)
+            lire(za)
+
+            repeter {
+                afficher(y)
+                endthen=1
+            } tantque (x == 0 and endthen == 0)
+
+            repeter {
+                afficher(za)
+                endelse=2
+            } tantque (x<> 0 and endelse == 0)
+
+            afficher(endthen)
+            afficher(endelse)
+        </entree>
+        <sortie>
+            2
+            3
+            1
+            2
+        </sortie>
+        <stdin>
+            1
+            2
+            3
+        </stdin>
+    </test>
+
+    <test>
+        <titre>while2 (Fibonacci n+2)</titre>
+        <entree>
+            int f
+            int f1
+            int f2
+            int n
+            lire(n)
+            f1 = 1
+            f2=1
+            f=1
+            repeter {
+            f=f1+f2
+            f2=f1
+            f1=f
+            n=n-1
+            } tantque(n>=2)
+            
+            afficher(f)
+        </entree>
+        <sortie>
+            8
+        </sortie>
+        <stdin>
+            5
+        </stdin>
+    </test>
+
+    <test>
+        <titre>while2 (Fibonacci n+2)</titre>
+        <entree>
+            int f
+            int f1
+            int f2
+            int n
+            lire(n)
+            f1 = 1
+            f2=1
+            f=1
+            repeter {
+            f=f1+f2
+            f2=f1
+            f1=f
+            n=n-1
+            } tantque(n>=2)
+            
+            afficher(f)
+        </entree>
+        <sortie>
+            13
+        </sortie>
+        <stdin>
+            6
+        </stdin>
+    </test>
+
+    <test>
+        <titre>exponentiels</titre>
+        <entree>
+            int x
+            int y
+            int z
+            lire(x)
+            lire(y)
+            z=2^x+y
+            afficher(z)
+            z=2^(x+y)
+            afficher(z)
+            z=x^y+z
+            afficher(z)
+            z=x^(3*y+1)
+            afficher(z)
+            z=x^((5*6*7*11 + 2)/11*5-1008)
+            afficher(z)
+        </entree>
+        <sortie>
+            4
+            8
+            9
+            1
+            1
+        </sortie>
+        <stdin>
+            1
+            2
+        </stdin>
+    </test>
+
+    <test>
+        <titre>exponentiels 2</titre>
+        <entree>
+            int x
+            int y
+            int z
+            lire(x)
+            lire(y)
+            z=2^x+y
+            afficher(z)
+            z=2^(x+y)
+            afficher(z)
+            z=x^y+z
+            afficher(z)
+            z=x^(3*y+1)
+            afficher(z)
+            z=x^((5*6*7*11 + 2)/11*5-1008)
+            afficher(z)
+        </entree>
+        <sortie>
+            5
+            16
+            17
+            1
+            1
+        </sortie>
+        <stdin>
+            1
+            3
+        </stdin>
+    </test>
+
+    <test>
+        <titre>exponentiels 3</titre>
+        <descrption>affiche 2^42 = 0 car le plus grand entier MVAP est 2^42-1</descrption>
+        <entree>
+            int x
+            int y
+            int z
+            lire(x)
+            lire(y)
+            z=2^x+y
+            afficher(z)
+            z=2^(x+y)
+            afficher(z)
+            z=x^y+z
+            afficher(z)
+            z=x^(3*y+1)
+            afficher(z)
+            z=x^((5*6*7*11 + 2)/11*5-1008)
+            afficher(z)
+        </entree>
+        <sortie>
+            7
+            32
+            40
+            1024
+            0
+        </sortie>
+        <stdin>
+            2
+            3
+        </stdin>
+    </test>
+</tests>
+
+
+

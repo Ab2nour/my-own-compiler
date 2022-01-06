@@ -276,6 +276,29 @@ nombre_entier returns [String code]
     | ENTIER {$code = "PUSHI " + $ENTIER.int + '\n';}
 ;
 
+
+// expression flottante
+expr_float returns [String code]
+    : L_PARENTHESE a=expr_arith R_PARENTHESE {$code = $a.code;}
+    //todo: gérer les exposants négatifs
+    | <assoc=right> a=expr_arith EXP b=expr_arith {
+        $code = "PUSHI 0\n";
+        $code += $a.code + $b.code;
+        $code += "CALL " + label_exp + "\n";
+        $code += "POP\nPOP\n";
+    }
+    | a=expr_arith MUL_OU_DIV b=expr_arith {$code = $a.code + $b.code + $MUL_OU_DIV.getText() + "\n";}
+    | a=expr_arith PLUS b=expr_arith {$code = $a.code + $b.code + $PLUS.getText() + "\n";}
+    | a=expr_arith MOINS b=expr_arith {$code = $a.code + $b.code + $MOINS.getText() + "\n";}
+    | nombre_entier {$code = $nombre_entier.code;}
+    | id=IDENTIFIANT {$code = "PUSHG " + memory.get($id.text) + "\n";}
+;
+
+nombre_float returns [String code]
+    : MOINS ENTIER {$code = "PUSHI " + -$ENTIER.int + '\n';}
+    | ENTIER {$code = "PUSHI " + $ENTIER.int + '\n';}
+;
+
 // expression booléenne
 expr_bool returns [String code]
     : L_PARENTHESE a=expr_bool R_PARENTHESE {$code = $a.code;}
@@ -319,6 +342,7 @@ fragment BACKSLASH_R : '\r';
 
 POINT_VIRGULE : ';';
 VIRGULE : ',';
+POINT : '.';
 
 
 WHITESPACE : (ESPACE | TAB)+ -> skip;
@@ -326,7 +350,10 @@ fragment ESPACE : ' ';
 fragment TAB : '\t';
 
 ENTIER : CHIFFRE+; // todo: les nombres commençant par 0 exemple : "042" ?
+FLOAT : CHIFFRE+ (POINT | VIRGULE) CHIFFRE+ | CHIFFRE+ FLOAT_EXPONENT CHIFFRE+;
+
 fragment CHIFFRE : ('0'..'9');
+fragment FLOAT_EXPONENT : 'e';
 
 BOOLEEN : TRUE { setText("1"); } | FALSE { setText("0"); };
 
@@ -389,10 +416,10 @@ XOR : 'xor';
 NOT : 'not';
 
 // Déclaration de variables
-TYPE : INT | BOOL_TYPE | FLOAT;
-INT: 'int';
-BOOL_TYPE: 'bool';
-FLOAT: 'float';
+TYPE : INT | BOOL_TYPE | FLOAT_TYPE;
+INT : 'int';
+BOOL_TYPE : 'bool';
+FLOAT_TYPE : 'float';
 
 
 // Structures de contrôle et boucles :
