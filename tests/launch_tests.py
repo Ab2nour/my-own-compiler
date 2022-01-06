@@ -129,24 +129,24 @@ def create_tests_list(filename):
 
             tests.append(t_dict)
 
-    return tests
+    return titre_tests, description_tests, tests
 
-def add_tests(filename, title):
+def add_tests(filename):
     """
     Cette fonction ajoute les tests au fichier launch_tests.sh.
     ---
     filename: nom du fichier de test (sans l'extension '.xml')
-    title: titre affiché dans le script Bash
     """
-    tests = create_tests_list(filename)
+    titre_tests, description_tests, tests = create_tests_list(filename)
 
 
 
     with open(NOM_FICHIER_SH, mode='a') as fichier_sortie:
         fichier_sortie.write(f"echo; echo\n")
 
-        padded_title = (' ' + title + ' ')
-        fichier_sortie.write(f"echo {padded_title.center(67, '-')}\n")
+        padded_title = (' ' + titre_tests + ' ')
+        fichier_sortie.write(f"echo '{padded_title.center(67, '-')}'\n")
+        fichier_sortie.write(f"echo '{description}'\n")
         fichier_sortie.write(f"echo\n")
 
         for test in tests:
@@ -161,16 +161,18 @@ def add_tests(filename, title):
 
             stdin = test['stdin']
 
-            fichier_sortie.write(f"test_expr '{entree}' '{sortie}'\n")
+            if titre != '':
+                fichier_sortie.write(f"echo '----------{titre}----------'\n")
+            fichier_sortie.write(f"test_expr '{entree}' '{sortie}' '{stdin}' '{description}'\n")
 
 
 # ---------- Code ----------
-add_tests('expr_arithmetiques', 'Expressions Arithmétiques')
-add_tests('booleens', 'Booléens')
-add_tests('commentaires', 'Commentaires')
-add_tests('declarations', 'Déclarations')
-add_tests('exposants', 'Exposants')
-add_tests('print', 'Print')
-add_tests('if', 'If')
-add_tests('else_if', 'Else If')
-add_tests('do_while', 'Do While')
+add_tests('expr_arithmetiques')
+add_tests('booleens')
+add_tests('commentaires')
+add_tests('declarations')
+add_tests('exposants')
+add_tests('print')
+add_tests('if')
+add_tests('else_if')
+add_tests('do_while')
