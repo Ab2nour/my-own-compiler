@@ -1,13 +1,33 @@
 # ---------- Imports ----------
-import subprocess
-import os
-
+import xml.etree.ElementTree as ET
 
 # ---------- Constantes ----------
 NOM_FICHIER_SH = 'launch_tests.sh'
 
 
 # ---------- Fonctions ----------
+def format_whitespace(s):
+    """
+    Replace multiple whitespaces with only one, but keeping `\n`.
+
+    ---
+    s: string to which you replace whitespaces.
+
+    Source : https://stackoverflow.com/questions/2077897/substitute-multiple-whitespace-with-single-whitespace-in-python/2077944#comment112437185_2077944
+    """
+    s = s.splitlines()
+
+    s = filter(lambda x: x != '', s) # remove empty string
+    s = list(s)
+
+    s = map(lambda x: x.strip(), s) # strip
+    s = list(s)
+
+    s = '\n'.join(s)
+
+    return s
+
+
 def add_tests(name, title):
     """
     Cette fonction ajoute les tests au fichier launch_tests.sh.
@@ -32,7 +52,7 @@ def add_tests(name, title):
 
             # on remplace retours à la ligne par espaces
             # car MVaP n'affiche pas de retour à la ligne
-            tests[i][1] = tests[i][1].replace('\n', ' ') 
+            tests[i][1] = tests[i][1].replace('\n', ' ')
 
 
     with open(NOM_FICHIER_SH, mode='a') as fichier_sortie:
