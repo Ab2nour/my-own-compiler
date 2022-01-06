@@ -138,9 +138,8 @@ def add_tests(filename):
     ---
     filename: nom du fichier de test (sans l'extension '.xml')
     """
+
     titre_tests, description_tests, tests = create_tests_list(filename)
-
-
 
     with open(NOM_FICHIER_SH, mode='a') as fichier_sortie:
         fichier_sortie.write(f"echo; echo\n")
@@ -164,7 +163,7 @@ def add_tests(filename):
             stdin = test['stdin']
 
             if titre != '':
-                fichier_sortie.write(f"echo '----------{titre}----------'\n")
+                fichier_sortie.write(f"echo '---------- {titre} ----------'\n")
             fichier_sortie.write(f"test_expr '{entree}' '{sortie}' '{stdin}' '{description}'\n")
 
 
