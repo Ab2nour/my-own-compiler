@@ -12,33 +12,57 @@ Un exemple vaut mieux qu'un long discours...
 ### Exemple : `exemple.xml`
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
+
 <tests titre="Exemple" description="Ces tests vont juste servir d'exemple">
     <test>
-      <titre>Premier test</titre>
-      <description>Ceci est le test numéro 1</description>
-      <entree>entrée1</entree>
-      <sortie>sortie1</sortie>
+        <titre>Premier test</titre>
+        <description>Ceci est le test numéro 1</description>
+        <entree>entrée1</entree>
+        <sortie>sortie1</sortie>
     </test>
-    
+
     <test>
-      <!-- description optionnelle -->
-      <titre>Plusieurs lignes</titre>
-      <entree>
-          entrée2
-          sur
-          plusieurs lignes
-      </entree>
-      <sortie>
-          sortie2
-          sur
-          plusieurs lignes
-      </sortie>
+        <!-- description optionnelle -->
+        <titre>Plusieurs lignes</titre>
+        <entree>
+            entrée2
+            sur
+            plusieurs lignes
+        </entree>
+        <sortie>
+            sortie2
+            sur
+            plusieurs lignes
+        </sortie>
     </test>
-    
+
     <test>
-      <!-- titre et description optionnels -->
-      <entree>entrée 3</entree>
-      <sortie>sortie3</sortie>
+        <!-- titre et description optionnels -->
+        <entree>entrée 3</entree>
+        <sortie>sortie3</sortie>
+    </test>
+
+    <test>
+        <titre>Donner une entrée standard au programme</titre>
+        <entree>
+            int x;
+            
+            read(x);
+            print(x + 2);
+            
+            read(x);
+            print(x + 40);
+        </entree>
+        <sortie>
+            42
+            42
+        </sortie>
+        
+        <!-- Entrée standard donnée au programme -->
+        <stdin>
+            40
+            2
+        </stdin>
     </test>
 </tests>
 ``` 
