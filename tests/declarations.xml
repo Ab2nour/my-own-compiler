@@ -1,65 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <tests titre="Exemple" description="Ces tests vont juste servir d'exemple">
-
-    <entree>
-int x;
-2+2
-print(x)
-x = 3
-print(x)
-x = 5
-print(x)
-    </entree>
-    <sortie>
-0 3 5
-    </sortie>
-    <entree>
-int x;
-x += 40+2;
-print(x);
-    </entree>
-    <sortie>
-42
-    </sortie>
-    <entree>
-int x;
-x = 40;
-x++; x++;
-print(x)
-    </entree>
-    <sortie>
-42
-    </sortie>
-    <entree>
-int x;
-x = 44;
-x--; x--;
-print(x)
-    </entree>
-    <sortie>
-42
-    </sortie>
-    <entree>
-int x;
-x = 0;
-
-x += 42;
-print(x);
-
-x = 84
-x -= 42;
-print(x);
-
-x = 14
-x *= 3;
-print(x);
-
-x = 168
-x /= 4;
-print(x);
-    </entree>
-    <sortie>
-42 42 42 42
-    </sortie>
+    <test>
+        <entree>
+            int x;
+            2+2
+            print(x)
+            x = 3
+            print(x)
+            x = 5
+            print(x)
+        </entree>
+        <sortie>
+            0
+            3
+            5
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            int x;
+            x += 40+2;
+            print(x);
+        </entree>
+        <sortie>
+            42
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            int x;
+            x = 40;
+            x++; x++;
+            print(x)
+        </entree>
+        <sortie>
+            42
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            int x;
+            x = 44;
+            x--; x--;
+            print(x)
+        </entree>
+        <sortie>
+            42
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            int x;
+            x = 0;
+            
+            x += 42;
+            print(x);
+            
+            x = 84
+            x -= 42;
+            print(x);
+            
+            x = 14
+            x *= 3;
+            print(x);
+            
+            x = 168
+            x /= 4;
+            print(x);
+        </entree>
+        <sortie>
+            42
+            42
+            42
+            42
+        </sortie>
+    </test>
 </tests>

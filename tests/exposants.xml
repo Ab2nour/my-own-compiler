@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <tests titre="Exemple" description="Ces tests vont juste servir d'exemple">
-
-    <entree>
-print(2^3);
-print(5 * 2^3 + 2);
-print(2^3^2);
-    </entree>
-    <sortie>
-8 42 512
-    </sortie>
+    <test>
+        <entree>
+            print(2^3);
+            print(5 * 2^3 + 2);
+            print(2^3^2);
+        </entree>
+        <sortie>
+            8
+            42
+            512
+        </sortie>
+    </test>
 </tests>

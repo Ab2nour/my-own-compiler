@@ -1,60 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <tests titre="Exemple" description="Ces tests vont juste servir d'exemple">
-
-    <entree>
-print(true and false or true and not true)
-    </entree>
-    <sortie>
-0
-    </sortie>
-    <entree>
-print(true or false and false)
-    </entree>
-    <sortie>
-1
-    </sortie>
-    <entree>
-print(true or (false or false))
-    </entree>
-    <sortie>
-1
-    </sortie>
-    <entree>
-print(false or (true and not false))
-    </entree>
-    <sortie>
-1
-    </sortie>
-    <entree>
-print((not true and false) or (true and not false))
-    </entree>
-    <sortie>
-1
-    </sortie>
-    <entree>
-print(true and false or true and not true)
-print(true or false and false)
-print(true or (false or false))
-print(false or (true and not false))
-print((not true and false) or (true and not false))
-    </entree>
-    <sortie>
-0 1 1 1 1
-    </sortie>
-    <entree>
-print(false or not (true and not 42 == 42))
-print(false or 42 <= 40)
-print(false or (5*6*7*11 + 2)/11*5-1008 <= 5*8+2*-1/-1)
-print(50 <>  51)
-print(42+1+2+-3 <> 5*8+2*-1/-1)
-print((5*6*7*11 + 2)/11/5 < (5*6*7*11 + 2)/(11/5)-1114)
-print((5*6*7*11 + 2)/11/5 <= (5*6*7*11 + 2)/(11/5)-1114)
-print(5*8+2*1 > 6*4/5+38)
-print(5*8+2*1 >= 6*4/5+38)
-print(42 == (5*6*7*11 + 2)/11/5)
-    </entree>
-    <sortie>
-1 0 1 1 0 0 1 0 1 1
-    </sortie>
+    <test>
+        <entree>
+            print(true and false or true and not true)
+        </entree>
+        <sortie>
+            0
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            print(true or false and false)
+        </entree>
+        <sortie>
+            1
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            print(true or (false or false))
+        </entree>
+        <sortie>
+            1
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            print(false or (true and not false))
+        </entree>
+        <sortie>
+            1
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            print((not true and false) or (true and not false))
+        </entree>
+        <sortie>
+            1
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            print(true and false or true and not true)
+            print(true or false and false)
+            print(true or (false or false))
+            print(false or (true and not false))
+            print((not true and false) or (true and not false))
+        </entree>
+        <sortie>
+            0
+            1
+            1
+            1
+            1
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            print(false or not (true and not 42 == 42))
+            print(false or 42 <= 40)
+            print(false or (5*6*7*11 + 2)/11*5-1008 <= 5*8+2*-1/-1)
+            print(50 <>  51)
+            print(42+1+2+-3 <> 5*8+2*-1/-1)
+            print((5*6*7*11 + 2)/11/5 < (5*6*7*11 + 2)/(11/5)-1114)
+            print((5*6*7*11 + 2)/11/5 <= (5*6*7*11 + 2)/(11/5)-1114)
+            print(5*8+2*1 > 6*4/5+38)
+            print(5*8+2*1 >= 6*4/5+38)
+            print(42 == (5*6*7*11 + 2)/11/5)
+        </entree>
+        <sortie>
+            1
+            0
+            1
+            1
+            0
+            0
+            1
+            0
+            1
+            1
+        </sortie>
+    </test>
 </tests>

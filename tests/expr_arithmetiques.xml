@@ -1,197 +1,249 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <tests titre="Exemple" description="Ces tests vont juste servir d'exemple">
-
-    <entree>
-3 + 5
-3 * 5
-3*5
-3 - 5
-6 / 3
-5 / 2
-5 * 8 + 2 * 1
-5 * (8 + 2) * 1
-6 * 4 / 5 + 38
-2*(5+2 * 8+ 3) - 6
-5+5;
-2+2
-5+5;2+2
-5+5;
-2+2;
-5 + 3
-4 + 5
-2 + 2 * 2
--2
--2 + 3
-42
-24+24-6
-5*8+2*1
-6*4/5+38
-42+1+2+-3
-5*8+2*-1/-1
-(5*6*7*11 + 2)/11*5-1008
-(5*6*7*11 + 2)/(11*5)
-(5*6*7*11 + 2)/11/5
-(5*6*7*11 + 2)/(11/5)-1114
-    </entree>
-    <sortie>
-
-    </sortie>
-    <entree>
-8
-15
-15
--2
-2
-2
-42
-50
-42
-42
-10
-4
-10
-4
-10
-4
-8
-9
-6
--2
-1
-42
-42
-42
-42
-42
-42
-42
-42
-42
-42
-    </entree>
-    <sortie>
-
-    </sortie>
-    <entree>
-print(3 + 5)
-    </entree>
-    <sortie>
-8
-    </sortie>
-    <entree>
-print(3 * 5)
-    </entree>
-    <sortie>
-15
-    </sortie>
-    <entree>
-print(3*5)
-    </entree>
-    <sortie>
-15
-    </sortie>
-    <entree>
-print(3 - 5)
-    </entree>
-    <sortie>
--2
-    </sortie>
-    <entree>
-print(6 / 3)
-    </entree>
-    <sortie>
-2
-    </sortie>
-    <entree>
-print(5 / 2)
-    </entree>
-    <sortie>
-2
-    </sortie>
-    <entree>
-print(5 * 8 + 2 * 1)
-    </entree>
-    <sortie>
-42
-    </sortie>
-    <entree>
-print(5 * (8 + 2) * 1)
-    </entree>
-    <sortie>
-50
-    </sortie>
-    <entree>
-print(6 * 4 / 5 + 38)
-    </entree>
-    <sortie>
-42
-    </sortie>
-    <entree>
-print(2*(5+2 * 8+ 3) - 6)
-    </entree>
-    <sortie>
-42
-    </sortie>
-    <entree>
-print(5+5);
-print(2+2)
-    </entree>
-    <sortie>
-10 4
-    </sortie>
-    <entree>
-print(5+5);print(2+2)
-    </entree>
-    <sortie>
-10 4
-    </sortie>
-    <entree>
-print(5+5);
-print(2+2);
-    </entree>
-    <sortie>
-10 4
-    </sortie>
-    <entree>
-print(5 + 3)
-
-print(4 + 5)
-    </entree>
-    <sortie>
-8 9
-    </sortie>
-    <entree>
-print(2 + 2 * 2)
-    </entree>
-    <sortie>
-6
-    </sortie>
-    <entree>
-print(-2)
-    </entree>
-    <sortie>
--2
-    </sortie>
-    <entree>
-print(-2 + 3)
-    </entree>
-    <sortie>
-1
-    </sortie>
-    <entree>
-print(42)
-print(24+24-6)
-print(5*8+2*1)
-print(6*4/5+38)
-print(42+1+2+-3)
-print(5*8+2*-1/-1)
-print((5*6*7*11 + 2)/11*5-1008)
-print((5*6*7*11 + 2)/(11*5))
-print((5*6*7*11 + 2)/11/5)
-print((5*6*7*11 + 2)/(11/5)-1114)
-    </entree>
-    <sortie>
-42 42 42 42 42 42 42 42 42 42
-    </sortie>
+    <test>
+        <entree>
+            3 + 5
+            3 * 5
+            3*5
+            3 - 5
+            6 / 3
+            5 / 2
+            5 * 8 + 2 * 1
+            5 * (8 + 2) * 1
+            6 * 4 / 5 + 38
+            2*(5+2 * 8+ 3) - 6
+            5+5;
+            2+2
+            5+5;2+2
+            5+5;
+            2+2;
+            5 + 3
+            4 + 5
+            2 + 2 * 2
+            -2
+            -2 + 3
+            42
+            24+24-6
+            5*8+2*1
+            6*4/5+38
+            42+1+2+-3
+            5*8+2*-1/-1
+            (5*6*7*11 + 2)/11*5-1008
+            (5*6*7*11 + 2)/(11*5)
+            (5*6*7*11 + 2)/11/5
+            (5*6*7*11 + 2)/(11/5)-1114
+        </entree>
+        <sortie>
+            
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            8
+            15
+            15
+            -2
+            2
+            2
+            42
+            50
+            42
+            42
+            10
+            4
+            10
+            4
+            10
+            4
+            8
+            9
+            6
+            -2
+            1
+            42
+            42
+            42
+            42
+            42
+            42
+            42
+            42
+            42
+            42
+        </entree>
+        <sortie>
+            
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            print(3 + 5)
+        </entree>
+        <sortie>
+            8
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            print(3 * 5)
+        </entree>
+        <sortie>
+            15
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            print(3*5)
+        </entree>
+        <sortie>
+            15
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            print(3 - 5)
+        </entree>
+        <sortie>
+            -2
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            print(6 / 3)
+        </entree>
+        <sortie>
+            2
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            print(5 / 2)
+        </entree>
+        <sortie>
+            2
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            print(5 * 8 + 2 * 1)
+        </entree>
+        <sortie>
+            42
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            print(5 * (8 + 2) * 1)
+        </entree>
+        <sortie>
+            50
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            print(6 * 4 / 5 + 38)
+        </entree>
+        <sortie>
+            42
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            print(2*(5+2 * 8+ 3) - 6)
+        </entree>
+        <sortie>
+            42
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            print(5+5);
+            print(2+2)
+        </entree>
+        <sortie>
+            10
+            4
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            print(5+5);print(2+2)
+        </entree>
+        <sortie>
+            10
+            4
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            print(5+5);
+            print(2+2);
+        </entree>
+        <sortie>
+            10
+            4
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            print(5 + 3)
+            
+            print(4 + 5)
+        </entree>
+        <sortie>
+            8
+            9
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            print(2 + 2 * 2)
+        </entree>
+        <sortie>
+            6
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            print(-2)
+        </entree>
+        <sortie>
+            -2
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            print(-2 + 3)
+        </entree>
+        <sortie>
+            1
+        </sortie>
+    </test>
+    <test>
+        <entree>
+            print(42)
+            print(24+24-6)
+            print(5*8+2*1)
+            print(6*4/5+38)
+            print(42+1+2+-3)
+            print(5*8+2*-1/-1)
+            print((5*6*7*11 + 2)/11*5-1008)
+            print((5*6*7*11 + 2)/(11*5))
+            print((5*6*7*11 + 2)/11/5)
+            print((5*6*7*11 + 2)/(11/5)-1114)
+        </entree>
+        <sortie>
+            42
+            42
+            42
+            42
+            42
+            42
+            42
+            42
+            42
+            42
+        </sortie>
+    </test>
 </tests>
