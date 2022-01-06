@@ -155,7 +155,7 @@
             si (i<11) i=i+2
             afficher(i)
         </entree>
-        <sortie></sortie>
+        <sortie>11</sortie>
     </test>
 
     <test>
@@ -385,7 +385,7 @@
     </test>
 
     <test>
-        <titre>comparaison1</titre>
+        <titre>while1</titre>
         <entree>
             print(false or not (true and not 42 == 42))
         </entree>
@@ -395,7 +395,7 @@
     </test>
 
     <test>
-        <titre>comparaison1</titre>
+        <titre>while2</titre>
         <entree>
             print(false or not (true and not 42 == 42))
         </entree>
@@ -405,7 +405,7 @@
     </test>
 
     <test>
-        <titre>comparaison1</titre>
+        <titre>exponentiels</titre>
         <entree>
             print(false or not (true and not 42 == 42))
         </entree>
