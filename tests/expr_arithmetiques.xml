@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <tests>
-    <titre>Exemple</titre>
-    <description>Ces tests vont juste servir d'exemple</description>
+    <titre>Expressions arithmétiques</titre>
     
     <test>
         <entree>
