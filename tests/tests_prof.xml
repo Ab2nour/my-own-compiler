@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests>
+    <titre>Tests prof</titre>
+    
+    <test>
+        <description>affectations-ctes</description>
+        <entree>
+            int x
+            int y
+
+            x=42
+            y=43
+
+            print(x)
+            print(y)
+        </entree>
+        <sortie>
+            42
+            43
+        </sortie>
+    </test>
+    
+    <test>
+        <description>affectations-exp</description>
+        <entree>
+            int x
+            int y
+            int xy
+            x=42
+            y= (5*6*7*11 + 2)/11*5-1008
+            xy=x-y
+
+            print(xy)
+
+            xy=x+42
+
+            print(x)
+            print(y)
+            print(xy)
+        </entree>
+        <sortie>
+            0
+            42
+            42
+            84
+        </sortie>
+    </test>
+    
+    <test>
+        <description>affichages</description>
+        <entree>
+            int x
+            int y
+            int xy
+            x=42
+            y= (5*6*7*11 + 2)/11*5-1008
+            xy=x-y
+
+            print(xy)
+
+            xy=x+42
+
+            print(x)
+            print(y)
+            print(xy)
+        </entree>
+        <sortie>
+            0
+            42
+            42
+            84
+        </sortie>
+    </test>
+</tests>
+
+int x
+int y
+int xy
+int z
+x=42
+y=(5*6*7*11 + 2)/11*5-1008
+xy=x-y
+afficher(xy)
+xy=x+42
+afficher(xy)
+lire(z)
+afficher(x)
+x=x*z
+afficher(x)
+afficher(z)
+afficher(x*z)
+
