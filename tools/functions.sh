@@ -129,6 +129,7 @@ function test_expr () {
         echo "❌ Echec du test"
         echo "----- Description -----"
         echo "$description"
+        echo
         echo "----- Entrée -----"
         echo "$expr"
         echo "----- Résultat attendu -----"
