@@ -152,8 +152,13 @@ def add_tests(filename, title):
         for test in tests:
             titre = test['titre']
             description = test['description']
+
             entree = test['entree']
-            sortie = test['sortie']
+
+            # on remplace retours à la ligne par espaces
+            # car MVaP n'affiche pas de retour à la ligne
+            sortie = test['sortie'].replace('\n', ' ')
+
             stdin = test['stdin']
 
             fichier_sortie.write(f"test_expr '{entree}' '{sortie}'\n")
