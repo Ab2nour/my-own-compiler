@@ -127,6 +127,7 @@ function test_expr () {
         echo; echo;
     else
         echo "❌ Echec du test"
+        echo
         echo "----- Description -----"
         echo "$description"
         echo
