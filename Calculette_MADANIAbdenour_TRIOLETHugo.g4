@@ -568,8 +568,8 @@ Syntaxes float :
 
 4.2e1
 ---------------------------------------------------------------------- */
-ENTIER : CHIFFRE+; // todo: les nombres commençant par 0 exemple : "042" ?
 FLOAT : CHIFFRE+ POINT CHIFFRE+ | CHIFFRE+ (POINT CHIFFRE+)? FLOAT_EXPONENT CHIFFRE+;
+ENTIER : CHIFFRE+; // todo: les nombres commençant par 0 exemple : "042" ?
 
 fragment CHIFFRE : ('0'..'9');
 fragment FLOAT_EXPONENT : 'e';
