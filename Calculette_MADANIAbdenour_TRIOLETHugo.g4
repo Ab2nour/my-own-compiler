@@ -273,11 +273,25 @@ boucle_do_while returns [String code]
     }
 ;
 
+
+/* ----------------------------------------------------------------------
+# Fonctions Built-in
+---------------------------------------------------------------------- */
 fonction_builtin returns [String code]
     : print {$code = $print.code;} 
     | read {$code = $read.code;}
 ;
 
+
+/* ----------------------------------------------------------------------
+# Print
+
+Syntaxes :
+
+print(x)
+
+print(x, y, z)
+---------------------------------------------------------------------- */
 print returns [String code]
     @init {
         $code = new String();
