@@ -103,6 +103,17 @@ declaration returns [String code]
     //todo : déclaration & assignation simultanées | TYPE id=IDENTIFIANT EGAL expr
 ;
 
+
+/* ----------------------------------------------------------------------
+# Bloc d'instructions
+(utilisé uniquement dans les structures (if, do while, ...))
+
+Syntaxe :
+
+{
+    instructions;
+}
+---------------------------------------------------------------------- */
 bloc_instructions returns [String code]
     @init {
         $code = new String();
@@ -112,6 +123,17 @@ bloc_instructions returns [String code]
     R_ACCOLADE
 ;
 
+
+/* ----------------------------------------------------------------------
+# Instruction unique
+(utilisé uniquement dans les structures (if, do while, ...))
+
+Syntaxe :
+
+{
+    instructions;
+}
+---------------------------------------------------------------------- */
 instruction returns [String code]
     : affectation {$code = $affectation.code;}
     | fonction_builtin {$code = $fonction_builtin.code;}
