@@ -13,7 +13,9 @@ grammar Calculette_MADANIAbdenour_TRIOLETHugo;
     int placeProchaineVariable() {
         return place_variable++;
     }
-    HashMap<String, Integer> memory = new HashMap<String, Integer>();
+    HashMap<String, Integer> adresse_pile = new HashMap<String, Integer>();
+
+    HashMap<String, String> type = new HashMap<String, String>();
 
     int label_actuel = 0;
 
@@ -27,6 +29,7 @@ grammar Calculette_MADANIAbdenour_TRIOLETHugo;
         String label_while = nouveauLabel();
         String label_return = nouveauLabel();
 
+        // code de la fonction exponentielle en MVAP
         String code = "LABEL " + label_exp + "\n" +
         "PUSHI 1\n" +
         "STOREL -5\n" +
@@ -77,6 +80,7 @@ calcul returns [String code]
     EOF
 ;
 
+
 /* ----------------------------------------------------------------------
 # Déclaration de variable. 
 Syntaxes acceptées :
@@ -93,11 +97,11 @@ declaration returns [String code]
         $code = new String();
     }
     : TYPE (id=IDENTIFIANT VIRGULE NEWLINE* {
-        memory.put($id.text, placeProchaineVariable());
+        adresse_pile.put($id.text, placeProchaineVariable());
         $code += "PUSHI 0\n";
     })* 
     id=IDENTIFIANT {
-        memory.put($id.text, placeProchaineVariable());
+        adresse_pile.put($id.text, placeProchaineVariable());
         $code += "PUSHI 0\n";
     }
     //todo : déclaration & assignation simultanées | TYPE id=IDENTIFIANT EGAL expr
@@ -108,11 +112,13 @@ declaration returns [String code]
 # Bloc d'instructions
 (utilisé uniquement dans les structures (if, do while, ...))
 
-Syntaxe :
+Syntaxes:
 
 {
     instructions;
 }
+
+{instructions;}
 ---------------------------------------------------------------------- */
 bloc_instructions returns [String code]
     @init {
@@ -211,10 +217,19 @@ structure_if returns [String code]
         }
 ;
 
+/* ----------------------------------------------------------------------
+# Boucles
+---------------------------------------------------------------------- */
 boucle returns [String code]
     : boucle_do_while {$code = $boucle_do_while.code;}
 ;
 
+/* ----------------------------------------------------------------------
+# Do While
+
+Syntaxes :
+
+---------------------------------------------------------------------- */
 boucle_do_while returns [String code]
     @init {
         String code_instruction = new String();
@@ -261,14 +276,14 @@ print returns [String code]
 read returns [String code]
     : READ L_PARENTHESE id=IDENTIFIANT R_PARENTHESE {
         $code = "READ\n";
-        $code += "STOREG " + memory.get($id.text) + "\n";
+        $code += "STOREG " + adresse_pile.get($id.text) + "\n";
     }
 ;
 
 affectation returns [String code]
     : id=IDENTIFIANT EGAL expr {
         $code = $expr.code;
-        $code += "STOREG " + memory.get($id.text) + "\n";
+        $code += "STOREG " + adresse_pile.get($id.text) + "\n";
     }
     | raccourci_affectation {$code = $raccourci_affectation.code;}
     | incr_ou_decr {$code = $incr_ou_decr.code;}
@@ -276,19 +291,19 @@ affectation returns [String code]
 
 raccourci_affectation returns [String code]
     : id=IDENTIFIANT operateur=(PLUS | MOINS | MUL_OU_DIV) EGAL expr {
-        $code = "PUSHG " + memory.get($id.text) + "\n";
+        $code = "PUSHG " + adresse_pile.get($id.text) + "\n";
         $code += $expr.code;
         $code += $operateur.getText() + "\n";
-        $code += "STOREG " + memory.get($id.text) + "\n";
+        $code += "STOREG " + adresse_pile.get($id.text) + "\n";
     }
 ;
 
 incr_ou_decr returns [String code]
     : id=IDENTIFIANT operateur=(INCREMENTATION | DECREMENTATION) {
-        $code = "PUSHG " + memory.get($id.text) + "\n";
+        $code = "PUSHG " + adresse_pile.get($id.text) + "\n";
         $code += "PUSHI 1\n";
         $code += $operateur.getText() + "\n";
-        $code += "STOREG " + memory.get($id.text) + "\n";
+        $code += "STOREG " + adresse_pile.get($id.text) + "\n";
     }
 ;
 
@@ -312,7 +327,7 @@ expr_arith returns [String code]
     | a=expr_arith PLUS b=expr_arith {$code = $a.code + $b.code + $PLUS.getText() + "\n";}
     | a=expr_arith MOINS b=expr_arith {$code = $a.code + $b.code + $MOINS.getText() + "\n";}
     | nombre_entier {$code = $nombre_entier.code;}
-    | id=IDENTIFIANT {$code = "PUSHG " + memory.get($id.text) + "\n";}
+    | id=IDENTIFIANT {$code = "PUSHG " + adresse_pile.get($id.text) + "\n";}
 ;
 
 nombre_entier returns [String code]
@@ -335,7 +350,7 @@ expr_float returns [String code]
     | a=expr_arith PLUS b=expr_arith {$code = $a.code + $b.code + $PLUS.getText() + "\n";}
     | a=expr_arith MOINS b=expr_arith {$code = $a.code + $b.code + $MOINS.getText() + "\n";}
     | nombre_entier {$code = $nombre_entier.code;}
-    | id=IDENTIFIANT {$code = "PUSHG " + memory.get($id.text) + "\n";}
+    | id=IDENTIFIANT {$code = "PUSHG " + adresse_pile.get($id.text) + "\n";}
 ;
 
 nombre_float returns [String code]
@@ -371,7 +386,7 @@ expr_bool returns [String code]
         $code = $a.code + $b.code + "NEQ\n";
     }
     | BOOLEEN {$code = "PUSHI " + $BOOLEEN.getText() + "\n";}
-    | id=IDENTIFIANT {$code = "PUSHG " + memory.get($id.text) + "\n";}
+    | id=IDENTIFIANT {$code = "PUSHG " + adresse_pile.get($id.text) + "\n";}
 ;
 
 
