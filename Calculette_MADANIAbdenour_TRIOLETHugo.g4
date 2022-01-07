@@ -1,5 +1,10 @@
 grammar Calculette_MADANIAbdenour_TRIOLETHugo;
 
+/*
+Note : nous avons à la fois implémenté les mots-clés anglais, 
+mais aussi les mots-clés en français (cf Parser plus bas).
+ */
+
 @header {
     import java.util.HashMap;
 }
@@ -232,6 +237,16 @@ boucle returns [String code]
 
 Syntaxes :
 
+do instruction while (cond)
+
+do instruction;
+while (cond)
+
+do {instructions;} while (cond)
+
+do {
+    instructions;
+} while (cond)
 ---------------------------------------------------------------------- */
 boucle_do_while returns [String code]
     @init {
@@ -470,6 +485,9 @@ OP_COMPARAISON
     | '>' { setText("SUP"); }
 ;
 
+// égal d'affectation
+EGAL : '=';
+
 // Opérateurs booléens
 AND : 'and';
 OR : 'or';
@@ -491,7 +509,6 @@ WHILE : 'while' | 'tantque';
 FOR : 'for' | 'pour';
 DO : 'do' | 'repeter';
 
-EGAL : '=';
 
 // Fonctions built-in
 PRINT : 'print' | 'afficher';
