@@ -1,8 +1,16 @@
 grammar Calculette_MADANIAbdenour_TRIOLETHugo;
 
 /*
-Note : nous avons à la fois implémenté les mots-clés anglais, 
+Notes :
+
+ - Nous avons à la fois implémenté les mots-clés anglais, 
 mais aussi les mots-clés en français (cf Parser plus bas).
+
+- Tous les tests du professeur sont passés avec succès.
+
+- La gestion des floats est partielle : on ne peut pas
+(encore) les stocker dans des variables.
+
  */
 
 @header {
@@ -18,23 +26,26 @@ mais aussi les mots-clés en français (cf Parser plus bas).
     int placeProchaineVariable() {
         return place_variable++;
     }
-    HashMap<String, Integer> adresse_pile = new HashMap<String, Integer>();
 
+    // Adresse dans la pile
+    HashMap<String, Integer> adresse_pile = new HashMap<String, Integer>();
+    // Type des variables
     HashMap<String, String> type_variable = new HashMap<String, String>();
 
     int label_actuel = 0;
 
+    // Renvoie le prochain label disponible
     String nouveauLabel() {
         return Integer.toString(label_actuel++);
     }
 
     final String label_exp = nouveauLabel();
 
+    // code de la fonction exponentielle en MVAP
     String fonction_exp() {
         String label_while = nouveauLabel();
         String label_return = nouveauLabel();
 
-        // code de la fonction exponentielle en MVAP
         String code = "LABEL " + label_exp + "\n" +
         "PUSHI 1\n" +
         "STOREL -5\n" +
@@ -58,7 +69,8 @@ mais aussi les mots-clés en français (cf Parser plus bas).
         return code;
     }
 
-
+    // nos fonctions built-in qu'on rajoute à chaque code MVAP
+    // pour l'instant : juste l'exposant entier
     String fonctions_builtin() {
         String label_debut = nouveauLabel();
         String code = new String();
@@ -388,15 +400,10 @@ incr_ou_decr returns [String code]
 ;
 
 
-
 /* ----------------------------------------------------------------------
-# Incrémentation / Décrémentation
+# Expression (arithmétique OU booléenne)
 
-Syntaxes : 
-
-x++
-
-x--
+Les floats sont gérés à part pour l'instant.
 ---------------------------------------------------------------------- */
 expr returns [String code]
     : expr_arith {$code = $expr_arith.code;}
@@ -404,7 +411,17 @@ expr returns [String code]
 ;
 
 
-// expression arithmétique
+/* ----------------------------------------------------------------------
+# Expression arithmétique
+
+La division et multiplication ont la même priorité.
+
+L'exposant est associatif à droite, càd :
+a^b^c => on évalue a^(b^c)
+a^b^c^d => on évalue a^(b^(c^d))
+
+exposant : x^y ou x**y (comme en Python)
+---------------------------------------------------------------------- */
 expr_arith returns [String code]
     : L_PARENTHESE a=expr_arith R_PARENTHESE {$code = $a.code;}
     //todo: gérer les exposants négatifs
@@ -419,34 +436,33 @@ expr_arith returns [String code]
     | a=expr_arith MOINS b=expr_arith {$code = $a.code + $b.code + $MOINS.getText() + "\n";}
     | nombre_entier {$code = $nombre_entier.code;}
     | id=IDENTIFIANT {$code = "PUSHG " + adresse_pile.get($id.text) + "\n";}
+    | MOINS id=IDENTIFIANT {$code = "PUSHG " + adresse_pile.get($id.text) + "\n" + PUSHI -1\n" + "MUL\n";}
 ;
 
+
+/* ----------------------------------------------------------------------
+# Nombre entier (positif ou négatif)
+---------------------------------------------------------------------- */
 nombre_entier returns [String code]
     : MOINS ENTIER {$code = "PUSHI " + -$ENTIER.int + '\n';}
     | ENTIER {$code = "PUSHI " + $ENTIER.int + '\n';}
 ;
 
 
-// expression flottante
+/* ----------------------------------------------------------------------
+# Expression flottante
+---------------------------------------------------------------------- */
 expr_float returns [String code]
-    : L_PARENTHESE a=expr_arith R_PARENTHESE {$code = $a.code;}
-    //todo: gérer les exposants négatifs
-    | <assoc=right> a=expr_arith EXP b=expr_arith {
-        $code = "PUSHI 0\n";
-        $code += $a.code + $b.code;
-        $code += "CALL " + label_exp + "\n";
-        $code += "POP\nPOP\n";
-    }
-    | a=expr_arith MUL_OU_DIV b=expr_arith {$code = $a.code + $b.code + $MUL_OU_DIV.getText() + "\n";}
-    | a=expr_arith PLUS b=expr_arith {$code = $a.code + $b.code + $PLUS.getText() + "\n";}
-    | a=expr_arith MOINS b=expr_arith {$code = $a.code + $b.code + $MOINS.getText() + "\n";}
-    | nombre_entier {$code = $nombre_entier.code;}
-    | id=IDENTIFIANT {$code = "PUSHG " + adresse_pile.get($id.text) + "\n";}
+    : L_PARENTHESE a=expr_float R_PARENTHESE {$code = $a.code;}
+    | a=expr_float MUL_OU_DIV b=expr_float {$code = $a.code + $b.code + $MUL_OU_DIV.getText() + "\n";}
+    | a=expr_float PLUS b=expr_float {$code = $a.code + $b.code + $PLUS.getText() + "\n";}
+    | a=expr_float MOINS b=expr_float {$code = $a.code + $b.code + $MOINS.getText() + "\n";}
+    | nombre_float {$code = $nombre_entier.code;}
 ;
 
 nombre_float returns [String code]
-    : MOINS ENTIER {$code = "PUSHI " + -$ENTIER.int + '\n';}
-    | ENTIER {$code = "PUSHI " + $ENTIER.int + '\n';}
+    : MOINS FLOAT {$code = "PUSHF " + -$ENTIER.text + '\n';}
+    | FLOAT {$code = "PUSHF " + $ENTIER.text + '\n';}
 ;
 
 // expression booléenne
