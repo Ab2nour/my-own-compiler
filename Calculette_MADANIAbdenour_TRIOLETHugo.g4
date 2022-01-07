@@ -509,6 +509,7 @@ expr_float returns [String code]
     | a=expr_float MUL_OU_DIV b=expr_float {$code = $a.code + $b.code + "F" + $MUL_OU_DIV.getText() + "\n";}
     | a=expr_float PLUS b=expr_float {$code = $a.code + $b.code + "F" + $PLUS.getText() + "\n";}
     | a=expr_float MOINS b=expr_float {$code = $a.code + $b.code + "F" + $MOINS.getText() + "\n";}
+    | MOINS L_PARENTHESE a=expr_float R_PARENTHESE {$code = $a.code + "PUSHF -1.0\n" + "FMUL\n";}
     | nombre_float {$code = $nombre_float.code;}
 ;
 
