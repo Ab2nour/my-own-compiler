@@ -78,4 +78,17 @@
             42
         </sortie>
     </test>
+
+    <test>
+        <description>Test de MOINS IDENTIFIANT</description>
+        
+        <entree>
+            int x;            
+            x = -42;
+            print(-x);
+        </entree>
+        <sortie>
+            42
+        </sortie>
+    </test>
 </tests>

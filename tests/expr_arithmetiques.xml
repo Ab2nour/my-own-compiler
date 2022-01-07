@@ -248,4 +248,16 @@
             42
         </sortie>
     </test>
+
+    <test>
+        <description>Test -(expression)</description>
+        <entree>
+            print(-(-42))
+            print(-(42 + 0 - 42 * 2  ))
+        </entree>
+        <sortie>
+            42
+            42
+        </sortie>
+    </test>
 </tests>
