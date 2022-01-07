@@ -494,7 +494,7 @@ expr_float returns [String code]
     | a=expr_float MUL_OU_DIV b=expr_float {$code = $a.code + $b.code + $MUL_OU_DIV.getText() + "\n";}
     | a=expr_float PLUS b=expr_float {$code = $a.code + $b.code + $PLUS.getText() + "\n";}
     | a=expr_float MOINS b=expr_float {$code = $a.code + $b.code + $MOINS.getText() + "\n";}
-    | nombre_float {$code = $nombre_entier.code;}
+    | nombre_float {$code = $nombre_float.code;}
 ;
 
 
