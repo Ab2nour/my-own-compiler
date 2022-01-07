@@ -502,7 +502,7 @@ expr_float returns [String code]
 # Nombre flottant
 ---------------------------------------------------------------------- */
 nombre_float returns [String code]
-    : MOINS FLOAT {$code = "PUSHF " + -$FLOAT.text + '\n';}
+    : MOINS FLOAT {$code = "PUSHF -" + $FLOAT.text + '\n';}
     | FLOAT {$code = "PUSHF " + $FLOAT.text + '\n';}
 ;
 
