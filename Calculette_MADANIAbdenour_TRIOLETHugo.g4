@@ -8,7 +8,7 @@ Calculette ANTLR4 / MVàP
 Notes :
 
  - Nous avons à la fois implémenté les mots-clés anglais, 
-mais aussi les mots-clés en français (cf Parser plus bas).
+mais aussi les mots-clés en français (cf Lexer plus bas).
 
 - Tous les tests du professeur sont passés avec succès.
 
