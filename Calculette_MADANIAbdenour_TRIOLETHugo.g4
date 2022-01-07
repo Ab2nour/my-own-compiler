@@ -48,6 +48,10 @@ mais aussi les mots-clés en français (cf Lexer plus bas).
 
     final String label_exp = nouveauLabel();
 
+    // le symbole EXP est-il présent dans le code ?
+    // si oui, on rajoute la fonction_exp, sinon on ne le fait pas
+    boolean symbole_exposant_present = false;
+
     // code de la fonction exponentielle en MVAP
     String fonction_exp() {
         String label_while = nouveauLabel();
@@ -82,7 +86,11 @@ mais aussi les mots-clés en français (cf Lexer plus bas).
         String label_debut = nouveauLabel();
         String code = new String();
         code += "JUMP " + label_debut + "\n";
-        code += fonction_exp();
+
+        if (symbole_exposant_present) {
+            code += fonction_exp();
+        }
+
         code += "LABEL " + label_debut + "\n";
 
         return code;
@@ -96,12 +104,15 @@ mais aussi les mots-clés en français (cf Lexer plus bas).
 # Règle d'entrée de la grammaire (start)
 ---------------------------------------------------------------------- */
 calcul returns [String code]
-    @init {$code = new String(); $code += fonctions_builtin();}
+    @init {$code = new String();}
     @after {
         for (int i = 0; i < place_variable; i++) {
             $code += "POP\n"; // on pop toutes les variables de la pile
         }
+
         $code += "HALT\n";
+        $code = fonctions_builtin() + $code;
+        
         System.out.println($code);
     }
     : (declaration fin_instruction+ {$code += $declaration.code;})*
@@ -458,6 +469,8 @@ expr_arith returns [String code]
         $code += $a.code + $b.code;
         $code += "CALL " + label_exp + "\n";
         $code += "POP\nPOP\n";
+
+        symbole_exposant_present = true;
     }
     | a=expr_arith MUL_OU_DIV b=expr_arith {$code = $a.code + $b.code + $MUL_OU_DIV.getText() + "\n";}
     | a=expr_arith PLUS b=expr_arith {$code = $a.code + $b.code + $PLUS.getText() + "\n";}
