@@ -466,8 +466,8 @@ expr_arith returns [String code]
 # Nombre entier (positif ou négatif)
 ---------------------------------------------------------------------- */
 nombre_entier returns [String code]
-    : MOINS ENTIER {$code = "PUSHI " + -$ENTIER.int + '\n';}
-    | ENTIER {$code = "PUSHI " + $ENTIER.int + '\n';}
+    : MOINS ENTIER {$code = "PUSHI " + -$ENTIER.int + "\n";}
+    | ENTIER {$code = "PUSHI " + $ENTIER.int + "\n";}
 ;
 
 
@@ -518,8 +518,8 @@ expr_float returns [String code]
 # Nombre flottant
 ---------------------------------------------------------------------- */
 nombre_float returns [String code]
-    : MOINS FLOAT {$code = "PUSHF " + Float.parseFloat("-" + $FLOAT.text) + '\n';}
-    | FLOAT {$code = "PUSHF " + Float.parseFloat($FLOAT.text) + '\n';}
+    : MOINS FLOAT {$code = "PUSHF " + Float.parseFloat($FLOAT.text) + "\n" + "PUSHF -1.0\n" + "FMUL\n";}
+    | FLOAT {$code = "PUSHF " + Float.parseFloat($FLOAT.text) + "\n";}
 ;
 
 
