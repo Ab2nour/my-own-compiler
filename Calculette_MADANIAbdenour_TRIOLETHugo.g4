@@ -5,6 +5,7 @@ Calculette ANTLR4 / MVàP
     - MADANI Abdenour
     - TRIOLET Hugo
 
+
 Notes :
 
  - Nous avons à la fois implémenté les mots-clés anglais, 
@@ -48,8 +49,8 @@ mais aussi les mots-clés en français (cf Lexer plus bas).
 
     final String label_exp = nouveauLabel();
 
-    // le symbole EXP est-il présent dans le code ?
-    // si oui, on rajoute la fonction_exp, sinon on ne le fait pas
+    // si le symbole EXP est-il présent dans le code, 
+    // on rajoute la fonction_exp, sinon on ne le fait pas
     boolean symbole_exposant_present = false;
 
     // code de la fonction exponentielle en MVAP
@@ -131,6 +132,8 @@ int x, y, z;
 
 int x,
     y;
+    
+int x = 42;
 ---------------------------------------------------------------------- */
 declaration returns [String code]
     @init {
