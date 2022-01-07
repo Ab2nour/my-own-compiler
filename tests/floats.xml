@@ -47,4 +47,13 @@
             42.000
         </sortie>
     </test>
+
+    <test>
+        <entree>
+            printf(-(-4.2e1))
+        </entree>
+        <sortie>
+            42.000
+        </sortie>
+    </test>
 </tests>
