@@ -56,4 +56,13 @@
             42.000
         </sortie>
     </test>
+
+    <test>
+        <entree>
+            printf(1e-3)
+        </entree>
+        <sortie>
+            0.001
+        </sortie>
+    </test>
 </tests>
