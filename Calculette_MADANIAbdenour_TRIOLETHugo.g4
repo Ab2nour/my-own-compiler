@@ -516,30 +516,54 @@ fin_instruction
 
 
 /* ############################# LEXER ############################### */
+/* ----------------------------------------------------------------------
+# Fin instruction
+---------------------------------------------------------------------- */
 NEWLINE : BACKSLASH_R? BACKSLASH_N;
 fragment BACKSLASH_N : '\n';
 fragment BACKSLASH_R : '\r';
 
 POINT_VIRGULE : ';';
+
+
+/* ----------------------------------------------------------------------
+# Autres
+---------------------------------------------------------------------- */
 VIRGULE : ',';
 POINT : '.';
 
+
+/* ----------------------------------------------------------------------
+# Mise en page
+---------------------------------------------------------------------- */
 WHITESPACE : (ESPACE | TAB)+ -> skip;
 fragment ESPACE : ' ';
 fragment TAB : '\t';
 
+
+/* ----------------------------------------------------------------------
+# Nombres
+---------------------------------------------------------------------- */
 ENTIER : CHIFFRE+; // todo: les nombres commençant par 0 exemple : "042" ?
 FLOAT : CHIFFRE+ (POINT | VIRGULE) CHIFFRE+ | CHIFFRE+ FLOAT_EXPONENT CHIFFRE+;
 
 fragment CHIFFRE : ('0'..'9');
 fragment FLOAT_EXPONENT : 'e';
 
+
+/* ----------------------------------------------------------------------
+# Booléens
+---------------------------------------------------------------------- */
 BOOLEEN : TRUE { setText("1"); } | FALSE { setText("0"); };
 
 fragment TRUE : 'true';
 fragment FALSE : 'false';
 
-// parenthèses
+
+/* ----------------------------------------------------------------------
+# Parenthèses
+---------------------------------------------------------------------- */
+// 
 L_PARENTHESE : '(';
 R_PARENTHESE : ')';
 L_ACCOLADE : '{';
@@ -618,6 +642,7 @@ OR_LAZY : 'or_lazy';
 XOR : 'xor';
 NOT : 'not';
 
+
 /* ----------------------------------------------------------------------
 # Déclaration de variables
 ---------------------------------------------------------------------- */// 
@@ -637,14 +662,45 @@ FOR : 'for' | 'pour';
 DO : 'do' | 'repeter';
 
 
-// Fonctions built-in
+/* ----------------------------------------------------------------------
+# Fonctions built-in d'entrées/sorties
+---------------------------------------------------------------------- */
 PRINT : 'print' | 'afficher';
 READ : 'read' | 'lire';
 
 
+/* ----------------------------------------------------------------------
+# Identifiant (variables, pourrait servir aux noms de fonction)
+
+/!\ Important : à placer après tous les mots-clés.
+
+Syntaxes possibles:
+
+x
+
+variable
+
+variable123
+
+CONSTANTE
+
+NouvelleClasse
+
+nomVariable
+
+camelCase
+
+snake_case
+
+_private
+---------------------------------------------------------------------- */
 IDENTIFIANT : (LETTRE | UNDERSCORE) (LETTRE | CHIFFRE | UNDERSCORE)*;
 
 fragment LETTRE : [a-z] | [A-Z];
 fragment UNDERSCORE : '_';
 
+
+/* ----------------------------------------------------------------------
+# Non mentionné dans le Lexer : on skip.
+---------------------------------------------------------------------- */
 UNMATCH : . -> skip;
