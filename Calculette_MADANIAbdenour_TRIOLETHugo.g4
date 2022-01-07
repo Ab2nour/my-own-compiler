@@ -13,6 +13,9 @@ mais aussi les mots-clés en français (cf Parser plus bas).
 
  */
 
+
+/* ####################### Variables globales ########################### */
+
 @header {
     import java.util.HashMap;
 }
@@ -82,7 +85,12 @@ mais aussi les mots-clés en français (cf Parser plus bas).
     }
 }
 
-// règles de la grammaire
+
+/* ############################ PARSER ############################### */
+
+/* ----------------------------------------------------------------------
+# Règle d'entrée de la grammaire (start)
+---------------------------------------------------------------------- */
 calcul returns [String code]
     @init {$code = new String(); $code += fonctions_builtin();}
     @after {
@@ -436,7 +444,7 @@ expr_arith returns [String code]
     | a=expr_arith MOINS b=expr_arith {$code = $a.code + $b.code + $MOINS.getText() + "\n";}
     | nombre_entier {$code = $nombre_entier.code;}
     | id=IDENTIFIANT {$code = "PUSHG " + adresse_pile.get($id.text) + "\n";}
-    | MOINS id=IDENTIFIANT {$code = "PUSHG " + adresse_pile.get($id.text) + "\n" + PUSHI -1\n" + "MUL\n";}
+    | MOINS id=IDENTIFIANT {$code = "PUSHG " + adresse_pile.get($id.text) + "\n" + "PUSHI -1\n" + "MUL\n";}
 ;
 
 
@@ -450,6 +458,35 @@ nombre_entier returns [String code]
 
 
 /* ----------------------------------------------------------------------
+# Expression booléenne
+---------------------------------------------------------------------- */
+expr_bool returns [String code]
+    : L_PARENTHESE a=expr_bool R_PARENTHESE {$code = $a.code;}
+    // (not a) === (1 - a)
+    | NOT a=expr_bool {
+        $code = "PUSHI 1\n" + $a.code + "SUB\n";
+    }    
+    | c=expr_arith OP_COMPARAISON d=expr_arith {
+        $code = $c.code + $d.code + $OP_COMPARAISON.text + "\n";
+    }
+    // (a and b) === (a * b)
+    | a=expr_bool AND b=expr_bool {
+        $code = $a.code + $b.code + "MUL\n";
+    }
+    // (a or b) === ((a+b) <> 0)
+    | a=expr_bool OR b=expr_bool {
+        $code = $a.code + $b.code + "ADD\n";
+        $code += "PUSHI 0\n" + "NEQ\n";
+    }
+    // (a xor b) === (a <> b)
+    | a=expr_bool XOR b=expr_bool { 
+        $code = $a.code + $b.code + "NEQ\n";
+    }
+    | BOOLEEN {$code = "PUSHI " + $BOOLEEN.getText() + "\n";}
+    | id=IDENTIFIANT {$code = "PUSHG " + adresse_pile.get($id.text) + "\n";}
+;
+
+/* ----------------------------------------------------------------------
 # Expression flottante
 ---------------------------------------------------------------------- */
 expr_float returns [String code]
@@ -460,40 +497,13 @@ expr_float returns [String code]
     | nombre_float {$code = $nombre_entier.code;}
 ;
 
+
+/* ----------------------------------------------------------------------
+# Nombre flottant
+---------------------------------------------------------------------- */
 nombre_float returns [String code]
-    : MOINS FLOAT {$code = "PUSHF " + -$ENTIER.text + '\n';}
-    | FLOAT {$code = "PUSHF " + $ENTIER.text + '\n';}
-;
-
-// expression booléenne
-expr_bool returns [String code]
-    : L_PARENTHESE a=expr_bool R_PARENTHESE {$code = $a.code;}
-    | NOT a=expr_bool {$code = "PUSHI 1\n" + $a.code + "SUB\n";} // (not a) === (1 - a)
-    | c=expr_arith OP_COMPARAISON d=expr_arith {
-        $code = $c.code + $d.code + $OP_COMPARAISON.text + "\n";
-    }
-    | a=expr_bool AND b=expr_bool {$code = $a.code + $b.code + "MUL\n";} // (a and b) === (a * b)
-    | a=expr_bool OR b=expr_bool { // (a or b) === ((a+b) <> 0)
-        $code = $a.code + $b.code + "ADD\n";
-        $code += "PUSHI 0\n" + "NEQ\n";
-    }
-    | a=expr_bool OR_LAZY b=expr_bool { // tentative de or avec lazy evaluation    
-        $code = $a.code + '\n' + "PUSHG 0\n";
-
-        $code += "PUSHI 1\n"; // if
-        $code += "NEQ \n"; // (a == true) === not (a <> 1)
-        $code += "JUMPF else\n";
-
-        $code += $b.code + '\n'; // then
-        $code += "ADD\n" + "PUSHI 1\n" + "SUPEQ\n";
-        $code += "JUMP else\n";
-        $code += "LABEL else\n" ; //else
-    }
-    | a=expr_bool XOR b=expr_bool { // (a xor b) === (a <> b)
-        $code = $a.code + $b.code + "NEQ\n";
-    }
-    | BOOLEEN {$code = "PUSHI " + $BOOLEEN.getText() + "\n";}
-    | id=IDENTIFIANT {$code = "PUSHG " + adresse_pile.get($id.text) + "\n";}
+    : MOINS FLOAT {$code = "PUSHF " + -$FLOAT.text + '\n';}
+    | FLOAT {$code = "PUSHF " + $FLOAT.text + '\n';}
 ;
 
 
@@ -501,7 +511,8 @@ fin_expression
     : NEWLINE | POINT_VIRGULE
 ;
 
-// règles du lexer. Skip pour dire ne rien faire
+
+/* ############################# LEXER ############################### */
 NEWLINE : BACKSLASH_R? BACKSLASH_N;
 fragment BACKSLASH_N : '\n';
 fragment BACKSLASH_R : '\r';
@@ -509,7 +520,6 @@ fragment BACKSLASH_R : '\r';
 POINT_VIRGULE : ';';
 VIRGULE : ',';
 POINT : '.';
-
 
 WHITESPACE : (ESPACE | TAB)+ -> skip;
 fragment ESPACE : ' ';
