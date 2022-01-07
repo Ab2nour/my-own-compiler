@@ -564,9 +564,11 @@ Syntaxes float :
 
 1.0
 
-1e3
+1e3  // 1000.000
 
-4.2e1
+4.2e1  // 42.000
+
+-(-4.2e1)  // 42.000
 ---------------------------------------------------------------------- */
 ENTIER : CHIFFRE+; // todo: les nombres commençant par 0 exemple : "042" ?
 FLOAT : CHIFFRE+ POINT CHIFFRE+ | CHIFFRE+ (POINT CHIFFRE+)? FLOAT_EXPONENT MOINS? CHIFFRE+;
