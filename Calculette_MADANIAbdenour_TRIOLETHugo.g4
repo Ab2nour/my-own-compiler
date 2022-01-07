@@ -15,7 +15,7 @@ grammar Calculette_MADANIAbdenour_TRIOLETHugo;
     }
     HashMap<String, Integer> adresse_pile = new HashMap<String, Integer>();
 
-    HashMap<String, String> type = new HashMap<String, String>();
+    HashMap<String, String> type_variable = new HashMap<String, String>();
 
     int label_actuel = 0;
 
@@ -98,10 +98,14 @@ declaration returns [String code]
     }
     : TYPE (id=IDENTIFIANT VIRGULE NEWLINE* {
         adresse_pile.put($id.text, placeProchaineVariable());
+        type_variable.put($id.text, $TYPE.text);
+
         $code += "PUSHI 0\n";
     })* 
     id=IDENTIFIANT {
         adresse_pile.put($id.text, placeProchaineVariable());
+        type_variable.put($id.text, $TYPE.text);
+
         $code += "PUSHI 0\n";
     }
     //todo : déclaration & assignation simultanées | TYPE id=IDENTIFIANT EGAL expr
@@ -139,9 +143,8 @@ instruction returns [String code]
     | structure_conditionnelle {$code = $structure_conditionnelle.code;}
     | boucle {$code = $boucle.code;}
 
-    // Une instruction qui ne contient qu'une expr est
-    // inutile et sans effet de bord : on POP donc
-    // le résultat de celle-ci.
+    // Une instruction qui ne contient qu'une expr est inutile 
+    // et sans effet de bord : on POP donc le résultat de celle-ci.
     | expr {$code = $expr.code + "POP\n";}
 ;
 
