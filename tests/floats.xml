@@ -44,7 +44,7 @@
             printf(4.2e1)
         </entree>
         <sortie>
-            42.0
+            42.000
         </sortie>
     </test>
 </tests>
