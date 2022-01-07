@@ -126,13 +126,6 @@ bloc_instructions returns [String code]
 
 /* ----------------------------------------------------------------------
 # Instruction unique
-(utilisé uniquement dans les structures (if, do while, ...))
-
-Syntaxe :
-
-{
-    instructions;
-}
 ---------------------------------------------------------------------- */
 instruction returns [String code]
     : affectation {$code = $affectation.code;}
@@ -146,10 +139,41 @@ instruction returns [String code]
     | expr {$code = $expr.code + "POP\n";}
 ;
 
+
+/* ----------------------------------------------------------------------
+# Structure conditionnelle
+---------------------------------------------------------------------- */
 structure_conditionnelle returns [String code]
     : structure_if {$code = $structure_if.code;}
 ;
 
+
+/* ----------------------------------------------------------------------
+# If / Else
+
+Syntaxe :
+
+if (cond) instruction;
+
+if (cond) instruction; else instruction;
+
+if (cond) {instructions;}
+
+if (cond) {
+    instructions;
+} else {
+    instructions;
+}
+
+if (cond) {
+    instructions;
+} else if (cond) {
+    instructions;
+} else {
+    instructions;
+}
+
+---------------------------------------------------------------------- */
 structure_if returns [String code]
     @init {
         String instruction_if = new String();
