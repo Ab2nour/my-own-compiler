@@ -553,9 +553,17 @@ fragment TAB : '\t';
 
 /* ----------------------------------------------------------------------
 # Nombres
+
+Syntaxes float :
+
+1.0
+
+1e3
+
+4.2e1
 ---------------------------------------------------------------------- */
 ENTIER : CHIFFRE+; // todo: les nombres commençant par 0 exemple : "042" ?
-FLOAT : CHIFFRE+ POINT CHIFFRE+ | CHIFFRE+ FLOAT_EXPONENT CHIFFRE+;
+FLOAT : CHIFFRE+ POINT CHIFFRE+ | CHIFFRE+ (POINT CHIFFRE+)? FLOAT_EXPONENT CHIFFRE+;
 
 fragment CHIFFRE : ('0'..'9');
 fragment FLOAT_EXPONENT : 'e';
