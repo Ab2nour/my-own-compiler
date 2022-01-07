@@ -23,6 +23,24 @@
 
     <test>
         <entree>
+            printf(45.0 - 3.00)
+        </entree>
+        <sortie>
+            42.000
+        </sortie>
+    </test>
+
+    <test>
+        <entree>
+            printf(5.0 / 2.0)
+        </entree>
+        <sortie>
+            2.500
+        </sortie>
+    </test>
+
+    <test>
+        <entree>
             printf(1e3)
         </entree>
         <sortie>
