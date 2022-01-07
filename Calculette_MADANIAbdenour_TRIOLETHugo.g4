@@ -311,17 +311,26 @@ Syntaxes :
 print(x)
 
 print(x, y, z)
+
+printf(epsilon) // epsilon est un float
 ---------------------------------------------------------------------- */
 print returns [String code]
     @init {
         $code = new String();
         String code_arguments = new String();
         String code_affichage = "WRITE\nPOP\n";
+        String code_affichage_float = "WRITEF\nPOP\n";
     }
     : PRINT L_PARENTHESE 
         (expr VIRGULE {$code += $expr.code + code_affichage;})* e=expr
     R_PARENTHESE {
         $code += $e.code + code_affichage;
+    }
+    // code à part pour les floats
+    | PRINT_FLOAT L_PARENTHESE 
+        (expr_float VIRGULE {$code += $expr_float.code + code_affichage;})* e=expr_float
+    R_PARENTHESE {
+        $code += $e.code + code_affichage_float;
     }
 ;
 
@@ -503,8 +512,8 @@ expr_float returns [String code]
 # Nombre flottant
 ---------------------------------------------------------------------- */
 nombre_float returns [String code]
-    : MOINS FLOAT {$code = "PUSHF -" + $FLOAT.text + '\n';}
-    | FLOAT {$code = "PUSHF " + $FLOAT.text + '\n';}
+    : MOINS FLOAT {$code = "PUSHF -" + Float.parseFloat($FLOAT.text) + '\n';}
+    | FLOAT {$code = "PUSHF " + Float.parseFloat($FLOAT.text) + '\n';}
 ;
 
 
