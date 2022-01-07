@@ -96,7 +96,7 @@
         <description>Déclaration ET assignation en même temps</description>
         
         <entree>
-            int x =42;
+            int x = 42;
             print(x);
         </entree>
         <sortie>
