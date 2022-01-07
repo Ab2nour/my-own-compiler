@@ -48,6 +48,10 @@ mais aussi les mots-clés en français (cf Lexer plus bas).
 
     final String label_exp = nouveauLabel();
 
+    // le symbole EXP est-il présent dans le code ?
+    // si oui, on rajoute la fonction_exp, sinon on ne le fait pas
+    bool symbole_exposant_present = false;
+
     // code de la fonction exponentielle en MVAP
     String fonction_exp() {
         String label_while = nouveauLabel();
@@ -82,7 +86,11 @@ mais aussi les mots-clés en français (cf Lexer plus bas).
         String label_debut = nouveauLabel();
         String code = new String();
         code += "JUMP " + label_debut + "\n";
-        code += fonction_exp();
+
+        if (symbole_exposant_present) {
+            code += fonction_exp();
+        }
+
         code += "LABEL " + label_debut + "\n";
 
         return code;
@@ -458,6 +466,8 @@ expr_arith returns [String code]
         $code += $a.code + $b.code;
         $code += "CALL " + label_exp + "\n";
         $code += "POP\nPOP\n";
+
+        symbole_exposant_present = true;
     }
     | a=expr_arith MUL_OU_DIV b=expr_arith {$code = $a.code + $b.code + $MUL_OU_DIV.getText() + "\n";}
     | a=expr_arith PLUS b=expr_arith {$code = $a.code + $b.code + $PLUS.getText() + "\n";}
