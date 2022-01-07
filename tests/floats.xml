@@ -5,7 +5,7 @@
         
     <test>
         <entree>
-            print(42.42)
+            printf(42.42)
         </entree>
         <sortie>
             42.42
@@ -14,7 +14,7 @@
 
     <test>
         <entree>
-            print(0.1 + 0.2)
+            printf(0.1 + 0.2)
         </entree>
         <sortie>
             0.3
@@ -23,7 +23,7 @@
 
     <test>
         <entree>
-            print(10e3)
+            printf(10e3)
         </entree>
         <sortie>
             1000.0
