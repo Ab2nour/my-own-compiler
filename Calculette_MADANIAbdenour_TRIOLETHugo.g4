@@ -50,7 +50,7 @@ mais aussi les mots-clés en français (cf Lexer plus bas).
 
     // le symbole EXP est-il présent dans le code ?
     // si oui, on rajoute la fonction_exp, sinon on ne le fait pas
-    bool symbole_exposant_present = false;
+    boolean symbole_exposant_present = false;
 
     // code de la fonction exponentielle en MVAP
     String fonction_exp() {
