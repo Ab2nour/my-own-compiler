@@ -305,6 +305,14 @@ print returns [String code]
     }
 ;
 
+
+/* ----------------------------------------------------------------------
+# Read
+
+Syntaxes :
+
+read(x)
+---------------------------------------------------------------------- */
 read returns [String code]
     : READ L_PARENTHESE id=IDENTIFIANT R_PARENTHESE {
         $code = "READ\n";
