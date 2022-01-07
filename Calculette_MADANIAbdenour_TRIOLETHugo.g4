@@ -320,6 +320,22 @@ read returns [String code]
     }
 ;
 
+
+/* ----------------------------------------------------------------------
+# Affectations
+
+Syntaxes : 
+
+x = 5
+
+x = 3 * x
+
+x += 1
+
+x *= 2
+
+x++
+---------------------------------------------------------------------- */
 affectation returns [String code]
     : id=IDENTIFIANT EGAL expr {
         $code = $expr.code;
@@ -329,6 +345,20 @@ affectation returns [String code]
     | incr_ou_decr {$code = $incr_ou_decr.code;}
 ;
 
+
+/* ----------------------------------------------------------------------
+# Raccourcis d'affectation
+
+Syntaxes : 
+
+x += 42
+
+x -= 42
+
+x *= 42
+
+x /= 1
+---------------------------------------------------------------------- */
 raccourci_affectation returns [String code]
     : id=IDENTIFIANT operateur=(PLUS | MOINS | MUL_OU_DIV) EGAL expr {
         $code = "PUSHG " + adresse_pile.get($id.text) + "\n";
@@ -338,6 +368,16 @@ raccourci_affectation returns [String code]
     }
 ;
 
+
+/* ----------------------------------------------------------------------
+# Incrémentation / Décrémentation
+
+Syntaxes : 
+
+x++
+
+x--
+---------------------------------------------------------------------- */
 incr_ou_decr returns [String code]
     : id=IDENTIFIANT operateur=(INCREMENTATION | DECREMENTATION) {
         $code = "PUSHG " + adresse_pile.get($id.text) + "\n";
@@ -347,6 +387,17 @@ incr_ou_decr returns [String code]
     }
 ;
 
+
+
+/* ----------------------------------------------------------------------
+# Incrémentation / Décrémentation
+
+Syntaxes : 
+
+x++
+
+x--
+---------------------------------------------------------------------- */
 expr returns [String code]
     : expr_arith {$code = $expr_arith.code;}
     | expr_bool {$code = $expr_bool.code;}
