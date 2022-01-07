@@ -151,27 +151,31 @@ structure_conditionnelle returns [String code]
 /* ----------------------------------------------------------------------
 # If / Else
 
-Syntaxe :
+Syntaxes :
 
-if (cond) instruction;
+    if (cond) instruction;
 
-if (cond) instruction; else instruction;
+    if (cond) instruction else instruction
 
-if (cond) {instructions;}
+    if (cond) instruction
+    else instruction
 
-if (cond) {
-    instructions;
-} else {
-    instructions;
-}
 
-if (cond) {
-    instructions;
-} else if (cond) {
-    instructions;
-} else {
-    instructions;
-}
+    if (cond) {instructions;}
+
+    if (cond) {
+        instructions;
+    } else {
+        instructions;
+    }
+
+    if (cond) {
+        instructions;
+    } else if (cond) {
+        instructions;
+    } else {
+        instructions;
+    }
 
 ---------------------------------------------------------------------- */
 structure_if returns [String code]
@@ -184,11 +188,11 @@ structure_if returns [String code]
     }
     : IF L_PARENTHESE expr_bool R_PARENTHESE NEWLINE*
         (bloc_instructions {instruction_if += $bloc_instructions.code;}
-        | instruction {instruction_if += $instruction.code;}
+        | instruction POINT_VIRGULE? {instruction_if += $instruction.code;}
         ) NEWLINE*
     (ELSE NEWLINE*
         (bloc_instructions {instruction_else += $bloc_instructions.code;}
-        | instruction {instruction_else += $instruction.code;}
+        | instruction POINT_VIRGULE? {instruction_else += $instruction.code;}
         | structure_if {instruction_else += $structure_if.code;}
         ))? {
             $code = $expr_bool.code;
