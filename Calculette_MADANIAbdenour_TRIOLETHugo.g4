@@ -1,6 +1,10 @@
 grammar Calculette_MADANIAbdenour_TRIOLETHugo;
 
 /*
+Calculette ANTLR4 / MVàP
+    - MADANI Abdenour
+    - TRIOLET Hugo
+
 Notes :
 
  - Nous avons à la fois implémenté les mots-clés anglais, 
