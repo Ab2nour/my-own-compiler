@@ -100,8 +100,8 @@ calcul returns [String code]
         $code += "HALT\n";
         System.out.println($code);
     }
-    : (declaration fin_expression+ {$code += $declaration.code;})*
-    (instruction fin_expression+ {$code += $instruction.code;})*
+    : (declaration fin_instruction+ {$code += $declaration.code;})*
+    (instruction fin_instruction+ {$code += $instruction.code;})*
     EOF
 ;
 
@@ -154,7 +154,7 @@ bloc_instructions returns [String code]
         $code = new String();
     }
     : L_ACCOLADE NEWLINE*
-        (instruction fin_expression+ {$code += $instruction.code;})+
+        (instruction fin_instruction+ {$code += $instruction.code;})+
     R_ACCOLADE
 ;
 
@@ -507,7 +507,10 @@ nombre_float returns [String code]
 ;
 
 
-fin_expression
+/* ----------------------------------------------------------------------
+# Fin d'instruction
+---------------------------------------------------------------------- */
+fin_instruction
     : NEWLINE | POINT_VIRGULE
 ;
 
@@ -542,7 +545,17 @@ R_PARENTHESE : ')';
 L_ACCOLADE : '{';
 R_ACCOLADE : '}';
 
+
+/* ----------------------------------------------------------------------
+# Commentaires
+
+Syntaxes :
+
 // commentaire
+
+/* commentaire 
+sur plusieurs lignes*/
+/* ------------------------------------------------------------------- */
 COMMENTAIRE
     : (L_COMMENT .*? R_COMMENT
 
@@ -556,6 +569,10 @@ fragment SLASH_COMMENT : '//';
 fragment L_COMMENT : '/*';
 fragment R_COMMENT : '*/';
 
+
+/* ----------------------------------------------------------------------
+# Opérations arithmétiques
+---------------------------------------------------------------------- */
 MUL_OU_DIV
     : SYMBOLE_FOIS { setText("MUL"); }
     | SYMBOLE_DIV { setText("DIV"); }
@@ -565,16 +582,23 @@ EXP : '^' | SYMBOLE_FOIS SYMBOLE_FOIS;
 PLUS : SYMBOLE_PLUS { setText("ADD"); };
 MOINS : SYMBOLE_MOINS { setText("SUB"); };
 
-INCREMENTATION : SYMBOLE_PLUS SYMBOLE_PLUS { setText("ADD"); };
-DECREMENTATION : SYMBOLE_MOINS SYMBOLE_MOINS { setText("SUB"); };
-
 fragment SYMBOLE_PLUS : '+';
 fragment SYMBOLE_MOINS : '-';
 fragment SYMBOLE_FOIS : '*';
 fragment SYMBOLE_DIV : '/';
 
 
-// un des opérateurs de comparaison
+/* ----------------------------------------------------------------------
+# Symboles d'affectation
+---------------------------------------------------------------------- */
+EGAL : '='; // égal d'affectation
+INCREMENTATION : SYMBOLE_PLUS SYMBOLE_PLUS { setText("ADD"); };
+DECREMENTATION : SYMBOLE_MOINS SYMBOLE_MOINS { setText("SUB"); };
+
+
+/* ----------------------------------------------------------------------
+# Opérateurs de comparaison
+---------------------------------------------------------------------- */
 OP_COMPARAISON
     : '==' { setText("EQUAL"); }
     | '<>' { setText("NEQ"); }
@@ -584,24 +608,28 @@ OP_COMPARAISON
     | '>' { setText("SUP"); }
 ;
 
-// égal d'affectation
-EGAL : '=';
 
-// Opérateurs booléens
+/* ----------------------------------------------------------------------
+# Opérateurs booléens
+---------------------------------------------------------------------- */
 AND : 'and';
 OR : 'or';
 OR_LAZY : 'or_lazy';
 XOR : 'xor';
 NOT : 'not';
 
-// Déclaration de variables
+/* ----------------------------------------------------------------------
+# Déclaration de variables
+---------------------------------------------------------------------- */// 
 TYPE : INT | BOOL_TYPE | FLOAT_TYPE;
 INT : 'int';
 BOOL_TYPE : 'bool';
 FLOAT_TYPE : 'float';
 
 
-// Structures de contrôle et boucles :
+/* ----------------------------------------------------------------------
+# Structures de contrôle et boucles
+---------------------------------------------------------------------- */
 IF : 'if' | 'si';
 ELSE : 'else' | 'sinon';
 WHILE : 'while' | 'tantque';
