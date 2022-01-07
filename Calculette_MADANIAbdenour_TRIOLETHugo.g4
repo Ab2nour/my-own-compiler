@@ -14,12 +14,12 @@ mais aussi les mots-clés en français (cf Parser plus bas).
  */
 
 
-/* ####################### Variables globales ########################### */
-
+/* ############################# Imports ################################ */
 @header {
     import java.util.HashMap;
 }
 
+/* ####################### Variables globales ########################### */
 @members {
     // place de la pile à laquelle on stocke la variable
     // et, au passage, nombre de variables
@@ -486,6 +486,7 @@ expr_bool returns [String code]
     | id=IDENTIFIANT {$code = "PUSHG " + adresse_pile.get($id.text) + "\n";}
 ;
 
+
 /* ----------------------------------------------------------------------
 # Expression flottante
 ---------------------------------------------------------------------- */
@@ -645,7 +646,7 @@ NOT : 'not';
 
 /* ----------------------------------------------------------------------
 # Déclaration de variables
----------------------------------------------------------------------- */// 
+---------------------------------------------------------------------- */
 TYPE : INT | BOOL_TYPE | FLOAT_TYPE;
 INT : 'int';
 BOOL_TYPE : 'bool';
