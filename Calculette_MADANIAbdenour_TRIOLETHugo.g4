@@ -49,7 +49,7 @@ mais aussi les mots-clés en français (cf Lexer plus bas).
 
     final String label_exp = nouveauLabel();
 
-    // si le symbole EXP est-il présent dans le code, 
+    // si le symbole EXP est présent dans le code, 
     // on rajoute la fonction_exp, sinon on ne le fait pas
     boolean symbole_exposant_present = false;
 
