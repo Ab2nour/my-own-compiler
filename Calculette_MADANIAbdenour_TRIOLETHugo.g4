@@ -104,12 +104,15 @@ mais aussi les mots-clés en français (cf Lexer plus bas).
 # Règle d'entrée de la grammaire (start)
 ---------------------------------------------------------------------- */
 calcul returns [String code]
-    @init {$code = new String(); $code += fonctions_builtin();}
+    @init {$code = new String();}
     @after {
         for (int i = 0; i < place_variable; i++) {
             $code += "POP\n"; // on pop toutes les variables de la pile
         }
+
         $code += "HALT\n";
+        $code = fonctions_builtin() + $code;
+        
         System.out.println($code);
     }
     : (declaration fin_instruction+ {$code += $declaration.code;})*
