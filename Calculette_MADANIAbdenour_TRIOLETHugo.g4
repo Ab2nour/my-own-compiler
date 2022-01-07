@@ -319,7 +319,7 @@ print returns [String code]
         $code = new String();
         String code_arguments = new String();
         String code_affichage = "WRITE\nPOP\n";
-        String code_affichage_float = "WRITEF\nPOP\n";
+        String code_affichage_float = "WRITEF\nPOP\nPOP\n";
     }
     : PRINT L_PARENTHESE 
         (expr VIRGULE {$code += $expr.code + code_affichage;})* e=expr
