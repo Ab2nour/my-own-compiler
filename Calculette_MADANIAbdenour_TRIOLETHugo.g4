@@ -665,10 +665,13 @@ DO : 'do' | 'repeter';
 
 /* ----------------------------------------------------------------------
 # Fonctions built-in d'entrées/sorties
+
+PRINT_FLOAT sert à afficher les floats.
 ---------------------------------------------------------------------- */
 PRINT : 'print' | 'afficher';
 READ : 'read' | 'lire';
 
+PRINT_FLOAT : 'printf' | 'afficherf';
 
 /* ----------------------------------------------------------------------
 # Identifiant (variables, pourrait servir aux noms de fonction)
