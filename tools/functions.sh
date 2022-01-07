@@ -38,7 +38,7 @@ function mvap () {
 
 function init_mvap () {
     # Effectue l'initialisation nécessaire à la fonction `mvap_sans_init`
-    antlr4 Calculette.g4                
+    antlr4 Calculette_MADANIAbdenour_TRIOLETHugo.g4                
     javac *.java
 }
 
@@ -55,12 +55,12 @@ function mvap_sans_init () {
     
     if [ "$1" = "-f" ]; then # si c'est un fichier
         nom_fichier="$2"
-        cat "$nom_fichier" | grun Calculette 'start' > fichier.mvap
+        cat "$nom_fichier" | grun Calculette 'calcul' > fichier.mvap
     else        
         expression="$1"
         echo "$expression" > entree.temp
 
-        cat entree.temp | grun Calculette 'start' > fichier.mvap
+        cat entree.temp | grun Calculette 'calcul' > fichier.mvap
         rm entree.temp
     fi
 
@@ -85,14 +85,14 @@ function mvap_debug () {
     if [ "$1" = "-f" ]; then # si c'est un fichier
         nom_fichier="$2"
 
-        cat "$nom_fichier" | grun Calculette 'start' -tokens
-        cat "$nom_fichier" | grun Calculette 'start' > fichier.mvap
+        cat "$nom_fichier" | grun Calculette 'calcul' -tokens
+        cat "$nom_fichier" | grun Calculette 'calcul' > fichier.mvap
     else        
         expression="$1"
         echo "$expression" > entree.temp
 
-        cat entree.temp | grun Calculette 'start' -tokens
-        cat entree.temp | grun Calculette 'start' > fichier.mvap
+        cat entree.temp | grun Calculette 'calcul' -tokens
+        cat entree.temp | grun Calculette 'calcul' > fichier.mvap
 
         rm entree.temp
     fi
