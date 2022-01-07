@@ -137,7 +137,14 @@ declaration returns [String code]
 
         $code += "PUSHI 0\n";
     }
-    //todo : déclaration & assignation simultanées | TYPE id=IDENTIFIANT EGAL expr
+    | TYPE id=IDENTIFIANT EGAL expr {
+        adresse_pile.put($id.text, placeProchaineVariable());
+        type_variable.put($id.text, $TYPE.text);
+
+        $code += "PUSHI 0\n";
+        $code += $expr.code;
+        $code += "STOREG " + adresse_pile.get($id.text); + "\n";
+    }
 ;
 
 

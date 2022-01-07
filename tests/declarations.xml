@@ -80,12 +80,24 @@
     </test>
 
     <test>
-        <description>Test de MOINS IDENTIFIANT</description>
+        <description>MOINS IDENTIFIANT</description>
         
         <entree>
             int x;            
             x = -42;
             print(-x);
+        </entree>
+        <sortie>
+            42
+        </sortie>
+    </test>
+
+    <test>
+        <description>Déclaration ET assignation en même temps</description>
+        
+        <entree>
+            int x =42;
+            print(x);
         </entree>
         <sortie>
             42
