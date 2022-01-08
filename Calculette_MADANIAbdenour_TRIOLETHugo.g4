@@ -454,6 +454,15 @@ expr returns [String code]
 
 
 /* ----------------------------------------------------------------------
+# Atome : todo
+---------------------------------------------------------------------- */
+atome returns [String code]
+    : nombre_entier {$code = $nombre_entier.code;}
+    | id=IDENTIFIANT {$code = "PUSHG " + adresse_pile.get($id.text) + "\n";}
+;
+
+
+/* ----------------------------------------------------------------------
 # Expression arithmétique
 
 La division et multiplication ont la même priorité.
@@ -479,9 +488,7 @@ expr_arith returns [String code]
     | a=expr_arith PLUS b=expr_arith {$code = $a.code + $b.code + $PLUS.getText() + "\n";}
     | a=expr_arith MOINS b=expr_arith {$code = $a.code + $b.code + $MOINS.getText() + "\n";}
     | MOINS L_PARENTHESE a=expr_arith R_PARENTHESE {$code = $a.code + "PUSHI -1\n" + "MUL\n";}
-    | nombre_entier {$code = $nombre_entier.code;}
-    | id=IDENTIFIANT {$code = "PUSHG " + adresse_pile.get($id.text) + "\n";}
-    | MOINS id=IDENTIFIANT {$code = "PUSHG " + adresse_pile.get($id.text) + "\n" + "PUSHI -1\n" + "MUL\n";}
+    | MOINS atome {$code = $atome.code + "PUSHI -1\n" + "MUL\n";}
 ;
 
 
