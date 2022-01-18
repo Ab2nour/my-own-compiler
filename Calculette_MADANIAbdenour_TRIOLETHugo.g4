@@ -352,6 +352,43 @@ boucle_while returns [String code]
 
 
 /* ----------------------------------------------------------------------
+# For
+
+Syntaxes :
+
+todo
+---------------------------------------------------------------------- */
+boucle_for returns [String code]
+    @init {
+        String code_instruction = new String();
+    }
+    : FOR L_PARENTHESE 
+        initialisation=instruction POINT_VIRGULE
+        condition=expr_bool POINT_VIRGULE
+        fin_tour_boucle=instruction
+        R_PARENTHESE NEWLINE*
+        (bloc_instructions {code_instruction += $bloc_instructions.code;}
+        | instruction POINT_VIRGULE? {code_instruction += $instruction.code;}) {
+        String label_instructions = nouveauLabel(); // instructions du while
+        String label_condition = nouveauLabel(); // vérification de la condition
+        String label_fin = nouveauLabel(); // fin du while
+
+        $code += $initialisation.code;
+        $code += "LABEL " + label_condition + "\n";
+        $code += $condition.code;
+        $code += "JUMPF" + label_fin + "\n";
+
+        $code += "LABEL " + label_instructions + "\n";
+        $code += code_instruction;
+        $code += $fin_tour_boucle.code;
+        $code += "JUMP " + label_condition + "\n";
+
+        $code += "LABEL " + label_fin + "\n";
+    }
+;
+
+
+/* ----------------------------------------------------------------------
 # Fonctions Built-in
 ---------------------------------------------------------------------- */
 fonction_builtin returns [String code]
