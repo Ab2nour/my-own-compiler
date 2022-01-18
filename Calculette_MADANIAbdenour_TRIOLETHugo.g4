@@ -389,6 +389,38 @@ boucle_for returns [String code]
 
 
 /* ----------------------------------------------------------------------
+# Fonctions
+---------------------------------------------------------------------- */
+fonction returns [String code]
+    @init {
+        // todo: liste des arguments
+        String code_instruction = new String();
+
+        // todo: type de retour
+
+        // todo pour gérer les identifiants de variables locales
+        // mettre des strings commençant par un chiffre
+        // on a une méthode comme nouveauLabel
+        // qui permet d'obtenir un nouveau "préfixe" pour
+        // la portée locale
+        // (bloc instructions et fonctions)
+        // par exemple si on a une fonction
+        // f ( x )
+        // on fait contexte = nouveauPrefixe()
+        // et on a le préfixe de f qui est contexte
+        // ainsi, dans la HashMap des variables,
+        // on suppose que contexte = "42"
+        // x est identifié par "42-x"
+    }
+    : nom_fonction=IDENTIFIANT L_PARENTHESE
+    ((IDENTIFIANT VIRGULE)* IDENTIFIANT)*
+    R_PARENTHESE L_ACCOLADE
+    bloc_instructions {code_instruction += $bloc_instructions.code;}
+    R_ACCOLADE {$code = "";} 
+;
+
+
+/* ----------------------------------------------------------------------
 # Fonctions Built-in
 ---------------------------------------------------------------------- */
 fonction_builtin returns [String code]
