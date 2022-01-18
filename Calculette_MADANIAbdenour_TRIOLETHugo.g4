@@ -275,6 +275,7 @@ structure_if returns [String code]
 ---------------------------------------------------------------------- */
 boucle returns [String code]
     : boucle_do_while {$code = $boucle_do_while.code;}
+    | boucle_while {$code = $boucle_while.code;}
 ;
 
 /* ----------------------------------------------------------------------
