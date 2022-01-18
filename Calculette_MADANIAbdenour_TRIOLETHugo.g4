@@ -391,7 +391,7 @@ boucle_for returns [String code]
 /* ----------------------------------------------------------------------
 # Fonctions
 ---------------------------------------------------------------------- */
-fonction returns [String code]
+declaration_fonction returns [String code]
     @init {
         // todo: liste des arguments
         String code_instruction = new String();
@@ -412,8 +412,8 @@ fonction returns [String code]
         // on suppose que contexte = "42"
         // x est identifié par "42-x"
     }
-    : nom_fonction=IDENTIFIANT L_PARENTHESE
-    ((IDENTIFIANT VIRGULE)* IDENTIFIANT)*
+    : TYPE nom_fonction=IDENTIFIANT L_PARENTHESE
+    ((TYPE IDENTIFIANT VIRGULE)* TYPE IDENTIFIANT)*
     R_PARENTHESE L_ACCOLADE
     bloc_instructions {code_instruction += $bloc_instructions.code;}
     R_ACCOLADE {$code = "";} 
