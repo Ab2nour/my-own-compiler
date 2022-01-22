@@ -468,30 +468,29 @@ Syntaxes :
 ---------------------------------------------------------------------- */
 appel_fonction returns [String code]
     @init {
-        String code_variables = new String();
         String labelFonction = new String();
-        String contexte = nouveauContexte();
         $code = new String();
+        int nbVariables = 0;
     }
     : nom_fonction=IDENTIFIANT L_PARENTHESE {
         labelFonction = adresseFonction.get($nom_fonction.text);
+
+        // valeur de retour 
+        // todo: permettre PLUSIEURS valeurs de retour
+        $code += "PUSHI 0\n";
     }
-    ((id=IDENTIFIANT VIRGULE {
-        adresse_pile.put($id.text, placeProchaineVariable());
-        type_variable.put($id.text, $TYPE.text);
-
-        $code_variables += "PUSHI 0\n";
-    })* id=IDENTIFIANT {
-        adresse_pile.put($id.text, placeProchaineVariable());
-        type_variable.put($id.text, $TYPE.text);
-
-        $code_variables += "PUSHI 0\n";
+    ((expr VIRGULE {
+        $code += $expr.code;
+        nbVariables++;
+    })* expr {
+        $code += $expr.code;
+        nbVariables++;
     })*
     R_PARENTHESE {
-        $code = "LABEL " + labelFonction + "\n";
-        $code += code_variables;
-        $code += code_instruction;
-        $code += "RETURN\n";
+        $code = "CALL " + labelFonction + "\n";
+        for (int i = 0; i < nbVariables; i++) {
+            $code += "POP\n";
+        }
     }
 ;
 
