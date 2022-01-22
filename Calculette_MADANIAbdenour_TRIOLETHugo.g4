@@ -183,7 +183,12 @@ declaration returns [String code]
         $code += $expr.code;
         $code += "STOREG " + adresse_pile.get($id.text) + "\n";
     }
-    | declaration_fonction {$code = $declaration_fonction.code;}
+    | declaration_fonction {
+        String labelFin = nouveauLabel();
+        $code += "JUMP " + labelFin + "\n";
+        $code += $declaration_fonction.code;
+        $code += "LABEL " + labelFin + "\n";
+    }
 ;
 
 
@@ -425,7 +430,8 @@ instruction_return returns [String code]
         
     }
     : RETURN expr {
-        $code = "STOREL " + (nbParametresFonctionActuelle - 3)  + "\n";
+        $code = $expr.code;
+        $code += "STOREL " + (nbParametresFonctionActuelle - 3)  + "\n";
         $code += "RETURN\n";
     } 
 ;
@@ -488,9 +494,9 @@ declaration_fonction returns [String code]
         code_variables += "PUSHI 0\n";
         nbParametres++;
     })*
-    R_PARENTHESE L_ACCOLADE
-    bloc_instructions {code_instruction += $bloc_instructions.code;}
-    R_ACCOLADE {
+    R_PARENTHESE bloc_instructions {
+        code_instruction += $bloc_instructions.code;
+
         $code = "LABEL " + labelFonction + "\n";
         $code += code_variables;
         $code += code_instruction;
