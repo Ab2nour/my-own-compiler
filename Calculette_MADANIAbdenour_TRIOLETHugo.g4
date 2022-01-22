@@ -447,7 +447,9 @@ declaration_fonction returns [String code]
         String labelFonction = nouveauLabel();        
         String contexte = nouveauContexte();
 
-        String nbParametres
+        String nomFonction = new String;
+
+        int nbParametres = 0;
 
         $code = new String();
 
@@ -467,19 +469,24 @@ declaration_fonction returns [String code]
         // on suppose que contexte = "42"
         // x est identifié par "42-x"
     }
-    : TYPE nom_fonction=IDENTIFIANT L_PARENTHESE {
-        adresseFonction.put($nom_fonction.text, labelFonction);
+    @after {
+        adresseFonction.put(nomFonction, labelFonction);
+    }
+    : TYPE nomFonction=IDENTIFIANT L_PARENTHESE {
+        nomFonction = $nomFonction.text;
     }
     ((TYPE id=IDENTIFIANT VIRGULE {
         adresse_pile.put($id.text, placeProchaineVariable());
         type_variable.put($id.text, $TYPE.text);
 
         $code_variables += "PUSHI 0\n";
+        nbParametres++;
     })* TYPE id=IDENTIFIANT {
         adresse_pile.put($id.text, placeProchaineVariable());
         type_variable.put($id.text, $TYPE.text);
 
         $code_variables += "PUSHI 0\n";
+        nbParametres++;
     })*
     R_PARENTHESE L_ACCOLADE
     bloc_instructions {code_instruction += $bloc_instructions.code;}
