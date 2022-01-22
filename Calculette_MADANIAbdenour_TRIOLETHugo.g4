@@ -471,6 +471,7 @@ declaration_fonction returns [String code]
     }
     @after {
         adresseFonction.put(nomFonction, labelFonction);
+        nbParametresFonction.put(nomFonction, nbParametres);
     }
     : TYPE nomFonction=IDENTIFIANT L_PARENTHESE {
         nomFonction = $nomFonction.text;
@@ -513,6 +514,8 @@ appel_fonction returns [String code]
     }
     : nom_fonction=IDENTIFIANT L_PARENTHESE {
         labelFonction = adresseFonction.get($nom_fonction.text);
+
+        nbParametres
 
         // valeur de retour 
         // todo: permettre PLUSIEURS valeurs de retour
