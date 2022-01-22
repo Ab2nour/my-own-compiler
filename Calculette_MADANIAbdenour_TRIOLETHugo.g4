@@ -283,16 +283,16 @@ boucle returns [String code]
 
 Syntaxes :
 
-do instruction while (cond)
+    do instruction while (cond)
 
-do instruction;
-while (cond)
+    do instruction;
+    while (cond)
 
-do {instructions;} while (cond)
+    do {instructions;} while (cond)
 
-do {
-    instructions;
-} while (cond)
+    do {
+        instructions;
+    } while (cond)
 ---------------------------------------------------------------------- */
 boucle_do_while returns [String code]
     @init {
