@@ -434,11 +434,11 @@ fonction_builtin returns [String code]
 
 Syntaxes :
 
-print(x)
+    print(x)
 
-print(x, y, z)
+    print(x, y, z)
 
-printf(epsilon) // epsilon est un float
+    printf(epsilon) // epsilon est un float
 ---------------------------------------------------------------------- */
 print returns [String code]
     @init {
@@ -466,7 +466,7 @@ print returns [String code]
 
 Syntaxes :
 
-read(x)
+    read(x)
 ---------------------------------------------------------------------- */
 read returns [String code]
     : READ L_PARENTHESE id=IDENTIFIANT R_PARENTHESE {
@@ -481,15 +481,15 @@ read returns [String code]
 
 Syntaxes : 
 
-x = 5
+    x = 5
 
-x = 3 * x
+    x = 3 * x
 
-x += 1
+    x += 1
 
-x *= 2
+    x *= 2
 
-x++
+    x++
 ---------------------------------------------------------------------- */
 affectation returns [String code]
     : id=IDENTIFIANT EGAL expr {
@@ -506,13 +506,13 @@ affectation returns [String code]
 
 Syntaxes : 
 
-x += 42
+    x += 42
 
-x -= 42
+    x -= 42
 
-x *= 42
+    x *= 42
 
-x /= 1
+    x /= 1
 ---------------------------------------------------------------------- */
 raccourci_affectation returns [String code]
     : id=IDENTIFIANT operateur=(PLUS | MOINS | MUL_OU_DIV) EGAL expr {
@@ -529,9 +529,9 @@ raccourci_affectation returns [String code]
 
 Syntaxes : 
 
-x++
+    x++
 
-x--
+    x--
 ---------------------------------------------------------------------- */
 incr_ou_decr returns [String code]
     : id=IDENTIFIANT operateur=(INCREMENTATION | DECREMENTATION) {
@@ -686,13 +686,13 @@ fragment TAB : '\t';
 
 Syntaxes float :
 
-1.0
+    1.0
 
-1e3  // 1000.000
+    1e3  // 1000.000
 
-4.2e1  // 42.000
+    4.2e1  // 42.000
 
--(-4.2e1)  // 42.000
+    -(-4.2e1)  // 42.000
 ---------------------------------------------------------------------- */
 ENTIER : CHIFFRE+; // todo: les nombres commençant par 0 exemple : "042" ?
 FLOAT : CHIFFRE+ POINT CHIFFRE+ | CHIFFRE+ (POINT CHIFFRE+)? FLOAT_EXPONENT MOINS? CHIFFRE+;
@@ -724,10 +724,10 @@ R_ACCOLADE : '}';
 
 Syntaxes :
 
-// commentaire
+    // commentaire
 
-/* commentaire 
-sur plusieurs lignes*/
+    /* commentaire 
+    sur plusieurs lignes*/
 /* ------------------------------------------------------------------- */
 COMMENTAIRE
     : (L_COMMENT .*? R_COMMENT
@@ -828,23 +828,23 @@ PRINT_FLOAT : 'printf' | 'afficherf';
 
 Syntaxes possibles:
 
-x
+    x
 
-variable
+    variable
 
-variable123
+    variable123
 
-CONSTANTE
+    CONSTANTE
 
-NouvelleClasse
+    NouvelleClasse
 
-nomVariable
+    nomVariable
 
-camelCase
+    camelCase
 
-snake_case
+    snake_case
 
-_private
+    _private
 ---------------------------------------------------------------------- */
 IDENTIFIANT : (LETTRE | UNDERSCORE) (LETTRE | CHIFFRE | UNDERSCORE)*;
 
