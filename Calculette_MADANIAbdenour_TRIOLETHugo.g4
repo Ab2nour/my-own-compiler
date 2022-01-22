@@ -96,6 +96,18 @@ mais aussi les mots-clés en français (cf Lexer plus bas).
 
         return code;
     }
+    
+    // Pour les variables locales
+    // Le contexte est un préfixe attribué à un bloc d'accolades ou 
+    // une fonction, qui permet d'identifier ses variables locales
+    // différemment de variables globales pouvant partager le
+    // même nom.
+    int contexteActuel = 0;
+
+    // Renvoie le prochain contexte disponible
+    String nouveauContexte() {
+        return Integer.toString(contexteActuel++) + "-";
+    }
 }
 
 
@@ -396,6 +408,8 @@ declaration_fonction returns [String code]
     @init {
         // todo: liste des arguments
         String code_instruction = new String();
+        String contexte = nouveauContexte();
+        $code = new String();
 
         // todo: type de retour
 
@@ -414,10 +428,22 @@ declaration_fonction returns [String code]
         // x est identifié par "42-x"
     }
     : TYPE nom_fonction=IDENTIFIANT L_PARENTHESE
-    ((TYPE IDENTIFIANT VIRGULE)* TYPE IDENTIFIANT)*
+    ((TYPE id=IDENTIFIANT VIRGULE {
+        adresse_pile.put($id.text, placeProchaineVariable());
+        type_variable.put($id.text, $TYPE.text);
+
+        $code += "PUSHI 0\n";
+    })* TYPE id=IDENTIFIANT {
+        adresse_pile.put($id.text, placeProchaineVariable());
+        type_variable.put($id.text, $TYPE.text);
+
+        $code += "PUSHI 0\n";
+    })*
     R_PARENTHESE L_ACCOLADE
     bloc_instructions {code_instruction += $bloc_instructions.code;}
-    R_ACCOLADE {$code = "";} 
+    R_ACCOLADE {
+
+    }
 ;
 
 
