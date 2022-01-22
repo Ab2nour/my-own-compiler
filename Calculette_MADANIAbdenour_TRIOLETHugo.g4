@@ -480,13 +480,13 @@ declaration_fonction returns [String code]
         adresse_pile.put($id.text, placeProchaineVariable());
         type_variable.put($id.text, $TYPE.text);
 
-        $code_variables += "PUSHI 0\n";
+        code_variables += "PUSHI 0\n";
         nbParametres++;
     })* TYPE id=IDENTIFIANT {
         adresse_pile.put($id.text, placeProchaineVariable());
         type_variable.put($id.text, $TYPE.text);
 
-        $code_variables += "PUSHI 0\n";
+        code_variables += "PUSHI 0\n";
         nbParametres++;
     })*
     R_PARENTHESE L_ACCOLADE
