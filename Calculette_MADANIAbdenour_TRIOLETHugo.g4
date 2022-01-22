@@ -426,7 +426,7 @@ instruction_return returns [String code]
         
     }
     : RETURN expr {
-        $code = "STOREL " +  + "\n"; // todo : on ne gère que les fonctions avec un seul paramètre !!!
+        $code = "STOREL " + (nbParametresFonctionActuelle - 3)  + "\n";
         $code += "RETURN\n";
     } 
 ;
@@ -447,7 +447,7 @@ declaration_fonction returns [String code]
         String labelFonction = nouveauLabel();        
         String contexte = nouveauContexte();
 
-        String nomFonction = new String;
+        String nomFonction = new String();
 
         int nbParametres = 0;
 
