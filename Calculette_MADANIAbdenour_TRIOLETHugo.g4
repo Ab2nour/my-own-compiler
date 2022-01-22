@@ -110,7 +110,7 @@ mais aussi les mots-clés en français (cf Lexer plus bas).
     }
 
     // Adresses des fonctions (le LABEL associé)
-    HashMap<String, Integer> adresseFonction = new HashMap<String, Integer>();
+    HashMap<String, String> adresseFonction = new HashMap<String, Integer>();
     // Nb de paramètres des fonctions
     HashMap<String, Integer> nbParametresFonction = new HashMap<String, Integer>();
 
