@@ -123,17 +123,18 @@ calcul returns [String code]
 
 
 /* ----------------------------------------------------------------------
-# Déclaration de variable. 
+# Déclaration de variable.
+
 Syntaxes acceptées :
 
-int x;
+    int x;
 
-int x, y, z;
+    int x, y, z;
 
-int x,
-    y;
-    
-int x = 42;
+    int x,
+        y;
+        
+    int x = 42;
 ---------------------------------------------------------------------- */
 declaration returns [String code]
     @init {
