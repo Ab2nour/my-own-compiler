@@ -108,6 +108,9 @@ mais aussi les mots-clés en français (cf Lexer plus bas).
     String nouveauContexte() {
         return Integer.toString(contexteActuel++) + "-";
     }
+
+    // Adresses des fonctions (le LABEL associé)
+    HashMap<String, Integer> adresseFonction = new HashMap<String, Integer>();
 }
 
 
@@ -409,6 +412,7 @@ declaration_fonction returns [String code]
         // todo: liste des arguments
         String code_variables = new String();
         String code_instruction = new String();
+        String labelFonction = nouveauLabel();
         String contexte = nouveauContexte();
         $code = new String();
 
@@ -428,7 +432,9 @@ declaration_fonction returns [String code]
         // on suppose que contexte = "42"
         // x est identifié par "42-x"
     }
-    : TYPE nom_fonction=IDENTIFIANT L_PARENTHESE
+    : TYPE nom_fonction=IDENTIFIANT L_PARENTHESE {
+        adresseFonction.put($nom_fonction.text, labelFonction);
+    }
     ((TYPE id=IDENTIFIANT VIRGULE {
         adresse_pile.put($id.text, placeProchaineVariable());
         type_variable.put($id.text, $TYPE.text);
@@ -443,7 +449,7 @@ declaration_fonction returns [String code]
     R_PARENTHESE L_ACCOLADE
     bloc_instructions {code_instruction += $bloc_instructions.code;}
     R_ACCOLADE {
-        $code = "LABEL " + nouveauLabel(); + "\n";
+        $code = "LABEL " + labelFonction + "\n";
         $code += code_variables;
         $code += code_instruction;
         $code += "RETURN\n";
