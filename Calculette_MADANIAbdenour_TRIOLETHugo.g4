@@ -169,11 +169,11 @@ declaration returns [String code]
 
 Syntaxes:
 
-{
-    instructions;
-}
+    {
+        instructions;
+    }
 
-{instructions;}
+    {instructions;}
 ---------------------------------------------------------------------- */
 bloc_instructions returns [String code]
     @init {
@@ -326,7 +326,7 @@ boucle_do_while returns [String code]
 
 Syntaxes :
 
-todo
+    todo
 ---------------------------------------------------------------------- */
 boucle_while returns [String code]
     @init {
@@ -357,7 +357,7 @@ boucle_while returns [String code]
 
 Syntaxes :
 
-todo
+    todo
 ---------------------------------------------------------------------- */
 boucle_for returns [String code]
     @init {
