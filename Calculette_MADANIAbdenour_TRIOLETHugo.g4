@@ -405,7 +405,10 @@ boucle_for returns [String code]
 
 
 /* ----------------------------------------------------------------------
-# Fonctions
+# Déclaration de fonction
+
+Syntaxes :
+    todo
 ---------------------------------------------------------------------- */
 declaration_fonction returns [String code]
     @init {
@@ -449,6 +452,42 @@ declaration_fonction returns [String code]
     R_PARENTHESE L_ACCOLADE
     bloc_instructions {code_instruction += $bloc_instructions.code;}
     R_ACCOLADE {
+        $code = "LABEL " + labelFonction + "\n";
+        $code += code_variables;
+        $code += code_instruction;
+        $code += "RETURN\n";
+    }
+;
+
+
+/* ----------------------------------------------------------------------
+# Appel de fonction
+
+Syntaxes :
+    todo
+---------------------------------------------------------------------- */
+appel_fonction returns [String code]
+    @init {
+        String code_variables = new String();
+        String labelFonction = new String();
+        String contexte = nouveauContexte();
+        $code = new String();
+    }
+    : nom_fonction=IDENTIFIANT L_PARENTHESE {
+        labelFonction = adresseFonction.get($nom_fonction.text);
+    }
+    ((id=IDENTIFIANT VIRGULE {
+        adresse_pile.put($id.text, placeProchaineVariable());
+        type_variable.put($id.text, $TYPE.text);
+
+        $code_variables += "PUSHI 0\n";
+    })* id=IDENTIFIANT {
+        adresse_pile.put($id.text, placeProchaineVariable());
+        type_variable.put($id.text, $TYPE.text);
+
+        $code_variables += "PUSHI 0\n";
+    })*
+    R_PARENTHESE {
         $code = "LABEL " + labelFonction + "\n";
         $code += code_variables;
         $code += code_instruction;
