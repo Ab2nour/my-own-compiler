@@ -111,6 +111,14 @@ mais aussi les mots-clés en français (cf Lexer plus bas).
 
     // Adresses des fonctions (le LABEL associé)
     HashMap<String, Integer> adresseFonction = new HashMap<String, Integer>();
+    // Nb de paramètres des fonctions
+    HashMap<String, Integer> nbParametresFonction = new HashMap<String, Integer>();
+
+    // Attribut hérité (variable globale) qui permet pour le return
+    // Permet de savoir combien de paramètres a la fonction qui va return,
+    // comme ça on peut stocker à la bonne place le résultat
+    // du return
+    int nbParametresFonctionActuelle = 0;
 }
 
 
@@ -175,6 +183,7 @@ declaration returns [String code]
         $code += $expr.code;
         $code += "STOREG " + adresse_pile.get($id.text) + "\n";
     }
+    | declaration_fonction {$code = $declaration_fonction.code;}
 ;
 
 
@@ -208,6 +217,8 @@ instruction returns [String code]
     | fonction_builtin {$code = $fonction_builtin.code;}
     | structure_conditionnelle {$code = $structure_conditionnelle.code;}
     | boucle {$code = $boucle.code;}
+    | appel_fonction {$code = $appel_fonction.code;}
+    | return {$code = $return.code;}
 
     // Une instruction qui ne contient qu'une expr est inutile 
     // et sans effet de bord : on POP donc le résultat de celle-ci.
@@ -410,13 +421,34 @@ boucle_for returns [String code]
 Syntaxes :
     todo
 ---------------------------------------------------------------------- */
+return returns [String code]
+    @init {
+        
+    }
+    : RETURN expr {
+        $code = "STOREL -4"; // todo : on ne gère que les fonctions avec un seul paramètre !!!
+        $code += "RETURN\n";
+    } 
+;
+
+
+/* ----------------------------------------------------------------------
+# Déclaration de fonction
+
+Syntaxes :
+    todo
+---------------------------------------------------------------------- */
 declaration_fonction returns [String code]
     @init {
         // todo: liste des arguments
         String code_variables = new String();
         String code_instruction = new String();
-        String labelFonction = nouveauLabel();
+        
+        String labelFonction = nouveauLabel();        
         String contexte = nouveauContexte();
+
+        String nbParametres
+
         $code = new String();
 
         // todo: type de retour
@@ -895,6 +927,12 @@ PRINT : 'print' | 'afficher';
 READ : 'read' | 'lire';
 
 PRINT_FLOAT : 'printf' | 'afficherf';
+
+
+/* ----------------------------------------------------------------------
+# Fonctions 
+---------------------------------------------------------------------- */
+RETURN : 'return';
 
 /* ----------------------------------------------------------------------
 # Identifiant (variables, pourrait servir aux noms de fonction)
