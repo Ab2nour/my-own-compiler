@@ -217,7 +217,6 @@ instruction returns [String code]
     | fonction_builtin {$code = $fonction_builtin.code;}
     | structure_conditionnelle {$code = $structure_conditionnelle.code;}
     | boucle {$code = $boucle.code;}
-    | appel_fonction {$code = $appel_fonction.code;}
     | instruction_return {$code = $instruction_return.code;}
 
     // Une instruction qui ne contient qu'une expr est inutile 
@@ -702,6 +701,7 @@ expr_arith returns [String code]
     | a=expr_arith MOINS b=expr_arith {$code = $a.code + $b.code + $MOINS.getText() + "\n";}
     | MOINS L_PARENTHESE a=expr_arith R_PARENTHESE {$code = $a.code + "PUSHI -1\n" + "MUL\n";}
     | nombre_entier {$code = $nombre_entier.code;}
+    | appel_fonction {$code = $appel_fonction.code;}
     | id=IDENTIFIANT {$code = "PUSHG " + adresse_pile.get($id.text) + "\n";}
     | MOINS id=IDENTIFIANT {$code = "PUSHG " + adresse_pile.get($id.text) + "\n" + "PUSHI -1\n" + "MUL\n";}
 ;
