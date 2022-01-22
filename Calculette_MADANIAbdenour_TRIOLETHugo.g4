@@ -407,6 +407,7 @@ boucle_for returns [String code]
 declaration_fonction returns [String code]
     @init {
         // todo: liste des arguments
+        String code_variables = new String();
         String code_instruction = new String();
         String contexte = nouveauContexte();
         $code = new String();
@@ -432,17 +433,20 @@ declaration_fonction returns [String code]
         adresse_pile.put($id.text, placeProchaineVariable());
         type_variable.put($id.text, $TYPE.text);
 
-        $code += "PUSHI 0\n";
+        $code_variables += "PUSHI 0\n";
     })* TYPE id=IDENTIFIANT {
         adresse_pile.put($id.text, placeProchaineVariable());
         type_variable.put($id.text, $TYPE.text);
 
-        $code += "PUSHI 0\n";
+        $code_variables += "PUSHI 0\n";
     })*
     R_PARENTHESE L_ACCOLADE
     bloc_instructions {code_instruction += $bloc_instructions.code;}
     R_ACCOLADE {
-
+        $code = "LABEL " + nouveauLabel(); + "\n";
+        $code += code_variables;
+        $code += code_instruction;
+        $code += "RETURN\n";
     }
 ;
 
