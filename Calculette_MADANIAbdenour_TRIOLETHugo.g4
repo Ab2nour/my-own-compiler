@@ -218,7 +218,7 @@ instruction returns [String code]
     | structure_conditionnelle {$code = $structure_conditionnelle.code;}
     | boucle {$code = $boucle.code;}
     | appel_fonction {$code = $appel_fonction.code;}
-    | return {$code = $return.code;}
+    | instruction_return {$code = $instruction_return.code;}
 
     // Une instruction qui ne contient qu'une expr est inutile 
     // et sans effet de bord : on POP donc le résultat de celle-ci.
@@ -421,12 +421,12 @@ boucle_for returns [String code]
 Syntaxes :
     todo
 ---------------------------------------------------------------------- */
-return returns [String code]
+instruction_return returns [String code]
     @init {
         
     }
     : RETURN expr {
-        $code = "STOREL -4"; // todo : on ne gère que les fonctions avec un seul paramètre !!!
+        $code = "STOREL " +  + "\n"; // todo : on ne gère que les fonctions avec un seul paramètre !!!
         $code += "RETURN\n";
     } 
 ;
