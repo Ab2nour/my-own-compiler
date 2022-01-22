@@ -509,13 +509,17 @@ Syntaxes :
 appel_fonction returns [String code]
     @init {
         String labelFonction = new String();
+
+        String nomFonction = new String();
+
         $code = new String();
         int nbVariables = 0;
     }
-    : nom_fonction=IDENTIFIANT L_PARENTHESE {
-        labelFonction = adresseFonction.get($nom_fonction.text);
+    : nomFonction=IDENTIFIANT L_PARENTHESE {
+        nomFonction = $nomFonction.text;
+        labelFonction = adresseFonction.get(nomFonction);
 
-        nbParametres
+        nbParametresFonctionActuelle = nbParametresFonction.get(nomFonction);
 
         // valeur de retour 
         // todo: permettre PLUSIEURS valeurs de retour
