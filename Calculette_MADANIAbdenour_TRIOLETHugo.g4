@@ -482,14 +482,8 @@ declaration_fonction returns [String code]
         nomFonction = $nomFonction.text;
     }
     ((TYPE id=IDENTIFIANT VIRGULE {
-        adresse_pile.put($id.text, placeProchaineVariable());
-        type_variable.put($id.text, $TYPE.text);
-        
         nbParametres++;
     })* TYPE id=IDENTIFIANT {
-        adresse_pile.put($id.text, placeProchaineVariable());
-        type_variable.put($id.text, $TYPE.text);
-
         nbParametres++;
     })*
     R_PARENTHESE bloc_instructions {
