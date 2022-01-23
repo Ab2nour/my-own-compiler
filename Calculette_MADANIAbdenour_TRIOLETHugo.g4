@@ -484,14 +484,12 @@ declaration_fonction returns [String code]
     ((TYPE id=IDENTIFIANT VIRGULE {
         adresse_pile.put($id.text, placeProchaineVariable());
         type_variable.put($id.text, $TYPE.text);
-
-        code_variables += "PUSHI 0\n";
+        
         nbParametres++;
     })* TYPE id=IDENTIFIANT {
         adresse_pile.put($id.text, placeProchaineVariable());
         type_variable.put($id.text, $TYPE.text);
 
-        code_variables += "PUSHI 0\n";
         nbParametres++;
     })*
     R_PARENTHESE bloc_instructions {
@@ -538,7 +536,7 @@ appel_fonction returns [String code]
         nbVariables++;
     })*
     R_PARENTHESE {
-        $code = "CALL " + labelFonction + "\n";
+        $code += "CALL " + labelFonction + "\n";
         for (int i = 0; i < nbVariables; i++) {
             $code += "POP\n";
         }
