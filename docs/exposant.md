@@ -1,4 +1,4 @@
-**Attention** aux INT overflow avec MVaP : `2^3^4` suffit à faire un INT overflow par exemple. Plus grand entier MVAP `2**42 = 4398046511104`
+**Attention** aux INT overflow avec MVaP : `2^3^4` suffit à faire un INT overflow par exemple. Plus grand entier MVAP `2**42 = 4398046511104`.
 
 Ce code MVAP affiche le résultat de 2^3.
 ```py
