@@ -1,5 +1,12 @@
 # Présentation du projet
-Il s'agit d'un projet de L3 visant à créer son propre (petit) langage de programmation, à l'aide de deux outils :
+Il s'agit d'un projet de L3 visant à créer son propre (petit) langage de programmation.
+
+![Extrait de code](
+  img/example-code.svg
+  "Exemple de code avec le langage créé"
+)
+
+Le langage est réalisé à l'aide de deux outils :
 - **ANTLR4** pour gérer la grammaire, l'analyse lexicale et syntaxique,
 - **MVàP** (Machine Virtuelle à Pile), qu'on peut considérer comme de l'assembleur simplifié sur plusieurs points, soit un langage de (très) bas niveau.
 
