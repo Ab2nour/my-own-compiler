@@ -1,4 +1,4 @@
-grammar Calculette_MADANIAbdenour_TRIOLETHugo;
+grammar grammar;
 
 /*
 Calculette ANTLR4 / MVàP
