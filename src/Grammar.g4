@@ -1,4 +1,4 @@
-grammar grammar;
+grammar Grammar;
 
 /*
 Calculette ANTLR4 / MVàP
