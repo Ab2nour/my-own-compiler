@@ -39,7 +39,7 @@ function mvap () {
 function init_mvap () {
     # Effectue l'initialisation nécessaire à la fonction `mvap_sans_init`
     antlr4 src/Grammar.g4                
-    javac *.java
+    javac src/*.java
 }
 
 
