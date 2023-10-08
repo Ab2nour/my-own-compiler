@@ -107,13 +107,6 @@ mais aussi les mots-clés en français (cf Lexer plus bas).
 calcul returns [String code]
     @init {$code = new String();}
     @after {
-        for (int i = 0; i < place_variable; i++) {
-            $code += "POP\n"; // on pop toutes les variables de la pile
-        }
-
-        $code += "HALT\n";
-        $code = fonctions_builtin() + $code;
-        
         System.out.println($code);
     }
     : (declaration fin_instruction+ {$code += $declaration.code;})*
@@ -123,7 +116,7 @@ calcul returns [String code]
 
 
 /* ----------------------------------------------------------------------
-# Déclaration de variable. 
+# Déclaration de variable.
 Syntaxes acceptées :
 
 int x;
@@ -132,7 +125,7 @@ int x, y, z;
 
 int x,
     y;
-    
+
 int x = 42;
 ---------------------------------------------------------------------- */
 declaration returns [String code]
@@ -144,7 +137,7 @@ declaration returns [String code]
         type_variable.put($id.text, $TYPE.text);
 
         $code += "PUSHI 0\n";
-    })* 
+    })*
     id=IDENTIFIANT {
         adresse_pile.put($id.text, placeProchaineVariable());
         type_variable.put($id.text, $TYPE.text);
@@ -193,7 +186,7 @@ instruction returns [String code]
     | structure_conditionnelle {$code = $structure_conditionnelle.code;}
     | boucle {$code = $boucle.code;}
 
-    // Une instruction qui ne contient qu'une expr est inutile 
+    // Une instruction qui ne contient qu'une expr est inutile
     // et sans effet de bord : on POP donc le résultat de celle-ci.
     | expr {$code = $expr.code + "POP\n";}
 ;
@@ -362,7 +355,7 @@ boucle_for returns [String code]
     @init {
         String code_instruction = new String();
     }
-    : FOR L_PARENTHESE 
+    : FOR L_PARENTHESE
         initialisation=instruction POINT_VIRGULE
         condition=expr_bool POINT_VIRGULE
         fin_tour_boucle=instruction
@@ -416,7 +409,7 @@ declaration_fonction returns [String code]
     ((TYPE IDENTIFIANT VIRGULE)* TYPE IDENTIFIANT)*
     R_PARENTHESE L_ACCOLADE
     bloc_instructions {code_instruction += $bloc_instructions.code;}
-    R_ACCOLADE {$code = "";} 
+    R_ACCOLADE {$code = "";}
 ;
 
 
@@ -424,7 +417,7 @@ declaration_fonction returns [String code]
 # Fonctions Built-in
 ---------------------------------------------------------------------- */
 fonction_builtin returns [String code]
-    : print {$code = $print.code;} 
+    : print {$code = $print.code;}
     | read {$code = $read.code;}
 ;
 
@@ -443,14 +436,16 @@ printf(epsilon) // epsilon est un float
 print returns [String code]
     @init {
         $code = new String();
+
+        $code += "print(";
         String code_arguments = new String();
         String code_affichage = "WRITE\nPOP\n";
         String code_affichage_float = "WRITEF\nPOP\nPOP\n";
     }
-    : PRINT L_PARENTHESE 
-        (expr VIRGULE {$code += $expr.code + code_affichage;})* e=expr
+    : PRINT L_PARENTHESE
+        (expr VIRGULE {$code += $expr.code + ",";})* e=expr
     R_PARENTHESE {
-        $code += $e.code + code_affichage;
+        $code += $e.code + ")";
     }
     // code à part pour les floats
     | PRINT_FLOAT L_PARENTHESE 
@@ -577,7 +572,7 @@ expr_arith returns [String code]
         symbole_exposant_present = true;
     }
     | a=expr_arith MUL_OU_DIV b=expr_arith {$code = $a.code + $b.code + $MUL_OU_DIV.getText() + "\n";}
-    | a=expr_arith PLUS b=expr_arith {$code = $a.code + $b.code + $PLUS.getText() + "\n";}
+    | a=expr_arith PLUS b=expr_arith {$code = $a.code + $PLUS.getText() + $b.code;}
     | a=expr_arith MOINS b=expr_arith {$code = $a.code + $b.code + $MOINS.getText() + "\n";}
     | MOINS L_PARENTHESE a=expr_arith R_PARENTHESE {$code = $a.code + "PUSHI -1\n" + "MUL\n";}
     | nombre_entier {$code = $nombre_entier.code;}
@@ -590,8 +585,8 @@ expr_arith returns [String code]
 # Nombre entier (positif ou négatif)
 ---------------------------------------------------------------------- */
 nombre_entier returns [String code]
-    : MOINS ENTIER {$code = "PUSHI " + -$ENTIER.int + "\n";}
-    | ENTIER {$code = "PUSHI " + $ENTIER.int + "\n";}
+    : MOINS ENTIER {$code = "" + -$ENTIER.int;}
+    | ENTIER {$code = "" + $ENTIER.int;}
 ;
 
 
@@ -747,13 +742,13 @@ fragment R_COMMENT : '*/';
 # Opérations arithmétiques
 ---------------------------------------------------------------------- */
 MUL_OU_DIV
-    : SYMBOLE_FOIS { setText("MUL"); }
-    | SYMBOLE_DIV { setText("DIV"); }
+    : SYMBOLE_FOIS { setText("*"); }
+    | SYMBOLE_DIV { setText("/"); }
 ;
 
 EXP : '^' | SYMBOLE_FOIS SYMBOLE_FOIS;
-PLUS : SYMBOLE_PLUS { setText("ADD"); };
-MOINS : SYMBOLE_MOINS { setText("SUB"); };
+PLUS : SYMBOLE_PLUS { setText("+"); };
+MOINS : SYMBOLE_MOINS { setText("-"); };
 
 fragment SYMBOLE_PLUS : '+';
 fragment SYMBOLE_MOINS : '-';

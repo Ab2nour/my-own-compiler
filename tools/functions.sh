@@ -64,8 +64,12 @@ function mvap_sans_init () {
         rm entree.temp
     fi
 
-    compileMVAP fichier.mvap
-    execMVAP fichier.mvap.cbap
+    echo "-------------------- fichier ci-dessous --------------------"
+    cat fichier.mvap
+    echo "-------------------- fin du fichier --------------------"
+    echo "-------------------- exécution --------------------"
+    python fichier.mvap
+    echo "-------------------- fin de l'exécution --------------------"
 }
 
 
