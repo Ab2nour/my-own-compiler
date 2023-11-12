@@ -14,16 +14,16 @@ Le langage est réalisé à l'aide de deux outils :
 
 Le projet est structuré de cette façon :
 
-[`📂 docs`](https://github.com/Ab2nour/projet-compilation/tree/main/docs)  
+[`📂 docs`](docs)  
 > Documentation du projet
 
-[`📂 src`](https://github.com/Ab2nour/projet-compilation/tree/main/src)    
+[`📂 src`](src)    
 > Code source du projet, contenant le fichier de grammaire `.g4`
 
-[`📂 tests`](https://github.com/Ab2nour/projet-compilation/tree/main/tests)    
+[`📂 tests`](tests)    
 > Tests
 
-[`📂 tools`](https://github.com/Ab2nour/projet-compilation/tree/main/tests)    
+[`📂 tools`](tools)    
 > Fonctions utiles, **ANTLR4** _(v4.9.2)_ et **MVaP**
 
 # MVaP et ANTLR4
