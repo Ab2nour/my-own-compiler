@@ -1,3 +1,5 @@
+Title: Code snippet of the language
+
 ```py
 int n = 100;
 
@@ -17,3 +19,8 @@ print(n); # outputs 42
 ```
 
 Code snippet in README done with https://ray.so
+Theme: Candy
+Background: Yes
+Dark mode: Yes
+Padding: 16
+Language: Python
