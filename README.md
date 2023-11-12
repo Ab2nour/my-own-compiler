@@ -2,7 +2,7 @@
 Il s'agit d'un projet de L3 visant à créer son propre (petit) langage de programmation.
 
 ![Extrait de code](
-  img/example-code.svg
+  img/example-code.png
   "Exemple de code avec le langage créé"
 )
 
