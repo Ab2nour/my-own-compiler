@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@300;400&family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:ital@0;1&display=swap');
+
+pre,
+code,
+kbd,
+samp {
+    font-family: JetBrains Mono, var(--pst-font-family-monospace);
+    line-height: 1.75 !important;
+}
+
+body {
+    font-family: Inter, var(--pst-font-family-base);
+}
+
+p {
+    font-family: Inter, var(--pst-font-family-base);
+    line-height: 1.75;
+}
+
+.heading-style,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: Fira Sans Condensed, var(--pst-font-family-heading);
+}
+
+.bd-article-container h3,
+.bd-article-container h4,
+.bd-article-container h5,
+.bd-article-container p.caption {
+    font-weight: 300;
+}
+
+.sig {
+    font-family: JetBrains Mono, var(--pst-font-family-monospace);
+    letter-spacing: -1px;
+    border-bottom: 1px solid var(--pst-color-border);
+    margin-bottom: 12px;
+}
+
+.field-odd p strong {
+    font-family: JetBrains Mono;
+    font-size: 0.9em;
+}
+
+.field-odd p em {
+    font-style: normal;
+    font-family: JetBrains Mono;
+    font-size: 0.85em;
+    color: var(--pst-color-text-muted);
+}
+
+dl[class]:not(.option-list):not(.field-list):not(.footnote):not(.glossary):not(.simple) dt.field-even,
+dl[class]:not(.option-list):not(.field-list):not(.footnote):not(.glossary):not(.simple) dt.field-odd {
+    font-family: Fira Sans Condensed;
+}
+
+/* Function & class methods signature */
+.sig-name {
+    font-size: 1em;
+}
+
+.sig-param {
+    font-size: 0.9em;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: 0;
+}
+
+.sig-return-typehint {
+    font-size: 0.9em;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: 0;
+}
+
+.sig-paren {
+    font-weight: normal;
+    font-size: 1em;
+}
+
+/* Jupyter Notebook cells */
+div.cell div.cell_input,
+div.cell details.above-input>summary {
+    border: none;
+    border-left: 2px solid var(--pst-color-border);
+    border-radius: 0;
+}
+
+/* Code line numbers */
+span.linenos {
+    padding-right: 10px !important;
+    margin-right: 15px;
+    border-right: 1px solid var(--pst-color-border);
+}
+
+div.highlight,
+div.literal-block-wrapper,
+div[class*="highlight-"] {
+    border-radius: 0;
+}
+
+/* Miscellaneous */
+.viewcode-link {
+  font-size: 0.85em;
+  font-weight: normal;
+}
+
+.prev-next-area a {
+    border: 1px solid var(--pst-color-border);
+    border-radius: 7px;
+    margin: 20px;
+    padding: 14px 16px;
+}
+
+.prev-next-area a p.prev-next-subtitle {
+    font-size: 0.8em;
+}
+
+.prev-next-area a p.prev-next-title {
+    font-size: 0.9em;
+    text-align: left;
+}
+
+.toctree-wrapper li[class^="toctree-l"]>a {
+    font-size: 1em;
+}
+
+.toctree-wrapper .toctree-l1>a {
+    font-weight: bold;
+}
+
+.toctree-wrapper.compound p:first-child {
+  font-family: Fira Sans Condensed;
+  border-bottom: 1px solid var(--pst-color-border);
+  margin-top: 32px;
+  margin-bottom: 12px;
+}
+
+/* Table of contents (left) */
+nav.bd-links p.bd-links__title, nav.bd-links p.caption {
+  border-bottom: 1px solid var(--pst-color-border);
+  font-weight: 500;
+}
