@@ -2,7 +2,7 @@
 Il s'agit d'un projet de L3 visant à créer son propre (petit) langage de programmation.
 
 ![Extrait de code](
-  img/example-code.png
+  assets/img/example-code.png
   "Exemple de code avec le langage créé"
 )
 
@@ -13,6 +13,9 @@ Le langage est réalisé à l'aide de deux outils :
 ## Structure du projet
 
 Le projet est structuré de cette façon :
+
+[`📂 assets`](assets)
+> Contient des ressources liées au projet, telles que des images.
 
 [`📂 docs`](docs)  
 > Documentation du projet
