@@ -63,11 +63,9 @@ Cette commande affichera d'abord tous les *tokens* reconnus par la grammaire, pu
 
 # Problèmes courants
 ## Windows (WSL)
-### 
+### ``syntax error near unexpected token `$'{\r''``
+Ce problème vient de la différence dans la façon dont sont gérés les retours à la ligne entre Windows et Linux.
 
-> **Warning**
-> ``syntax error near unexpected token `$'{\r''``  
-> Ce problème vient de la différence dans la façon dont sont gérés les retours à la ligne entre Windows et Linux.  
-> Il suffit de sélectionner tout le code dans `tools/functions.sh` (Ctrl+A), puis de le copier/coller directement dans le terminal, et faire `Entrée`.
+Il suffit de sélectionner tout le code dans `tools/functions.sh` (Ctrl+A), puis de le copier/coller directement dans le terminal, et faire `Entrée`.
 
 
