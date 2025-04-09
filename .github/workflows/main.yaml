@@ -2,15 +2,15 @@
 # le code ANTLR4.
 
 name: CI
-on:  push
+on: push
 jobs:
   test-code:
     name: Teste Calculette.g4
     runs-on: ubuntu-latest
-        
-    steps:    
     - uses: actions/checkout@v2
-    
-    - name: Test d'expressions
-      run: source tools/ci_script.sh
-      shell: bash
+
+    steps:
+
+      - name: Test d'expressions
+        run: source tools/ci_script.sh
+        shell: bash
