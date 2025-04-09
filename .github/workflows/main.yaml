@@ -7,9 +7,9 @@ jobs:
   test-code:
     name: Teste Calculette.g4
     runs-on: ubuntu-latest
-    - uses: actions/checkout@v2
 
     steps:
+      - uses: actions/checkout@v4
 
       - name: Test d'expressions
         run: source tools/ci_script.sh
