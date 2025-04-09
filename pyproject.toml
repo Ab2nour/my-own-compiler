@@ -1,20 +1,9 @@
-[tool.poetry]
-name = "my-own-compiler"
+[project]
+name = "projet-compilation"
 version = "0.1.0"
-description = ""
-authors = ["Your Name <you@example.com>"]
+description = "Add your description here"
 readme = "README.md"
-
-[tool.poetry.dependencies]
-python = "^3.10"
-
-
-[tool.poetry.group.dev.dependencies]
-sphinx = "^7.2.6"
-myst-parser = "^2.0.0"
-myst-nb = "^1.0.0"
-sphinx-book-theme = "^1.0.1"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires-python = ">=3.10"
+dependencies = [
+    "antlr4-tools>=0.2.1",
+]
