@@ -10,15 +10,15 @@ symbols_dict: dict[str, str] = {
     "/": "div",
 }
 
-template_start = """@.str = private unnamed_addr constant [12 x i8] c"Result: %d\\0A\\00", align 1
+template_start = """declare i32 @printf(i8*, ...)
 
-declare i32 @printf(i8*, ...)  ; Déclaration de printf
+@format_string = constant [4 x i8] c"%d\\0A\\00"
 
 define i32 @main() {
 entry:
 """
 
-template_end = """    ; Retourner 0 (code de sortie)
+template_end = """
     ret i32 0
 }"""
 
@@ -33,19 +33,15 @@ class LlvmVisitor(ExprVisitor):
     def getVariableCount(self):
         current_variable_count = self.variable_count
         self.variable_count += 1
-        return current_variable_count
+        return f"var{current_variable_count}"
 
     @override
     def visitProg(self, ctx):
         code = template_start
 
-        self.visit(ctx.expr())
+        self.visitChildren(ctx)
         code += self.code
 
-        print_code = f"""    %format_str = getelementptr inbounds [16 x i8], [16 x i8]* @.str, i32 0, i32 0
-    call i32 (i8*, ...) @printf(i8* %format_str, i32 %{self.getVariableCount() - 1})"""
-
-        code += print_code
         code += template_end
         return code
 
@@ -75,6 +71,17 @@ class LlvmVisitor(ExprVisitor):
     def visitInt(self, ctx: ExprParser.IntContext):
         int_value = int(ctx.INT().getText())
         return f"{int_value}"
+
+    @override
+    def visitPrint(self, ctx: ExprParser.PrintContext):
+        expr = self.visit(ctx.e)
+        print_code = (
+            f"call i32 @printf(i8* getelementptr ([4 x i8], [4 x i8]* "
+            f"@format_string, i32 0, i32 0), i32 {expr})\n"
+        )
+        #todo self.variable_count += 2
+
+        self.code += print_code
 
     @override
     def visitParen(self, ctx: ExprParser.ParenContext):

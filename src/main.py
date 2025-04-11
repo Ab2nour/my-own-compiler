@@ -11,19 +11,20 @@ from src.EvalVisitor import EvalVisitor
 
 
 def main():
-    input_stream = InputStream(input("Entrez une expression : "))
+    input_string = "print(42*(3+5));print(42);" # input("Entrez une expression : ")
+    input_stream = InputStream(input_string)
     lexer = ExprLexer(input_stream)
     stream = CommonTokenStream(lexer)
     parser = ExprParser(stream)
     tree = parser.prog()
 
-    visitor = EvalVisitor()
-    result = visitor.visit(tree)
-    print(f"Résultat = {result}")
-
-    mvap_visitor = MVapVisitor()
-    result = mvap_visitor.visit(tree)
-    print(f"Résultat =\n{result}")
+    # visitor = EvalVisitor()
+    # result = visitor.visit(tree)
+    # print(f"Résultat = {result}")
+    #
+    # mvap_visitor = MVapVisitor()
+    # result = mvap_visitor.visit(tree)
+    # print(f"Résultat =\n{result}")
 
     llvm_visitor = LlvmVisitor()
     result = llvm_visitor.visit(tree)
