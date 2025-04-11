@@ -28,7 +28,7 @@ class LlvmVisitor(ExprVisitor):
     def __init__(self):
         super().__init__()
         self.variable_count: int = 0
-        self.code:str = ""
+        self.code: str = ""
 
     def getVariableCount(self):
         current_variable_count = self.variable_count
