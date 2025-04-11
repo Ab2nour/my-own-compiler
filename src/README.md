@@ -20,4 +20,3 @@ You should get a `temp.ll` file.
 Run `clang temp.ll -o temp`.
 
 Execute `temp`.
-
