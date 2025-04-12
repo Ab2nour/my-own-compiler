@@ -3,6 +3,8 @@ from typing_extensions import override
 from src.generated.ExprVisitor import ExprVisitor
 from src.generated.ExprParser import ExprParser
 
+from src.llvm_builder import LlvmBuilder
+
 symbols_dict: dict[str, str] = {
     "+": "add",
     "-": "sub",
@@ -10,17 +12,7 @@ symbols_dict: dict[str, str] = {
     "/": "div",
 }
 
-template_start = """declare i32 @printf(i8*, ...)
 
-@format_string = constant [4 x i8] c"%d\\0A\\00"
-
-define i32 @main() {
-entry:
-"""
-
-template_end = """
-    ret i32 0
-}"""
 
 
 class LlvmVisitor(ExprVisitor):
@@ -28,7 +20,7 @@ class LlvmVisitor(ExprVisitor):
     def __init__(self):
         super().__init__()
         self.variable_count: int = 0
-        self.code: str = ""
+        self.builder: LlvmBuilder = LlvmBuilder()
         self.variables: dict[str, str] = dict()
         self.variables_is_loaded: dict[str, bool] = dict()
 
@@ -39,13 +31,8 @@ class LlvmVisitor(ExprVisitor):
 
     @override
     def visitProg(self, ctx: ExprParser.ProgContext):
-        code = template_start
-
         self.visitChildren(ctx)
-        code += self.code
-
-        code += template_end
-        return code
+        return self.builder.getCode()
 
     @override
     def visitMulDiv(self, ctx: ExprParser.MulDivContext):
@@ -54,7 +41,7 @@ class LlvmVisitor(ExprVisitor):
         symbol_text = symbols_dict[ctx.symbol.text]
 
         variable_count = self.get_variable_count()
-        self.code += f"%{variable_count} = {symbol_text} i32 {op1}, {op2}\n"
+        self.builder.emitLines(f"%{variable_count} = {symbol_text} i32 {op1}, {op2}")
 
         return f"%{variable_count}"
 
@@ -65,7 +52,7 @@ class LlvmVisitor(ExprVisitor):
         symbol_text = symbols_dict[ctx.symbol.text]
 
         variable_count = self.get_variable_count()
-        self.code += f"%{variable_count} = {symbol_text} i32 {op1}, {op2}\n"
+        self.builder.emitLines(f"%{variable_count} = {symbol_text} i32 {op1}, {op2}")
 
         return f"%{variable_count}"
 
@@ -80,7 +67,7 @@ class LlvmVisitor(ExprVisitor):
         variable_id = self.variables[variable_name]
 
         if not self.variables_is_loaded[variable_name]:
-            self.code += f"%{variable_id}_val = load i32, i32* %{variable_id}\n"
+            self.builder.emitLines(f"%{variable_id}_val = load i32, i32* %{variable_id}")
             self.variables_is_loaded[variable_name] = True
 
         return f"%{variable_id}_val"
@@ -90,10 +77,10 @@ class LlvmVisitor(ExprVisitor):
         expr = self.visit(ctx.e)
         print_code = (
             f"call i32 @printf(i8* getelementptr ([4 x i8], [4 x i8]* "
-            f"@format_string, i32 0, i32 0), i32 {expr})\n"
+            f"@format_string, i32 0, i32 0), i32 {expr})"
         )
 
-        self.code += print_code
+        self.builder.emitLines(print_code)
 
     @override
     def visitDeclaration(self, ctx: ExprParser.DeclarationContext):
@@ -104,8 +91,9 @@ class LlvmVisitor(ExprVisitor):
         self.variables[variable_name] = variable_id
         self.variables_is_loaded[variable_name] = False
 
-        self.code += (
-            f"%{variable_id} = alloca i32, align 4\nstore i32 {variable_value}, i32* %{variable_id}\n"
+        self.builder.emitLines(
+            f"%{variable_id} = alloca i32, align 4",
+            f"store i32 {variable_value}, i32* %{variable_id}"
         )
 
     @override
