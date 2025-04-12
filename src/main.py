@@ -11,7 +11,7 @@ from src.EvalVisitor import EvalVisitor
 
 
 def main():
-    input_string = "print(42*(3+5));print(42);" # input("Entrez une expression : ")
+    input_string = "x = 5; y = x+1; print(x+y+3); print(42);"  # input("Entrez une expression : ")
     input_stream = InputStream(input_string)
     lexer = ExprLexer(input_stream)
     stream = CommonTokenStream(lexer)
