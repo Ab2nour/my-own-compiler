@@ -14,14 +14,15 @@ template_end = """
     ret i32 0
 }"""
 
+
 class LlvmBuilder:
     def __init__(self):
         self.code: str = ""
 
-    def emitLines(self, *lines: str):
+    def emit_lines(self, *lines: str):
         for line in lines:
             self.code += TAB + line + "\n"
 
-    def getCode(self) -> str:
+    def get_code(self) -> str:
         code = template_start + self.code + template_end
         return code

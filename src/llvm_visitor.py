@@ -13,8 +13,6 @@ symbols_dict: dict[str, str] = {
 }
 
 
-
-
 class LlvmVisitor(ExprVisitor):
     @override
     def __init__(self):
@@ -32,7 +30,7 @@ class LlvmVisitor(ExprVisitor):
     @override
     def visitProg(self, ctx: ExprParser.ProgContext):
         self.visitChildren(ctx)
-        return self.builder.getCode()
+        return self.builder.get_code()
 
     @override
     def visitMulDiv(self, ctx: ExprParser.MulDivContext):
@@ -41,7 +39,7 @@ class LlvmVisitor(ExprVisitor):
         symbol_text = symbols_dict[ctx.symbol.text]
 
         variable_count = self.get_variable_count()
-        self.builder.emitLines(f"%{variable_count} = {symbol_text} i32 {op1}, {op2}")
+        self.builder.emit_lines(f"%{variable_count} = {symbol_text} i32 {op1}, {op2}")
 
         return f"%{variable_count}"
 
@@ -52,7 +50,7 @@ class LlvmVisitor(ExprVisitor):
         symbol_text = symbols_dict[ctx.symbol.text]
 
         variable_count = self.get_variable_count()
-        self.builder.emitLines(f"%{variable_count} = {symbol_text} i32 {op1}, {op2}")
+        self.builder.emit_lines(f"%{variable_count} = {symbol_text} i32 {op1}, {op2}")
 
         return f"%{variable_count}"
 
@@ -67,7 +65,9 @@ class LlvmVisitor(ExprVisitor):
         variable_id = self.variables[variable_name]
 
         if not self.variables_is_loaded[variable_name]:
-            self.builder.emitLines(f"%{variable_id}_val = load i32, i32* %{variable_id}")
+            self.builder.emit_lines(
+                f"%{variable_id}_val = load i32, i32* %{variable_id}"
+            )
             self.variables_is_loaded[variable_name] = True
 
         return f"%{variable_id}_val"
@@ -80,7 +80,7 @@ class LlvmVisitor(ExprVisitor):
             f"@format_string, i32 0, i32 0), i32 {expr})"
         )
 
-        self.builder.emitLines(print_code)
+        self.builder.emit_lines(print_code)
 
     @override
     def visitDeclaration(self, ctx: ExprParser.DeclarationContext):
@@ -91,9 +91,9 @@ class LlvmVisitor(ExprVisitor):
         self.variables[variable_name] = variable_id
         self.variables_is_loaded[variable_name] = False
 
-        self.builder.emitLines(
+        self.builder.emit_lines(
             f"%{variable_id} = alloca i32, align 4",
-            f"store i32 {variable_value}, i32* %{variable_id}"
+            f"store i32 {variable_value}, i32* %{variable_id}",
         )
 
     @override
