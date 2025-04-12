@@ -8,8 +8,8 @@ declare i32 @printf(i8*, ...)  ; Déclaration de printf
 
 define i32 @main() {
 entry:
-%0 = add i32 5, 2
-%1 = mul i32 3, %0
+    %0 = add i32 5, 2
+    %1 = mul i32 3, %0
     %format_str = getelementptr inbounds [16 x i8], [16 x i8]* @.str, i32 0, i32 0
     call i32 (i8*, ...) @printf(i8* %format_str, i32 %1)    ; Retourner 0 (code de sortie)
     ret i32 0
