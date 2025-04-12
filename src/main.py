@@ -8,12 +8,14 @@ from src.generated.ExprParser import ExprParser
 
 
 def main():
-    input_string = "x = 5; y = x+1; print(x+y+3); print(42);"
     input_string = "x = 5; y = x+1; if (true) {print(x);}; if (false) {print(y);}; print(x+y);"  # input("Entrez une expression : ")
+    input_string = "x = 5; y = x+1; print(x+y+3); print(42);"
     print(f"{input_string = }")
     input_stream = InputStream(input_string)
+
     lexer = ExprLexer(input_stream)
     stream = CommonTokenStream(lexer)
+
     parser = ExprParser(stream)
     tree = parser.prog()
 

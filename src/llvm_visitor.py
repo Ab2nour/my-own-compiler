@@ -4,6 +4,7 @@ from src.generated.ExprVisitor import ExprVisitor
 from src.generated.ExprParser import ExprParser
 
 from src.llvm_builder import LlvmBuilder
+from src.symbol_table import SymbolTable
 
 symbols_dict: dict[str, str] = {
     "+": "add",
@@ -17,15 +18,8 @@ class LlvmVisitor(ExprVisitor):
     @override
     def __init__(self):
         super().__init__()
-        self.variable_count: int = 0
         self.builder: LlvmBuilder = LlvmBuilder()
-        self.variables: dict[str, str] = dict()
-        self.variables_is_loaded: dict[str, bool] = dict()
-
-    def get_variable_count(self):
-        current_variable_count = self.variable_count
-        self.variable_count += 1
-        return f"var{current_variable_count}"
+        self.symbol_table: SymbolTable = SymbolTable()
 
     @override
     def visitProg(self, ctx: ExprParser.ProgContext):
@@ -38,7 +32,7 @@ class LlvmVisitor(ExprVisitor):
         op2 = self.visit(ctx.op2)
         symbol_text = symbols_dict[ctx.symbol.text]
 
-        variable_count = self.get_variable_count()
+        variable_count = self.symbol_table.get_variable_count()
         self.builder.emit_lines(f"%{variable_count} = {symbol_text} i32 {op1}, {op2}")
 
         return f"%{variable_count}"
@@ -49,7 +43,7 @@ class LlvmVisitor(ExprVisitor):
         op2 = self.visit(ctx.op2)
         symbol_text = symbols_dict[ctx.symbol.text]
 
-        variable_count = self.get_variable_count()
+        variable_count = self.symbol_table.get_variable_count()
         self.builder.emit_lines(f"%{variable_count} = {symbol_text} i32 {op1}, {op2}")
 
         return f"%{variable_count}"
@@ -62,13 +56,13 @@ class LlvmVisitor(ExprVisitor):
     @override
     def visitVar(self, ctx: ExprParser.VarContext):
         variable_name = ctx.IDENTIFIER().getText()
-        variable_id = self.variables[variable_name]
+        variable_id = self.symbol_table.variables[variable_name]
 
-        if not self.variables_is_loaded[variable_name]:
+        if not self.symbol_table.variables_is_loaded[variable_name]:
             self.builder.emit_lines(
                 f"%{variable_id}_val = load i32, i32* %{variable_id}"
             )
-            self.variables_is_loaded[variable_name] = True
+            self.symbol_table.variables_is_loaded[variable_name] = True
 
         return f"%{variable_id}_val"
 
@@ -87,9 +81,9 @@ class LlvmVisitor(ExprVisitor):
         variable_name = ctx.IDENTIFIER().getText()
         variable_value = self.visit(ctx.e)
 
-        variable_id = f"{variable_name}_{self.get_variable_count()}"
-        self.variables[variable_name] = variable_id
-        self.variables_is_loaded[variable_name] = False
+        variable_id = f"{variable_name}_{self.symbol_table.get_variable_count()}"
+        self.symbol_table.variables[variable_name] = variable_id
+        self.symbol_table.variables_is_loaded[variable_name] = False
 
         self.builder.emit_lines(
             f"%{variable_id} = alloca i32, align 4",
