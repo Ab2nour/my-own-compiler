@@ -15,7 +15,7 @@ template_end = """
 }"""
 
 
-class LlvmBuilder:
+class LlvmCodeBuilder:
     def __init__(self):
         self.code: str = ""
 

@@ -1,10 +1,16 @@
 from dataclasses import dataclass
+from enum import Enum
+
+
+class Type(Enum):
+    INT = "int"
+    FLOAT = "float"
 
 
 @dataclass
 class SymbolInfo:
     name: str
-    var_type: str
+    var_type: Type
     initialized: bool
     llvm_id: str
 
@@ -21,7 +27,7 @@ class SymbolTableTemp:
             raise Exception("Cannot pop global scope")
         self.scopes.pop()
 
-    def declare(self, name: str, var_type: str, llvm_id: str):
+    def declare(self, name: str, var_type: Type, llvm_id: str):
         current_scope = self.scopes[-1]
         if name in current_scope:
             raise Exception(f"Variable '{name}' already declared in this scope")
@@ -54,7 +60,10 @@ class SymbolTableTemp:
 
 class SymbolTable:
     def __init__(self):
-        self.scopes = [{}]
+        self.scopes: list[dict[str, SymbolInfo]] = [{}]
+        # todo scopes should be a list[list[dict[str, SymbolInfo]]] in fact
+        # each element in the list is associated with a function
+        # currently only one list, associated to the main function
         self.variable_count: int = 0
         self.variables: dict[str, str] = dict()
         self.variables_is_loaded: dict[str, bool] = dict()
@@ -66,3 +75,8 @@ class SymbolTable:
         current_variable_count = self.variable_count
         self.variable_count += 1
         return f"var{current_variable_count}"
+
+    def declare_variable(self, variable_name: str):
+        variable_id = f"{variable_name}_{self.get_variable_count()}"
+        self.variables[variable_name] = variable_id
+        self.variables_is_loaded[variable_name] = False
