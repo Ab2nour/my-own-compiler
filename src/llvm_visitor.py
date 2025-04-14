@@ -32,11 +32,6 @@ class LlvmVisitor(ExprVisitor):
         return handle_add_sub(self, ctx)
 
     @override
-    def visitInt(self, ctx: ExprParser.IntContext):
-        int_value = int(ctx.INT().getText())
-        return f"{int_value}"  # todo: move to compiler_logic
-
-    @override
     def visitVar(self, ctx: ExprParser.VarContext) -> str:
         return handle_variable(self, ctx)
 
@@ -49,5 +44,23 @@ class LlvmVisitor(ExprVisitor):
         return handle_declaration(self, ctx)
 
     @override
+    def visitIf(self, ctx: ExprParser.IfContext):
+        ctx.
+        pass
+
+    @override
     def visitParen(self, ctx: ExprParser.ParenContext):
         return self.visit(ctx.expr())  # todo: move to compiler_logic
+
+    @override
+    def visitInt(self, ctx: ExprParser.IntContext):
+        int_value = int(ctx.INT().getText())
+        return f"{int_value}"  # todo: move to compiler_logic
+
+    @override
+    def visitTrue(self, ctx: ExprParser.TrueContext):
+        return "1"
+
+    @override
+    def visitFalse(self, ctx: ExprParser.FalseContext):
+        return "0"
